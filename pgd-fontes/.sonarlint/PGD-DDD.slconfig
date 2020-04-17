@@ -1,0 +1,12 @@
+{
+  "ServerUri": "http://tfs.cgu.gov.br:9000",
+  "Organization": null,
+  "ProjectKey": "pgd.sprint",
+  "ProjectName": "pgd.sprint",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AWrbyRztGnYSIkL8B025",
+      "ProfileTimestamp": "2019-08-16T15:27:16-03:00"
+    }
+  }
+}
