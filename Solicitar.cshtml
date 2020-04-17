@@ -1,0 +1,520 @@
+﻿@using PGD.Application.ViewModels;
+@using PGD.UI.Mvc.Controllers;
+
+@model PactoViewModel
+@{
+    ViewBag.Title = "Solicitar o Pacto";
+}
+
+<div class="modal fade" id="infoModalPGD-Projeto" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">PGD - Projeto</h4>
+            </div>
+            <div class="modal-body">
+                Pactos PGD-Projetos são possíveis para Unidades habilitadas. <br /> O projeto deve estar alinhado às diretrizes definidas em portaria específica. <br /> A solicitação do pacto somente será efetivada após indicação, em campo próprio, do Termo de Abertura do Projeto (TAP) cadastrado no sistema de gestão de projetos utilizado pela Unidade.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1 class="">Solicitar Pacto (@Model.TipoPacto.DescTipoPacto)</h1>
+<div class="clearfix"></div>
+
+<div class="panel-group" role="tablist">
+    @using (Html.BeginForm("Solicitar", "Pacto", FormMethod.Post, new { @id = "frmPacto" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => Model.IdPacto)
+        @Html.HiddenFor(model => Model.MatriculaSIAPE)
+        @Html.HiddenFor(model => Model.IdOrdemServico)
+        @Html.HiddenFor(model => Model.CpfUsuario)
+        @Html.HiddenFor(model => Model.CpfUsuarioDirigente)
+        @Html.HiddenFor(model => Model.CpfUsuarioSolicitante)
+        @Html.HiddenFor(model => Model.StatusAprovacaoSolicitante)
+        @Html.HiddenFor(model => Model.StatusAprovacaoDirigente)
+        @Html.HiddenFor(model => Model.IdSituacaoPacto)
+        @Html.HiddenFor(model => Model.SuspensoAPartirDe)
+        @Html.HiddenFor(model => Model.Motivo)
+        @Html.HiddenFor(model => Model.DataAprovacaoDirigente)
+        @Html.HiddenFor(model => Model.DataAprovacaoSolicitante)
+        @Html.HiddenFor(model => Model.Acao)
+        @Html.HiddenFor(m => m.CargaHorariaTotal)
+        @Html.HiddenFor(m => m.DataPrevistaTermino)
+        @Html.HiddenFor(model => Model.IdTipoPacto)
+
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="pacto_identificacao">
+                <h4 class="panel-title">
+                    1. IDENTIFICAÇÃO DO SERVIDOR
+                </h4>
+            </div>
+            <div role="tabpanel" id="conteudoIdentificacao">
+                <div class="panel-body ">
+                    <div class="row">
+                        <div class="form-group col-md-9">
+                            <label for="exampleInputName2">Nome:</label>
+                            @(Html.DropDownListCGUFor(model => Model.Nome, new SelectList((List<UsuarioViewModel>)TempData["NomesSubordinados"], "Nome", "Nome"), new { @class = "form-control", @required = "required" })
+                                                                        .SetDisabled(!Model.podeEditar || !ViewBag.isDirigente)
+                                                                        .Selectize()
+                                                                        .OnChangeAtualizaExecutaCallback("Pacto", "GetDadosUsuario", new Dictionary<string, string>() { { "nomeSelecionado", Html.IdFor(m => m.Nome).ToString() } }, callbackFunction: "atualizaCamposUsuario"))
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="exampleInputName2">Matrícula SIAPE: </label>
+                            @Html.TextBoxFor(m => m.MatriculaSIAPE, new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" } })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputName2">Unidade em exercício: </label>
+                            @if (Model.IdPacto == 0)
+                            {
+                                <p class="label label-info">Apenas unidade habilitadas para pactos do tipo @Model.TipoPacto.DescTipoPacto</p>
+                            }
+                            @Html.DropDownListCGUFor(m => m.UnidadeExercicio, new SelectList((List<PGD.Domain.Entities.RH.Unidade>)TempData[PactoController.GetNomeVariavelTempData("Unidades", Model.IdPacto)], "IdUnidade", "Nome"), new { @class = "form-control" }).Selectize().SetDisabled(!Model.podeEditar)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="panel panel-default" id="dvDescricao">
+            <div class="panel-heading" role="tab" id="pacto_identificacao">
+                <h4 class="panel-title">
+                    2. DESCRIÇÃO/PLANEJAMENTO
+                </h4>
+            </div>
+            <div role="tabpanel" id="conteudoIdentificacao">
+                <div class="panel-body ">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>@string.Format("Tabela de Atividades em vigor: {0}", Model.OrdemServico.DescOrdemServico)</label>
+                        </div>
+                        @if (Model.IdPacto > 0)
+                        {
+                            <div class="form-group col-md-6">
+                                <label>@Html.LabelFor(m => m.IdPacto):</label>
+                                @Html.TextBoxCGUFor(m => m.IdPacto, new { @class = "textboxAsLabel" }).SetReadonly(true)
+                                <label>@Html.LabelFor(m => m.SituacaoPacto.DescSituacaoPacto):</label>
+                                @Html.TextBoxCGUFor(m => m.SituacaoPacto.DescSituacaoPacto, new { @class = "textboxAsLabel" }).SetReadonly(true)
+                            </div>
+                        }
+
+                        @if (Model.IdTipoPacto == (int)PGD.Domain.Enums.eTipoPacto.PGD_Projeto)
+                        {
+                            <div class="form-group col-md-12">
+                                <label>@Html.LabelFor(m => m.TAP):</label>
+                                @Html.TextBoxCGUFor(m => m.TAP, new { @class = "char-count form-control", @placeholder = "", maxlength = 500 }).SetReadonly(!Model.podeEditar)
+                                @if (Model.IdPacto == 0)
+                                {
+                                    <p class="text-muted"><small><span name="TAP">500</span></small> caracteres restantes</p>
+                                }
+                            </div>
+                        }
+                    </div>
+
+                    <div class="row">
+
+                        <div class="form-group col-md-6">
+                            <label class="text-vertical-line">Servidor tem redução de carga horária? </label>
+                            <label>@Html.RadioButtonCGUFor(x => x.PossuiCargaHoraria, new { @required = "required", @onchange = "alternaVisibilidadeCargaHoraria(true)" }, true).SetDisabled(!Model.podeEditar).SetChecked(Model.PossuiCargaHoraria.GetValueOrDefault()) Sim</label>
+                            <label>@Html.RadioButtonCGUFor(x => x.PossuiCargaHoraria, new { @required = "required", @onchange = "alternaVisibilidadeCargaHoraria(false)" }, false).SetDisabled(!Model.podeEditar).SetChecked(!Model.PossuiCargaHoraria.GetValueOrDefault()) Não</label>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div id="divCargaHoraria" style="@(Model.PossuiCargaHoraria.GetValueOrDefault() ? "" : "display:none")">
+                                <label class="text-vertical-line">Carga horária:</label>
+                                @Html.TextBoxCGUFor(x => x.CargaHorariaDiaria, new { @class = "qtdHoras form-control", @placeholder = "", @type = "time", @onblur = "atualizaCargaHorariaDiaria();", @min = "01:00", @max = "08:00" }).SetReadonly(!Model.podeEditar)
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row" id="dvPactoExterior" style="@(Model.PactoExecutadoNoExterior.GetValueOrDefault() || Model.UnidadeUsuarioPermitePactoExecucaoNoExterior.GetValueOrDefault() ? "" : "display:none")">
+                        <div class="form-group col-md-6">
+                            <label class="text-vertical-line">Pacto executado no exterior? </label>
+                            <label>@Html.RadioButtonCGUFor(x => x.PactoExecutadoNoExterior, new { @required = "required", @onchange = "alternaVisibilidadeProcessoSEI(true)" }, true).SetDisabled(!Model.podeEditar).SetChecked(Model.PactoExecutadoNoExterior.GetValueOrDefault()) Sim</label>
+                            <label>@Html.RadioButtonCGUFor(x => x.PactoExecutadoNoExterior, new { @required = "required", @onchange = "alternaVisibilidadeProcessoSEI(false)" }, false).SetDisabled(!Model.podeEditar).SetChecked(!Model.PactoExecutadoNoExterior.GetValueOrDefault()) Não</label>
+                            <p class="label label-info col-md-12" style="white-space: pre-wrap; text-align: justify">A execução de pacto PGD no exterior deve ser autorizada pelo Ministro. Para assinatura do pacto é necessário informar o documento SEI de autorização.</p>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div id="divProcessoSEI" style="@(Model.PactoExecutadoNoExterior.GetValueOrDefault() ? "" : "display:none")">
+                                <label class="text-vertical-line">Número do Processo SEI de autorização:</label>
+                                @Html.TextBoxCGUFor(x => x.ProcessoSEI, new { @class = "form-control", @placeholder = "", @type = "string", maxlength = 100 }).SetReadonly(!Model.podeEditar)
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="text-vertical-line">Tipo de Pacto: </label>
+                            @Html.TextBoxCGUFor(x => x.TipoPacto.DescTipoPacto, new { @class = "form-control" }).SetReadonly(true)
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-vertical-line">Data prevista de início do pacto: </label>
+                            @Html.TextBoxCGUFor(x => x.DataPrevistaInicio, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", @placeholder = "", @required = "required", @onchange = "$('#DataInicial').val(this.value);atualizaData();" }).SetReadonly(!Model.podeEditar)
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>
+                                @Html.CheckBoxCGUFor(m => m.IndVisualizacaoRestrita, new { @onchange = "alternaVisibilidadeRestricaoVisualizacao(this.checked)" }).SetDisabled(!Model.podeRestringirVisibilidadePacto)
+                                @Html.LabelFor(m => m.IndVisualizacaoRestrita)
+                            </label>
+                        </div>
+                        <div id="divJustificativaVisualizacaoRestrita" class="form-group col-md-6" style="@(Model.IndVisualizacaoRestrita ? "" : "display:none")">
+                            @Html.LabelFor(m => m.JustificativaVisualizacaoRestrita)
+                            @Html.TextBoxCGUFor(x => x.JustificativaVisualizacaoRestrita, new { @class = "form-control" }).SetReadonly(!Model.podeRestringirVisibilidadePacto)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <br />
+    <div class="panel panel-default" id="dvAcompanhamento">
+        <div class="panel-heading" role="tab" id="pacto_identificacao">
+            <h4 class="panel-title">
+                3. ACOMPANHAMENTO DE ATIVIDADE(S) NO PROGRAMA DE GESTÃO DE DEMANDAS
+            </h4>
+        </div>
+        <div class="panel panel-body">
+            <div id="containerProdutosFormPartial">
+                @Html.Partial("_ProdutosFormPartial",
+                    new ProdutoViewModel()
+                         {
+                        PodeEditar = Model.podeEditar,
+                        PodeEditarAndamento = Model.podeEditarAndamento,
+                        QuantidadeProduto = 1,
+                        IdOrdemServico = Model.IdOrdemServico,
+                        IdPacto = Model.IdPacto,
+                        IdTipoPacto = Model.IdTipoPacto
+                    })
+            </div>
+            <br />
+            <div id="containerProdutosTablePartial">
+                @Html.Partial("_ProdutosTablePartial", Model.Produtos)
+            </div>
+            <div class="panel panel-body">
+
+                <div class="form-group col-md-12 text-left">
+                    <label for="exampleInputName2">Data prevista de término do pacto: </label>
+                    @Html.TextBoxFor(m => m.DataPrevistaTermino, "dd/MM/yyyy", new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" } })
+                </div>
+
+                <div class="form-group col-md-12 text-left" id="divCargaHorariaTotal">
+                    <label for="exampleInputName2">Carga horária total: </label>
+                    @Html.TextBox("lblCargaTotal", "", new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" }, { "onchange", "$('#HorasTotais').val(this.value)" } })
+
+                </div>
+
+                <div class="form-group col-md-12 text-left">
+                    @using (Ajax.BeginForm("ExibirCronograma", "Cronograma", new { @id = "frmExibirCronograma" }, new AjaxOptions()
+                    {
+                        HttpMethod = "Post",
+                        UpdateTargetId = "divConteudoCronograma",
+                        OnSuccess = "exibirPopupCronograma",
+                        OnFailure = "defaultFailureHandler"
+                    }))
+                    {
+
+                        @Html.Hidden("DataInicial", Model.DataPrevistaInicio.ToShortDateString(), new { })
+                        @Html.Hidden("HorasTotais", "0", new { })
+                        @Html.Hidden("HorasDiarias", Model.CargaHorariaDiaria, new { })
+                        @Html.Hidden("PodeEditar", Model.podeEditar || Model.podeEditarAndamento, new { })
+                        @Html.Hidden("DataInicioSuspensao", Model.SuspensoAPartirDe?.ToShortDateString(), new { })
+                        @Html.Hidden("DataFimSuspensao", Model.SuspensoAte?.ToShortDateString(), new { })
+                        @Html.Hidden("FecharCallbackFunction", "atualizaCargaHorariaTotal", new { })
+                        @Html.Hidden("SalvarCallbackFunction", "atualizaCargaHorariaTotal", new { })
+                        @Html.Hidden("CPFUsuario", Model.CpfUsuario, new { })
+                        @Html.Hidden("IdPacto", Model.IdPacto, new { })
+                        @Html.Hidden("idOrigemAcao", (int)PGD.Domain.Enums.eOrigem.SolicitacaoPacto, new { })
+
+
+                        <button type="submit" class="buttonAsLink">Ver/Ajustar cronograma</button>
+                    }
+                    <div class="modal fade" id="modalCronograma" data-backdrop="static" data-keyboard="false">
+                        <div id="divConteudoCronograma">
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.IdPacto > 0 && Model.possuiAvaliacoes)
+                {
+                    <div class="form-group col-md-2 text-left btn-group pull-right" role="group" aria-label="...">
+                        <input type="button"
+                               class="btn btn-primary btn-block"
+                               value="Ver Avaliações"
+                               onclick="location.href='@Url.Action("AvaliarProduto", "Pacto", new { idPacto = Model.IdPacto, idOrigemAcao=(int)PGD.Domain.Enums.eOrigem.SolicitacaoPacto})'" />
+                    </div>
+                }
+
+                <div class="panel panel-body" id="divMensagemPactosConcorrentes" style="display:none">
+                    <div class="form-group col-md-12 alert alert-danger small">
+                        Existem pactos registrados para este mesmo período. Por favor, verifique a distribuição de horas no cronograma antes de submeter o pacto.
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel panel-default" id="dvDeclaracao">
+            <div class="panel-heading" role="tab" id="pacto_identificacao">
+                <h4 class="panel-title">
+                    4. DECLARAÇÃO SOBRE ATENDIMENTO ÀS VEDAÇÕES E DISPONIBILIDADE DE RECURSOS
+                </h4>
+            </div>
+            <div role="tabpanel" id="conteudoIdentificacao" style="margin-top:1px;">
+                <div class="panel-body ">
+                    <div class="row">
+                        <div class="form-group col-md-12" style="font-weight:bold;line-height:1.5;white-space:pre-wrap; text-align:left;">
+                            Declaro não haver sido apenado em resultado de PAD nos dois anos anteriores à data de solicitação para participar do Programa; e
+
+                            Declaro, ainda:
+                            I - dispor dos recursos tecnológicos e de comunicação necessários e das condições ambientais adequadas para a realização da(s) atividade(s) listada(s);
+                            II - adotar as providências cabíveis para assegurar o cumprimento das normas e orientações afetas à segurança da informação e à salvaguarda de documentos durante a execução da(s) atividade(s) listada(s);
+                            III - estar ciente do prazo estabelecido.
+
+                            Ao assinar este formulário, o servidor autoriza a CGU a contactá-lo.
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body ">
+                    <div class="form-group col-md-12">
+                        @foreach (var hist in Model.Historicos)
+                        {
+                            <div class="row" style="border:solid; padding:5px;">
+                                @Html.Raw(hist.Descricao)
+                            </div>
+                            <br />
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-body">
+                <div class="form-group col-md-2">
+                    <a href="@Url.Action("Index", "Pacto")" class="btn btn-primary btn-block">Voltar</a>
+                </div>
+                <div class="form-group col-md-6">
+                </div>
+                <div class="form-group col-md-2">
+                    @if (Model.podeEditar || Model.podeEditarAndamento)
+                    {
+                        <button id="btnSalvar" type="button" name="btnSalvar" value="Salvar" class="btn btn-primary btn-block" onclick="SubmeterPacto('Salvando')">Salvar</button>
+                    }
+                </div>
+                @if (Model.podeEditar || Model.podeEditarAndamento || Model.podeAssinar)
+                {
+                    <div class="btn-group pull-right" role="group" aria-label="...">
+                        <button type="submit" class="btn btn-primary btn-block" title="Assinar" id="btnAssinar" name="btnAssinar" onclick="SubmeterPacto('Assinando')">
+                            Assinar
+                        </button>
+                    </div>
+                }
+                @if (ViewBag.isDirigente && Model.podeNegar && Model.IdPacto != 0 && Model.StatusAprovacaoSolicitante == 1 && Model.StatusAprovacaoDirigente != 1)
+                {
+
+                    <div class="btn-group pull-right" role="group" aria-label="...">
+                        <button type="button" class="btn btn-primary btn-block" title="Negar" id="btnNegar" onclick="SubmeterPacto('Negando')">
+                            Negar
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="modalObservacoesProduto" data-backdrop="static" data-keyboard="false">
+        <div id="divConteudoObservacoesProduto">
+        </div>
+    </div>
+
+    @section Scripts{
+        <script type="text/javascript">
+
+            function atualizaData() {
+                var parametros = {
+                    datainicio: $("#@Html.IdFor(m => m.DataPrevistaInicio)").val(),
+                    cargahoraria: $("#@Html.IdFor(m => m.CargaHorariaDiaria)").val(),
+                    cargahorariapacto: $("#@Html.IdFor(m => m.CargaHorariaTotal)").val(),
+                    cpfusuario: $("#@Html.IdFor(m => m.CpfUsuario)").val(),
+                    idpacto: $("#@Html.IdFor(m => m.IdPacto)").val()
+                };
+                ExecutaJson('Pacto', 'AtualizaDataTerminoECronograma', parametros, "post").done(function (retorno)
+                {
+                    $("[name*='@Html.IdFor(m => m.DataPrevistaTermino)']").each(function () {
+                        this.value = retorno["dataTermino"];
+                    });
+
+                    if (eval(retorno["existemPactosConcorrentes"])) {
+                        $("#divMensagemPactosConcorrentes").attr("style", "");
+                    } else {
+                        $("#divMensagemPactosConcorrentes").attr("style", "display:none");
+                    }
+
+
+
+
+                });
+            }
+
+            function atualizaCargaHorariaTotal() {
+                ExecutaJson("Pacto", "GetCargaHorariaTotal", { idpacto: $('#IdPacto').val() }, 'post').done(function (retorno) {
+                    var carga = parseFloat(retorno['cargaHorariaTotal']).toFixed(2);
+                    $("[name*='@Html.IdFor(m => m.CargaHorariaTotal)']").each(function () {
+                        this.value = carga;
+                        this.value = this.value.replace('.', ',');
+                    });
+                    $("[name*='HorasTotais']").each(function () {
+                        this.value = carga;
+                        this.value = this.value.replace('.', ',');
+                    });
+                    $("#lblCargaTotal").val(hourTohhmm(carga));
+                    atualizaData();
+                });
+            }
+
+            function atualizaCargaHorariaDiaria() {
+                $('#HorasDiarias').val($('#@Html.IdFor(m => m.CargaHorariaDiaria)').val());
+                atualizaCargaHorariaTotal();
+            }
+
+            function alternaVisibilidadeCargaHoraria(visible) {
+                if (visible) $('#divCargaHoraria').show();
+                else {
+                    $('#divCargaHoraria').hide();
+                    $('#@Html.IdFor(m => m.CargaHorariaDiaria)').val('8');
+                    atualizaCargaHorariaDiaria();
+                }
+            }
+
+            function alternaVisibilidadeProcessoSEI(visible) {
+                if (visible) $('#divProcessoSEI').show();
+                else {
+                    $('#divProcessoSEI').hide();
+                }
+            }
+
+            function SubmeterPacto(acao) {
+                $('#@Html.IdFor(m => m.Acao)').val(acao);
+                $('#frmPacto').submit();
+            }
+
+            function exibirPopupCronograma(response) {
+                $('#modalCronograma').modal('show');
+            }
+
+            function exibirPopupObservacoes(response) {
+                $('#modalGenerica').modal('show');
+            }
+
+            function exibirPopupObservacaoProduto(response) {
+                $('#modalObservacoesProduto').modal('show');
+            }
+
+            function atualizaCamposUsuario(resultado) {
+                if (resultado['Mensagem']) {
+                    ShowErrorMessage(resultado['Mensagem']);
+                    atualizaValorCampo('@Html.IdFor(m => m.MatriculaSIAPE)', '');
+                    atualizaValorCampo('@Html.IdFor(m => m.CpfUsuario)', '');
+                    atualizaValorCampo('@Html.IdFor(m => m.UnidadeDescricao)', '');
+                    atualizaValorCampo('@Html.IdFor(m => m.UnidadeExercicio)', '');
+                } else {
+                    atualizaValorCampo('@Html.IdFor(m => m.MatriculaSIAPE)', resultado['Matricula']);
+                    atualizaValorCampo('@Html.IdFor(m => m.CpfUsuario)', resultado['CPF']);
+                    atualizaValorCampo('@Html.IdFor(m => m.UnidadeDescricao)', resultado['UnidadeDescricao']);
+                    atualizaValorCampo('@Html.IdFor(m => m.UnidadeExercicio)', resultado['UnidadeExercicio']);
+                    atualizaValorCampo('CPFUsuario', resultado['CPF']);
+
+                }
+
+            }
+
+                $(document).ready(function () {
+                    atualizaCargaHorariaTotal();
+                });
+
+                $(document).ready(function () {
+                    $('.char-count').keyup(function () {
+                        var maxLength = parseInt($(this).attr('maxlength'));
+                        var length = $(this).val().length;
+                        var newLength = maxLength - length;
+                        var name = $(this).attr('name');
+                        $('span[name="' + name + '"]').text(newLength);
+                    });
+                });
+
+                $(document).ready(function () {
+                    var ehPGDProjeto = '@Html.Raw(Json.Encode(Model.ehPGDProjeto))' == 'true'
+                    var ehPactoNovo = '@Html.Raw(Json.Encode(Model.IdPacto))' == 0
+                    if (ehPGDProjeto && ehPactoNovo) {
+                        $('#infoModalPGD-Projeto').modal('show');
+                    }
+                })
+
+                function hideDivs() {
+                    $('#dvDescricao').hide();
+                    $('#dvAcompanhamento').hide();
+                    $('#dvDeclaracao').hide();
+                }
+
+                function showDivs() {
+                    $('#dvDescricao').show();
+                    $('#dvAcompanhamento').show();
+                    $('#dvDeclaracao').show();
+                }
+
+                $(document).ready(function () {
+                    hideDivs();
+                    $('#UnidadeExercicio').change(function () {
+                        var value = $(this).val();
+                        if (value != '') {
+                            showDivs();
+                        } else {
+                            hideDivs();
+                        }
+
+                        ExecutaJson("Pacto", "GetPermiteExecucaoExterior", { idUnidade: value, idTipoPacto: '@Html.Raw(Json.Encode(Model.IdTipoPacto))' }, 'post').done(function (retorno) {
+                            var permiteExecucaoExterior = parseInt(retorno['permiteExecucaoExterior']);
+                            if (permiteExecucaoExterior == 1) {
+                                $('#dvPactoExterior').show();
+                            }
+                            else {
+                                $('#dvPactoExterior').hide();
+                            }
+
+                        });
+
+                    });
+                });
+
+                $(document).ready(function () {
+                        var value = $('#UnidadeExercicio').val();
+                        if (value != '') {
+                            showDivs();
+                        } else {
+                            hideDivs();
+                        }
+                });
+
+                function alternaVisibilidadeRestricaoVisualizacao(visible) {
+                    if (visible) {
+                        alert('Atenção, os pactos de publicidade restrita devem ser exceção, limitados a atividades sigilosas que possam ser prejudicadas em caso de se adotar a publicidade normal.');
+                        $('#divJustificativaVisualizacaoRestrita').show();
+                    }
+                    else {
+                        $('#divJustificativaVisualizacaoRestrita').hide();
+                        $('#@Html.IdFor(m => m.JustificativaVisualizacaoRestrita)').val('');
+                        atualizaCargaHorariaDiaria();
+                    }
+                }
+
+        </script>
+    }

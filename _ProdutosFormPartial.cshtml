@@ -1,0 +1,183 @@
+﻿@model PGD.Application.ViewModels.ProdutoViewModel
+@using PGD.Application.ViewModels;
+
+@using (Ajax.BeginForm("AddProduto", new AjaxOptions()
+{
+    HttpMethod = "Post",
+    UpdateTargetId = "containerProdutosTablePartial",
+    OnSuccess = "addProdutoSucess",
+    OnFailure = "defaultFailureHandler"
+}))
+{
+
+<div class="panel panel-body panel-default">
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="@Html.IdFor(m => m.IdGrupoAtividade)" class="text-vertical-line">Grupo de atividade:</label>
+            @(Html.DropDownListCGUFor(m => m.IdGrupoAtividade, new SelectList((List<GrupoAtividadeViewModel>)TempData["GruposAtividades"], "IdGrupoAtividade", "NomGrupoAtividade"),
+                                       new Dictionary<string, object>() { { "class", "form-control" } })
+                                    .OnChangeAtualizaDropDownContextual("Pacto", "GetAtividades",
+                                            new Dictionary<string, string>() { { "id", Html.IdFor(m => m.IdGrupoAtividade).ToString() } },
+                                                Html.IdFor(m => m.IdAtividade).ToHtmlString(), Model.IdAtividade.ToString())
+                                    .SetDisabled((!Model.PodeEditar && !Model.PodeEditarAndamento) || Model.IdProduto > 0))
+
+        </div>
+        <div class="form-group col-md-6">
+            <label class="text-vertical-line">Atividade pactuada:</label>
+            @(Html.DropDownListCGUFor(m => m.IdAtividade, new SelectList(string.Empty, "Value", "Text"), new Dictionary<string, object>() { { "style", "overflow:hidden;word-wrap: normal !important;white-space: normal;" }, { "class", "form-control short" } })
+                                      .OnChangeAtualizaDropDownContextual("Pacto", "GetFaixas",
+                                                      new Dictionary<string, string>() {
+                                            { "idGrupo", Html.IdFor(m => m.IdGrupoAtividade).ToString() },
+                                            { "idAtividade", Html.IdFor(m => m.IdAtividade).ToString() },
+                                            { "idPacto", Html.IdFor(m => m.IdPacto).ToString() },
+                                            { "idProduto", Html.IdFor(m => m.IdProduto).ToString() },
+                                            }, Html.IdFor(m => m.IdTipoAtividade).ToString(), valorControleDestino: Model.IdTipoAtividade.ToString())
+                                      .OnChangeAtualizaExecutaCallback("Pacto", "GetLinkAtividade", new Dictionary<string, string>() { { "idGrupo", Html.IdFor(m => m.IdGrupoAtividade).ToString() }, { "idAtividade", Html.IdFor(m => m.IdAtividade).ToString() }}, "atualizaLinkAtividade")
+                                      .SetDisabled((!Model.PodeEditar && !Model.PodeEditarAndamento) || Model.IdProduto > 0))
+                <a href="" id="LinkAtividade" name="=LinkAtividade" target="_blank">link para base de conhecimento externo</a>
+        </div>
+    </div>
+
+
+    <div class="row ">
+        <div class="col-md-6">
+            <label class="text-vertical-line">Faixa:</label>
+            @(Html.DropDownListCGUFor(m => m.IdTipoAtividade, new SelectList(string.Empty, "Value", "Text"), new Dictionary<string, object> { { "class", "form-control" } })
+                                    .OnChangeAtualizaExecutaCallback("Pacto", "GetFaixaValor",
+                                                 new Dictionary<string, string>() {
+                                            { "idGrupo", Html.IdFor(m => m.IdGrupoAtividade).ToString() },
+                                            { "idAtividade", Html.IdFor(m => m.IdAtividade).ToString() },
+                                            { "idFaixa", Html.IdFor(m => m.IdTipoAtividade).ToString() }
+                                                 }, callbackFunction: "calcularCargaHoraria")
+                                    .SetReadonly(!Model.PodeEditar && !Model.PodeEditarAndamento))
+        </div>
+        <div class="col-md-4">
+            <label class="text-vertical-line">Quantidade de produtos a serem entregues:</label>
+            @(Html.TextBoxCGUFor(m => m.QuantidadeProduto, "",
+                                                    new Dictionary<string, object>() {
+                                                    { "type", "number" },
+                                                    { "class", "form-control" },
+                                                    { "min", "1" } })
+                                            .OnChangeAtualizaExecutaCallback("Pacto", "GetFaixaValor",
+                                                 new Dictionary<string, string>() {
+                                            { "idGrupo", Html.IdFor(m => m.IdGrupoAtividade).ToString() },
+                                            { "idAtividade", Html.IdFor(m => m.IdAtividade).ToString() },
+                                            { "idFaixa", Html.IdFor(m => m.IdTipoAtividade).ToString() }}, "calcularCargaHoraria")
+                                            .SetReadonly((!Model.PodeEditar && !Model.PodeEditarAndamento)))
+        </div>
+        <div class="col-md-2">
+            <label class="text-vertical-line">Carga horária:</label>
+            @Html.TextBoxFor(m => m.CargaHorariaTotalProdutoFormatada, new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" } })
+            @Html.HiddenFor(m => m.CargaHorariaProduto)
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label class="text-vertical-line">Iniciativas Estratégicas:</label>
+            @Html.ListBoxCGUFor(m => m.IniciativasPlanoOperacionalSelecionadas, new SelectList((List<IniciativaPlanoOperacionalViewModel>)TempData["IniciativasPlanoOperacional"], "IdIniciativaPlanoOperacional", "CodigoDescricao"), null).SetDisabled(!Model.PodeEditar && !Model.PodeEditarAndamento).Selectize()
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label class="text-vertical-line">Observações:</label>
+            @Html.TextAreaCGUFor(m => m.Observacoes, new { @rows = 3, @class = "form-control", @placeholder = "" }).SetReadonly((!Model.PodeEditar && !Model.PodeEditarAndamento) || Model.IdProduto > 0)
+        </div>
+    </div>
+    @Html.HiddenFor(m => m.Index)
+    @Html.HiddenFor(m => m.IdPacto)
+    @Html.HiddenFor(m => m.IdProduto)
+    @Html.HiddenFor(m => m.PodeEditar)
+    @Html.HiddenFor(m => m.PodeEditarAndamento)
+    @Html.HiddenFor(m => m.IdTipoPacto)
+    <div class="row">
+        <div class="form-group col-md-12 text-right">
+            <button id="btnOk" type="submit" class="btn btn-primary" @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "")>OK</button>
+        </div>
+    </div>
+</div>
+                    }
+
+<script type="text/javascript">
+
+    var habilitarEdicaoProdutos = '@(Model.PodeEditar || Model.PodeEditarAndamento)';
+    $('#LinkAtividade').hide();
+
+    function calcularCargaHoraria(resultado) {
+        var txtCargaHoraria = $('#@Html.IdFor(m => m.CargaHorariaTotalProdutoFormatada)');
+        var hiddenCargaHoraria = $('#@Html.IdFor(m => m.CargaHorariaProduto)');
+        var txtQtdProduto = $('#@Html.IdFor(m => m.QuantidadeProduto)');
+        var carga = resultado.replace(',', '.') * txtQtdProduto.val().replace(',', '.');
+        hiddenCargaHoraria.val(resultado.replace('.', ','));
+        txtCargaHoraria.val(hourTohhmm(carga));
+    }
+
+    function addProdutoSucess(response) {
+        //Limpa o form de Produtos
+        LimpaFormProdutos();
+        atualizaCargaHorariaTotal();
+    }
+
+    function LimpaFormProdutos() {
+
+        var cmbGrupoAtividades = $('#@Html.IdFor(m => m.IdGrupoAtividade)');
+        var cmbAtividades = $('#@Html.IdFor(m => m.IdAtividade)');
+        var txtQtdProduto = $('#@Html.IdFor(m => m.QuantidadeProduto)');
+        var txtObsProduto = $('#@Html.IdFor(m => m.Observacoes)');
+        cmbGrupoAtividades.val('');
+        cmbAtividades.val('');
+        txtQtdProduto.val('1');
+        txtObsProduto.val('');
+
+        //var selectIniciativas = $('#@Html.IdFor(m => m.IniciativasPlanoOperacionalSelecionadas)');
+        //selectIniciativas[0].selectize.clear();
+        
+         
+        if (eval(habilitarEdicaoProdutos.toLowerCase()))
+        {
+            cmbGrupoAtividades.removeAttr("disabled");
+            cmbAtividades.removeAttr("disabled");
+            txtQtdProduto.removeAttr("readonly");
+            txtObsProduto.removeAttr("readonly");
+        }
+
+        $('#@Html.IdFor(m => m.IdTipoAtividade)').val('');
+        $('#@Html.IdFor(m => m.Index)').val('0');
+        $('#@Html.IdFor(m => m.IdProduto)').val('0');
+        $('#@Html.IdFor(m => m.QuantidadeProduto)').trigger("change");
+    }
+
+    function preparaAlteracaoProdutoSuccess(data) {
+
+        var cmdQtd = $('#@Html.IdFor(m => m.QuantidadeProduto)');
+        var hddIdProduto = $('#@Html.IdFor(m => m.IdProduto)');
+
+        if (hddIdProduto.val() > 0)
+        {
+            cmdQtd.attr("min", cmdQtd.val());
+        }
+        
+
+        $('#@Html.IdFor(m => m.IdGrupoAtividade)').trigger("change");
+        $('#@Html.IdFor(m => m.IdGrupoAtividade)').focus();    }
+
+    function preparaAlteracaoObservacaoProdutoSuccess(response) {
+        exibirPopupObservacaoProduto(response);
+    }
+
+    function alterarObservacaoProdutoSuccess(response) {
+        location.href = location.href;
+    }
+
+    function atualizaLinkAtividade(response) {
+        if (response['Link'] != null) {
+            $('#LinkAtividade').attr("href", response['Link']);
+            $('#LinkAtividade').show();
+        } else {
+            $('#LinkAtividade').hide();
+        }
+        
+    }
+
+</script>
