@@ -16,20 +16,18 @@ namespace PGD.UI.Mvc.Controllers
     public class PerfilController : BaseController
     {
 
-        public PerfilController(IUsuarioAppService usuarioAppService, IRHService rhservice)
+        public PerfilController(IUsuarioAppService usuarioAppService, IUnidadeService unidadeService)
             : base(usuarioAppService)
         {
-            _rhservice = rhservice;
+            _unidadeService = unidadeService;
         }
 
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
         public ActionResult Selecionar(string UrlRedirect)
         {
             ViewBag.UrlRedirect = UrlRedirect;
             return View();
         }
 
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
         [HttpPost]
         public ActionResult Selecionar(Domain.Enums.Perfil? perfil, string UrlRedirect)
         {
@@ -52,7 +50,6 @@ namespace PGD.UI.Mvc.Controllers
                 return RedirectToAction("Index", "Pacto");
         }
 
-        [AuthorizePerfil(Perfil.Administrador)]
         // GET: Perfil
         public ActionResult Index()
         {
@@ -66,7 +63,6 @@ namespace PGD.UI.Mvc.Controllers
             return Json(listaUsuarios, JsonRequestBehavior.AllowGet);
         }
 
-        [AuthorizePerfil(Perfil.Administrador)]
         [HttpPost]
         public ActionResult Index(string txtPesquisaUsuario)
         {
@@ -95,7 +91,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
 
-        [AuthorizePerfil(Perfil.Administrador)]
         public ActionResult Delete(string id)
         {
             var cpf = id;

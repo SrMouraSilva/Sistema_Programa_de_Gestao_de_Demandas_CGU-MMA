@@ -1,28 +1,21 @@
-﻿using CGU.Util;
-using CsQuery.Engine.PseudoClassSelectors;
-using DomainValidation.Validation;
+﻿using DomainValidation.Validation;
 using PGD.Application.Interfaces;
 using PGD.Application.ViewModels;
 using PGD.Domain.Entities;
 using PGD.Domain.Entities.RH;
 using PGD.Domain.Enums;
 using PGD.Domain.Interfaces.Service;
-using PGD.UI.Mvc.Filters;
 using PGD.UI.Mvc.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace PGD.UI.Mvc.Controllers
 {
-    [AuthorizePerfil]
     public class PactoController : BaseController
     {
         readonly IPactoAppService _Pactoservice;
@@ -60,7 +53,7 @@ namespace PGD.UI.Mvc.Controllers
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
-        public PactoController(ILogService logService, IUsuarioAppService usuarioAppService, IPactoAppService pactoservice, IRHService rhservice,
+        public PactoController(ILogService logService, IUsuarioAppService usuarioAppService, IPactoAppService pactoservice, IUnidadeService unidadeService,
             IGrupoAtividadeAppService grupoAtividadeService, IAtividadeAppService atividadeService, IOrdemServicoAppService ordemSericoService,
             PactoViewModel pactoVM, IProdutoAppService produtoService, IHistoricoAppService historicoService, ICronogramaAppService cronogramaAppService, 
             IJustificativaAppService justificativaService, ISituacaoPactoAppService situacaoPactoService, IIniciativaPlanoOperacionalAppService iniciativaPOAppService, 
@@ -74,7 +67,7 @@ namespace PGD.UI.Mvc.Controllers
             _Pactoservice = pactoservice;
             _avaliacaoProdutoService = avaliacaoProdutoService;
             _Usuarioservice = usuarioAppService;
-            _rhservice = rhservice;
+            _unidadeService = unidadeService;
             _pactoVM = pactoVM;
             _grupoAtividadeService = grupoAtividadeService;
             _atividadeService = atividadeService;
@@ -96,7 +89,6 @@ namespace PGD.UI.Mvc.Controllers
             _notaAvaliacaoAppService = notaAvaliacaoAppService;
         }
 
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
         [HttpPost]
         public string Assinar(int idpacto)
         {
@@ -111,7 +103,6 @@ namespace PGD.UI.Mvc.Controllers
  
         }
 
-        [AuthorizePerfil(Perfil.Dirigente)]
         [HttpPost]
         public string Negar(int idpacto)
         {
@@ -133,7 +124,7 @@ namespace PGD.UI.Mvc.Controllers
         {
             var user = getUserLogado();
             var searchpacto = new SearchPactoViewModel();
-            searchpacto.UnidadeId = user.Unidade;
+            searchpacto.UnidadeId = 1;
             searchpacto.ObterPactosUnidadesSubordinadas = EhDirigente(user);
 
             return Index(searchpacto);
@@ -141,7 +132,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Index(SearchPactoViewModel obj)
         {
             var PactoCompleto = PreparaPactoViewModel(obj);
@@ -172,17 +162,17 @@ namespace PGD.UI.Mvc.Controllers
             var idSituacao = obj.idSituacao;
             var pactoViewModel = new PactoViewModel();
             var PactoCompleto = new PactoCompletoViewModel();
-            var unidades = _rhservice.ObterUnidades().ToList();
+            var unidades = _unidadeService.ObterUnidades().ToList();
             Unidade retornoUnidade;
             var user = getUserLogado();
-            bool dirigente = false;
+            bool dirigente = true;
 
 
             PactoCompleto.Searchpacto = obj;
             if (obj.DataInicial != null) pactoViewModel.DataPrevistaInicio = (DateTime)obj.DataInicial;
             pactoViewModel.DataPrevistaTermino = obj.DataFinal;
             pactoViewModel.Nome = obj.NomeServidor;
-            pactoViewModel.IdSituacaoPacto = idSituacao.GetValueOrDefault() ;
+            pactoViewModel.IdSituacaoPacto = idSituacao.GetValueOrDefault();
             pactoViewModel.IdTipoPacto = obj.idTipoPacto.GetValueOrDefault();
             pactoViewModel.IdPacto = obj.IdPacto.GetValueOrDefault();
 
@@ -224,7 +214,7 @@ namespace PGD.UI.Mvc.Controllers
         {
             bool dirigente;
             var perfil = user?.Perfis?.FirstOrDefault();
-            if (perfil != null && perfil.Value == Perfil.Solicitante)
+            if (perfil != null && perfil.Value == Domain.Enums.Perfil.Solicitante)
                 dirigente = false;
             else
                 dirigente = true;
@@ -232,7 +222,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
 
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
         public ActionResult Deletar(int? pactoid)
         {
             var pacto = _Pactoservice.BuscarPorId(pactoid.Value);
@@ -256,7 +245,6 @@ namespace PGD.UI.Mvc.Controllers
             return setMessageAndRedirect("Pacto Consultado", "Index");
         }
 
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
         public ActionResult Editar(int pactoid)
         {
             var pacto = _Pactoservice.BuscarPorId(pactoid);
@@ -278,7 +266,7 @@ namespace PGD.UI.Mvc.Controllers
 
             DataRow row;
 
-            var unidades = _rhservice.ObterUnidades().ToList();
+            var unidades = _unidadeService.ObterUnidades().ToList();
 
             foreach (PactoViewModel p in items.lstPactos)
             {
@@ -300,8 +288,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
 
-        [SelecionarPerfilActionFilter]
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
         public ActionResult Solicitar(int? id = null, int? idTipoPacto = null, int? abrircronograma = null)
         {
             id = id == 0 ? null : id;
@@ -324,7 +310,7 @@ namespace PGD.UI.Mvc.Controllers
                     return setMessageAndRedirect("Pacto PGD marcado como reservado", "Index");
                 }
 
-                var unidades = _rhservice.ObterUnidades().ToList();
+                var unidades = _unidadeService.ObterUnidades().ToList();
                 var retornoSituacao = unidades.FirstOrDefault(x => x.IdUnidade == _pactoVM.UnidadeExercicio);
                 _pactoVM.UnidadeDescricao = retornoSituacao.Nome;
                 _pactoVM.StatusAssinatura = _Pactoservice.BuscaStatusAssinatura(_pactoVM);
@@ -406,7 +392,7 @@ namespace PGD.UI.Mvc.Controllers
                 _pactoVM.OrdemServico = OrdemServico;
 
                 var perfil = user?.Perfis?.FirstOrDefault();
-                if (perfil != null && perfil.Value == Perfil.Solicitante)
+                if (perfil != null && perfil.Value == Domain.Enums.Perfil.Solicitante)
                 {
                     _pactoVM.Nome = user.Nome;
                     _pactoVM.CpfUsuario = RetornaCpfCorrigido(user.CPF);
@@ -477,7 +463,7 @@ namespace PGD.UI.Mvc.Controllers
                 TempData["NomesSubordinados"] = new List<UsuarioViewModel>() { _usuarioAppService.ObterPorNome(nomeUsuario) };
             }
 
-            List<Unidade> unidadesHabilitadas = _rhservice.ObterUnidades(idTipoPacto).ToList();
+            List<Unidade> unidadesHabilitadas = _unidadeService.ObterUnidades(idTipoPacto).ToList();
 
             if (idPacto > 0)
             {
@@ -485,7 +471,7 @@ namespace PGD.UI.Mvc.Controllers
 
                 if (unidadesHabilitadas.FirstOrDefault(u => u.IdUnidade == pactoVM.UnidadeExercicio) == null)
                 {
-                    Unidade unidadePacto = _rhservice.ObterUnidade(pactoVM.UnidadeExercicio);
+                    Unidade unidadePacto = _unidadeService.ObterUnidade(pactoVM.UnidadeExercicio);
                     unidadesHabilitadas.Add(unidadePacto);
                 }
             }
@@ -598,13 +584,11 @@ namespace PGD.UI.Mvc.Controllers
 
         private IEnumerable<Unidade> ObterUnidadesSubordinadas(UsuarioViewModel user)
         {
-            if (unidadesSubordinadas == null) unidadesSubordinadas = _rhservice.ObterUnidadesSubordinadas(user.Unidade).ToList();
+            if (unidadesSubordinadas == null) unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadas(user.Unidade).ToList();
             return unidadesSubordinadas;
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
         public ActionResult Solicitar(PactoViewModel pactoViewModel)
         {
             string acao = pactoViewModel.Acao;
@@ -764,7 +748,7 @@ namespace PGD.UI.Mvc.Controllers
                 if (pactoViewModel.IdPacto == 0)
                 {
                     var perfil = user?.Perfis?.FirstOrDefault();
-                    if (perfil != null && perfil.Value == Perfil.Solicitante)
+                    if (perfil != null && perfil.Value == Domain.Enums.Perfil.Solicitante)
                         pactoViewModel.CpfUsuario = RetornaCpfCorrigido(user.CPF);
 
                     
@@ -775,7 +759,7 @@ namespace PGD.UI.Mvc.Controllers
                     {
                         pactoBuscado = _Pactoservice.BuscarPorId(pactoViewModel.IdPacto);
 
-                        String operEmail = perfil != null && perfil.Value == Perfil.Solicitante ?
+                        String operEmail = perfil != null && perfil.Value == Domain.Enums.Perfil.Solicitante ?
                             Domain.Enums.Operacao.Inclusão.ToString() :
                             Domain.Enums.Operacao.Inclusão_Pela_Chefia.ToString();
 
@@ -915,8 +899,10 @@ namespace PGD.UI.Mvc.Controllers
             var listUser = _usuarioAppService.ObterTodos(user.Unidade, true).Where(x => x.CPF != user.CPF).ToList();
             foreach (var item in listUser)
             {
-                var perfil = _Usuarioservice.ObterPerfis(item);
-                if (!perfil.Contains(Perfil.Consulta))
+                //var perfil = _Usuarioservice.ObterPerfis(item);
+                var perfil = new List<Domain.Enums.Perfil>();
+
+                if (!perfil.Contains(Domain.Enums.Perfil.Consulta))
                 {
                     listSemSolicitante.Add(item);
                 }
@@ -994,7 +980,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [AuthorizePerfil(Perfil.Dirigente)]
         public ActionResult Interromper(PactoViewModel pactoVM)
         {
             var user = getUserLogado();
@@ -1058,8 +1043,6 @@ namespace PGD.UI.Mvc.Controllers
 
         }
 
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
-        [SelecionarPerfilActionFilter]
         public ActionResult AvaliarProduto(int idPacto, int idOrigemAcao)
         {
             var pactoVM = _Pactoservice.BuscarPorId(idPacto);
@@ -1080,7 +1063,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [AuthorizePerfil(Perfil.Dirigente)]      
         public ActionResult AvaliarProduto(AvaliacaoProdutoViewModel apvm)
         {
             var user = getUserLogado();
@@ -1265,7 +1247,6 @@ namespace PGD.UI.Mvc.Controllers
         
 
         [HttpPost]
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
         public ActionResult AddProduto(ProdutoViewModel model)
         {
             var lista = (List<ProdutoViewModel>)TempData[GetNomeVariavelTempData("Produtos", model.IdPacto)];
@@ -1319,7 +1300,6 @@ namespace PGD.UI.Mvc.Controllers
             });
         }
 
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
         public PartialViewResult PreparaAlteracaoProduto(int indexProduto, int idPacto, int idTipoPacto)
         {
             List<ProdutoViewModel> lista = (List<ProdutoViewModel>)TempData[GetNomeVariavelTempData("Produtos", idPacto)];
@@ -1337,7 +1317,6 @@ namespace PGD.UI.Mvc.Controllers
             return PartialView("_ProdutosFormPartial", pvm);
         }
 
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
         public PartialViewResult PreparaAlteracaoObservacaoProduto(int indexProduto, int idPacto)
         {
             List<ProdutoViewModel> lista = (List<ProdutoViewModel>)TempData[GetNomeVariavelTempData("Produtos", idPacto)];
@@ -1347,7 +1326,6 @@ namespace PGD.UI.Mvc.Controllers
         }
         
 
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
         public PartialViewResult ExcluiProduto(int indexProduto, int idPacto, int idTipoPacto)
         {
             List<ProdutoViewModel> lista = (List<ProdutoViewModel>)TempData[GetNomeVariavelTempData("Produtos", idPacto)];
@@ -1422,14 +1400,12 @@ namespace PGD.UI.Mvc.Controllers
 
 
 
-        [AuthorizePerfil(Perfil.Dirigente)]
         public PartialViewResult IniciarSuspensao(int idPactoInicioSuspensao)
         {
             var svm = InicializarSuspenderPactoViewModel(idPactoInicioSuspensao, false);
             return PartialView("_SuspensaoPartial", svm);
         }
 
-        [AuthorizePerfil(Perfil.Dirigente)]
         public ActionResult Suspender(SuspenderPactoViewModel suspenderVM)
         {
 
@@ -1501,7 +1477,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
         public JsonResult FinalizarSuspensao(SuspenderPactoViewModel suspensaoVM)
         {
             var user = getUserLogado();
@@ -1596,7 +1571,6 @@ namespace PGD.UI.Mvc.Controllers
 
 
         [HttpPost]
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
         public JsonResult AtualizaObservacaoProduto(ProdutoViewModel alterarObservacaoProdutoVM)
         {
             var user = getUserLogado();
@@ -1613,7 +1587,7 @@ namespace PGD.UI.Mvc.Controllers
             return PartialView("_ObservacoesPartial", produtoVM);
         }
 
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
+        [AuthorizePerfil(Domain.Enums.Perfil.Dirigente, Domain.Enums.Perfil.Solicitante)]
         public PartialViewResult RetornarSuspensao(int idPactoRetornoSuspensao)
         {
             SuspenderPactoViewModel modelCronograma = InicializarSuspenderPactoViewModel(idPactoRetornoSuspensao, true);
@@ -1676,7 +1650,6 @@ namespace PGD.UI.Mvc.Controllers
             modelCronograma.CPFUsuario = pacto.CpfUsuario;
         }
 
-        [AuthorizePerfil(Perfil.Dirigente, Perfil.Solicitante)]
         public PartialViewResult PreparaAvaliacaoProduto(int idPacto, int idProduto, int idAvaliacaoProduto = 0, int idOrigemAcao = 0)
         {
             AvaliacaoProdutoViewModel apvm;

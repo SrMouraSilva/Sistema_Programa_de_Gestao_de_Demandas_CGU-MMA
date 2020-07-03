@@ -13,7 +13,7 @@ namespace PGD.Domain.Validations.Pactos
 {
     public class SuspenderPactoValidation:Validator<Pacto>
     {
-        public SuspenderPactoValidation(Usuario usuariologado, List<Perfil> Perfis)
+        public SuspenderPactoValidation(Usuario usuariologado, List<PGD.Domain.Enums.Perfil> Perfis)
         {
             var ruleSuspenderData = new Suspender_Pacto_Data();
             var ruleSuspenderProprioPacto = new Suspender_Pacto();

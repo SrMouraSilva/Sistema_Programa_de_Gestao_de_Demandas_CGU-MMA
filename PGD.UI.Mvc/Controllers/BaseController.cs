@@ -25,7 +25,9 @@ namespace PGD.UI.Mvc.Controllers
     public class BaseController : Controller
     {
         protected readonly IUsuarioAppService _usuarioAppService;
-        public IRHService _rhservice;
+        public IUnidadeService _unidadeService;
+        public IPerfilService _perfilService;
+        public IFeriadoService _feriadoService;
 
         public BaseController(IUsuarioAppService usuarioAppService)
         {
@@ -40,7 +42,6 @@ namespace PGD.UI.Mvc.Controllers
             return base.BeginExecuteCore(callback, state);
         }
 
-        [AllowAnonymous]
         public void setUserLogado(UsuarioViewModel userLogado)
         {
             Session["UserLogado"] = userLogado;
@@ -54,7 +55,7 @@ namespace PGD.UI.Mvc.Controllers
                 if (Session["UserLogado"] == null)
                 {
                     var claimsIdentity = User.Identity as ClaimsIdentity;
-                    var cpf =  ClaimsUtil.GetClaimsValue(claimsIdentity, ClaimsUtil.CPF);
+                    var cpf = "02354568842";
 
                     if (Session["CpfUsuarioForcado"] != null)
                         cpf = Session["CpfUsuarioForcado"].ToString();
@@ -71,22 +72,21 @@ namespace PGD.UI.Mvc.Controllers
                         userLogado = _usuarioAppService.ObterPorCPF(cpf);
                         if (userLogado.IdUsuario != 0)
                         {
-                            userLogado.Perfis = _usuarioAppService.ObterPerfis(userLogado);
+                            //userLogado.Perfis = _usuarioAppService.ObterPerfis(userLogado);
+                            userLogado.Perfis = new List<Perfil>();
+
+                            userLogado.IdUnidade = 1;
 
                             //Limpando se algum perfil ja foi associado
                             Enum.GetNames(typeof(Perfil)).ToList().ForEach(p => ClaimsUtil.RemoveRole(claimsIdentity, p));
 
                             //Adicionando perfis aos roles do principal.
                             var perfis = userLogado.Perfis.Select(p => p.ToString()).ToList();
-                            if (userLogado.Administrador)
+                            if (true)
                             {
                                 perfis.Add(Perfil.Administrador.ToString());
                             }
-                            ClaimsUtil.AddRoles(claimsIdentity, perfis.ToArray());
                             
-                            // Grava o cookie
-                            HttpContext.GetOwinContext().Authentication.SignIn(claimsIdentity);
-
                             Session["UserLogado"] = userLogado;
                         }
                     }

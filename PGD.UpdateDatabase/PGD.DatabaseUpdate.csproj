@@ -105,97 +105,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201907171757427_novaInicial.cs" />
-    <Compile Include="Migrations\201907171757427_novaInicial.Designer.cs">
-      <DependentUpon>201907171757427_novaInicial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907242019135_VisualizacaoRestritaPacto.cs" />
-    <Compile Include="Migrations\201907242019135_VisualizacaoRestritaPacto.Designer.cs">
-      <DependentUpon>201907242019135_VisualizacaoRestritaPacto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907251810015_Populando_Tabela_TipoPacto_Unidade.cs" />
-    <Compile Include="Migrations\201907251810015_Populando_Tabela_TipoPacto_Unidade.Designer.cs">
-      <DependentUpon>201907251810015_Populando_Tabela_TipoPacto_Unidade.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907251859279_Parametro_Conclusao_Antecipada.cs" />
-    <Compile Include="Migrations\201907251859279_Parametro_Conclusao_Antecipada.Designer.cs">
-      <DependentUpon>201907251859279_Parametro_Conclusao_Antecipada.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907312015591_PopularMotivoSuspensao.cs" />
-    <Compile Include="Migrations\201907312015591_PopularMotivoSuspensao.Designer.cs">
-      <DependentUpon>201907312015591_PopularMotivoSuspensao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908291800347_Excluir_DataConclusaoAntecipada.cs" />
-    <Compile Include="Migrations\201908291800347_Excluir_DataConclusaoAntecipada.Designer.cs">
-      <DependentUpon>201908291800347_Excluir_DataConclusaoAntecipada.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911261342328_Tabela_NotaAvaliacao.cs" />
-    <Compile Include="Migrations\201911261342328_Tabela_NotaAvaliacao.Designer.cs">
-      <DependentUpon>201911261342328_Tabela_NotaAvaliacao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911261419441_Tabelas_CriterioAvaliacao_ItemAvaliacao.cs" />
-    <Compile Include="Migrations\201911261419441_Tabelas_CriterioAvaliacao_ItemAvaliacao.Designer.cs">
-      <DependentUpon>201911261419441_Tabelas_CriterioAvaliacao_ItemAvaliacao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911261658575_Tabelas_OS_CriterioAvaliacao_OS_ItemAvaliacao.cs" />
-    <Compile Include="Migrations\201911261658575_Tabelas_OS_CriterioAvaliacao_OS_ItemAvaliacao.Designer.cs">
-      <DependentUpon>201911261658575_Tabelas_OS_CriterioAvaliacao_OS_ItemAvaliacao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911261826547_Ajustes_Modelo_Criterio.cs" />
-    <Compile Include="Migrations\201911261826547_Ajustes_Modelo_Criterio.Designer.cs">
-      <DependentUpon>201911261826547_Ajustes_Modelo_Criterio.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911271424129_IndInativo_Os_CriterioAvaliacao.cs" />
-    <Compile Include="Migrations\201911271424129_IndInativo_Os_CriterioAvaliacao.Designer.cs">
-      <DependentUpon>201911271424129_IndInativo_Os_CriterioAvaliacao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911281158531_Aumentando_Campo_Descricao_ItemAvaliacao.cs" />
-    <Compile Include="Migrations\201911281158531_Aumentando_Campo_Descricao_ItemAvaliacao.Designer.cs">
-      <DependentUpon>201911281158531_Aumentando_Campo_Descricao_ItemAvaliacao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911291046379_Incluindo_Faixa_Nota.cs" />
-    <Compile Include="Migrations\201911291046379_Incluindo_Faixa_Nota.Designer.cs">
-      <DependentUpon>201911291046379_Incluindo_Faixa_Nota.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912022016505_Tabela_NivelAvaliacao.cs" />
-    <Compile Include="Migrations\201912022016505_Tabela_NivelAvaliacao.Designer.cs">
-      <DependentUpon>201912022016505_Tabela_NivelAvaliacao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912022025146_Campo_NivelAvaliacao_Em_AvaliacaoProduto.cs" />
-    <Compile Include="Migrations\201912022025146_Campo_NivelAvaliacao_Em_AvaliacaoProduto.Designer.cs">
-      <DependentUpon>201912022025146_Campo_NivelAvaliacao_Em_AvaliacaoProduto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912021753034_LinkAtividadeTextoExplicativoTipoAtividade.cs" />
-    <Compile Include="Migrations\201912021753034_LinkAtividadeTextoExplicativoTipoAtividade.Designer.cs">
-      <DependentUpon>201912021753034_LinkAtividadeTextoExplicativoTipoAtividade.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912022219365_ajusteTamanhoTextoExplicativo.cs" />
-    <Compile Include="Migrations\201912022219365_ajusteTamanhoTextoExplicativo.Designer.cs">
-      <DependentUpon>201912022219365_ajusteTamanhoTextoExplicativo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912031902434_linkTextoExplicativoOS.cs" />
-    <Compile Include="Migrations\201912031902434_linkTextoExplicativoOS.Designer.cs">
-      <DependentUpon>201912031902434_linkTextoExplicativoOS.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912041748301_Tabela_AvaliacaoDetalhadaProduto.cs" />
-    <Compile Include="Migrations\201912041748301_Tabela_AvaliacaoDetalhadaProduto.Designer.cs">
-      <DependentUpon>201912041748301_Tabela_AvaliacaoDetalhadaProduto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912042148357_TipoCargaHorariaAlterada.cs" />
-    <Compile Include="Migrations\201912042148357_TipoCargaHorariaAlterada.Designer.cs">
-      <DependentUpon>201912042148357_TipoCargaHorariaAlterada.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912051237211_Ajustes_Avaliacao.cs" />
-    <Compile Include="Migrations\201912051237211_Ajustes_Avaliacao.Designer.cs">
-      <DependentUpon>201912051237211_Ajustes_Avaliacao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201912052006094_Associando_Criterio_a_AvaliacaoDetalhada.cs" />
-    <Compile Include="Migrations\201912052006094_Associando_Criterio_a_AvaliacaoDetalhada.Designer.cs">
-      <DependentUpon>201912052006094_Associando_Criterio_a_AvaliacaoDetalhada.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004031820192_AlterandoCronogramaParaDouble.cs" />
-    <Compile Include="Migrations\202004031820192_AlterandoCronogramaParaDouble.Designer.cs">
-      <DependentUpon>202004031820192_AlterandoCronogramaParaDouble.cs</DependentUpon>
+    <Compile Include="Migrations\202006301923291_criacao_banco.cs" />
+    <Compile Include="Migrations\202006301923291_criacao_banco.Designer.cs">
+      <DependentUpon>202006301923291_criacao_banco.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -222,79 +134,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907171757427_novaInicial.resx">
-      <DependentUpon>201907171757427_novaInicial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907242019135_VisualizacaoRestritaPacto.resx">
-      <DependentUpon>201907242019135_VisualizacaoRestritaPacto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907251810015_Populando_Tabela_TipoPacto_Unidade.resx">
-      <DependentUpon>201907251810015_Populando_Tabela_TipoPacto_Unidade.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907251859279_Parametro_Conclusao_Antecipada.resx">
-      <DependentUpon>201907251859279_Parametro_Conclusao_Antecipada.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907312015591_PopularMotivoSuspensao.resx">
-      <DependentUpon>201907312015591_PopularMotivoSuspensao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908291800347_Excluir_DataConclusaoAntecipada.resx">
-      <DependentUpon>201908291800347_Excluir_DataConclusaoAntecipada.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911261342328_Tabela_NotaAvaliacao.resx">
-      <DependentUpon>201911261342328_Tabela_NotaAvaliacao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911261419441_Tabelas_CriterioAvaliacao_ItemAvaliacao.resx">
-      <DependentUpon>201911261419441_Tabelas_CriterioAvaliacao_ItemAvaliacao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911261658575_Tabelas_OS_CriterioAvaliacao_OS_ItemAvaliacao.resx">
-      <DependentUpon>201911261658575_Tabelas_OS_CriterioAvaliacao_OS_ItemAvaliacao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911261826547_Ajustes_Modelo_Criterio.resx">
-      <DependentUpon>201911261826547_Ajustes_Modelo_Criterio.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911271424129_IndInativo_Os_CriterioAvaliacao.resx">
-      <DependentUpon>201911271424129_IndInativo_Os_CriterioAvaliacao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911281158531_Aumentando_Campo_Descricao_ItemAvaliacao.resx">
-      <DependentUpon>201911281158531_Aumentando_Campo_Descricao_ItemAvaliacao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911291046379_Incluindo_Faixa_Nota.resx">
-      <DependentUpon>201911291046379_Incluindo_Faixa_Nota.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912022016505_Tabela_NivelAvaliacao.resx">
-      <DependentUpon>201912022016505_Tabela_NivelAvaliacao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912022025146_Campo_NivelAvaliacao_Em_AvaliacaoProduto.resx">
-      <DependentUpon>201912022025146_Campo_NivelAvaliacao_Em_AvaliacaoProduto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912021753034_LinkAtividadeTextoExplicativoTipoAtividade.resx">
-      <DependentUpon>201912021753034_LinkAtividadeTextoExplicativoTipoAtividade.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912022219365_ajusteTamanhoTextoExplicativo.resx">
-      <DependentUpon>201912022219365_ajusteTamanhoTextoExplicativo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912031902434_linkTextoExplicativoOS.resx">
-      <DependentUpon>201912031902434_linkTextoExplicativoOS.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912041748301_Tabela_AvaliacaoDetalhadaProduto.resx">
-      <DependentUpon>201912041748301_Tabela_AvaliacaoDetalhadaProduto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912042148357_TipoCargaHorariaAlterada.resx">
-      <DependentUpon>201912042148357_TipoCargaHorariaAlterada.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912051237211_Ajustes_Avaliacao.resx">
-      <DependentUpon>201912051237211_Ajustes_Avaliacao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201912052006094_Associando_Criterio_a_AvaliacaoDetalhada.resx">
-      <DependentUpon>201912052006094_Associando_Criterio_a_AvaliacaoDetalhada.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004031820192_AlterandoCronogramaParaDouble.resx">
-      <DependentUpon>202004031820192_AlterandoCronogramaParaDouble.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="ConfiguracaoNLog.txt" />
     <Content Include="ControleMigrations.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202006301923291_criacao_banco.resx">
+      <DependentUpon>202006301923291_criacao_banco.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll" />

@@ -16,7 +16,7 @@ namespace PGD.Domain.Entities.Usuario
         public int Unidade { get; set; }
         public string NomeUnidade { get; set; }
         public bool Administrador { get; set; }
-        public bool Inativo { get; set; } 
+        public bool Inativo { get; set; }
 
     }
 }

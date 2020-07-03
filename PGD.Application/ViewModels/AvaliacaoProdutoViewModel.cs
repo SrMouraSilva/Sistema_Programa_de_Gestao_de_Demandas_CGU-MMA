@@ -42,9 +42,9 @@ namespace PGD.Application.ViewModels
 
         public decimal? NotaFinalAvaliacaoDetalhada { get; set; }
 
-        public string CargaHorariaPendenteFormatada => TimeSpanUtil.FormatarParaHoras((Produto.QuantidadeProduto - Produto.QuantidadeProdutoAvaliado) * Produto.CargaHorariaProduto);
-        public string CargaHorariaAvaliadaFormatada => TimeSpanUtil.FormatarParaHoras(QuantidadeProdutosAvaliados * Produto.CargaHorariaProduto);
-        public string CargaHorariaAvaliadaAnteriormenteFormatada => TimeSpanUtil.FormatarParaHoras(Produto.QuantidadeProdutoAvaliado * Produto.CargaHorariaProduto);
+        public string CargaHorariaPendenteFormatada => Utilitarios.FormatarParaHoras((Produto.QuantidadeProduto - Produto.QuantidadeProdutoAvaliado) * Produto.CargaHorariaProduto);
+        public string CargaHorariaAvaliadaFormatada => Utilitarios.FormatarParaHoras(QuantidadeProdutosAvaliados * Produto.CargaHorariaProduto);
+        public string CargaHorariaAvaliadaAnteriormenteFormatada => Utilitarios.FormatarParaHoras(Produto.QuantidadeProdutoAvaliado * Produto.CargaHorariaProduto);
         public double CargaHorariaAvaliada => QuantidadeProdutosAvaliados * Produto?.CargaHorariaProduto ?? 0;
 
         public string DescricaoAvaliacao

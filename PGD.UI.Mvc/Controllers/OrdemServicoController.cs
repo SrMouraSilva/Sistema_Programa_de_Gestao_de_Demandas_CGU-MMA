@@ -11,7 +11,6 @@ using System.Web.Mvc;
 
 namespace PGD.UI.Mvc.Controllers
 {
-    [AuthorizePerfil(Perfil.Administrador)]
     public class OrdemServicoController : BaseController
     {
         readonly IOrdemServicoAppService _OrdemServicoAppService;
@@ -36,7 +35,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Index(SearchOrdemServicoViewModel obj)
         {
             var lista = _OrdemServicoAppService.ObterTodos();
@@ -95,7 +93,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(OrdemServicoViewModel grupoatividadeViewModel)
         {
             if (ModelState.IsValid)

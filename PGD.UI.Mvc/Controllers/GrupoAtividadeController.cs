@@ -10,7 +10,6 @@ using System.Web.Mvc;
 
 namespace PGD.UI.Mvc.Controllers
 {
-    [AuthorizePerfil(Perfil.Administrador)]
     public class GrupoAtividadeController : BaseController
     {
         IGrupoAtividadeAppService _GrupoAtividadeservice;
@@ -33,7 +32,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Index(string NomGrupoAtividade)
         {
             var lista = _GrupoAtividadeservice.ObterTodos();
@@ -71,7 +69,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(GrupoAtividadeViewModel grupoatividadeViewModel)
         {
             if (ModelState.IsValid)

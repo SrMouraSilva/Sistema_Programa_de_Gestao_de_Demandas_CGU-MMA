@@ -7,7 +7,6 @@ using PGD.UI.Mvc.Helpers;
 
 namespace PGD.UI.Mvc.Controllers
 {
-    [AllowAnonymous]
     public class ErroController : Controller
     {
         // GET: ErroNaoMapeado

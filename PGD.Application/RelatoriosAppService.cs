@@ -15,16 +15,16 @@ namespace PGD.Application
         private readonly IPactoAppService _pactoService;
         private readonly IProdutoService _produtoService;
         private readonly IGrupoAtividadeAppService _grupoAtividadeService;
-        private readonly IRHService _rhService;
+        private readonly IUnidadeService _unidadeService;
         private readonly IUsuarioAppService _Usuarioservice;
 
-        public RelatoriosAppService(IUsuarioAppService usuarioAppService, IPactoAppService pactoService, IProdutoService produtoService, IGrupoAtividadeAppService grupoAtividadeService, IRHService rhService, IUnitOfWork uow)
+        public RelatoriosAppService(IUsuarioAppService usuarioAppService, IPactoAppService pactoService, IProdutoService produtoService, IGrupoAtividadeAppService grupoAtividadeService, IUnidadeService unidadeService, IUnitOfWork uow)
             : base(uow)
         {
             _pactoService = pactoService;
             _produtoService = produtoService;
             _grupoAtividadeService = grupoAtividadeService;
-            _rhService = rhService;
+            _unidadeService = unidadeService;
             _Usuarioservice = usuarioAppService;
         }
         public RelatorioConsolidadoViewModel RelatorioAtividadePgdPeriodo(RelatorioConsolidadoViewModel obj)
@@ -195,7 +195,7 @@ namespace PGD.Application
                 pct.UnidadeExercicio = 0;
             }
 
-            rltAlcSilmu.searchSimultanea.lstUnidade = _rhService.ObterUnidades().ToList();
+            rltAlcSilmu.searchSimultanea.lstUnidade = _unidadeService.ObterUnidades().ToList();
             rltAlcSilmu.lstPactos = _pactoService.ObterTodos(pct, false).Where(a => a.SituacaoPacto.IdSituacaoPacto == 2 || a.SituacaoPacto.IdSituacaoPacto == 3).ToList();
         }
     }

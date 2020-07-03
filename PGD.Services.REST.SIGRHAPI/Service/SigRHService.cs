@@ -3,8 +3,6 @@ using PGD.Domain.Entities.RH;
 using PGD.Domain.Entities.Usuario;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace PGD.Services.REST.SIGRHAPI.Service
 {

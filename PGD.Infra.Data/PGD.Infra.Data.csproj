@@ -134,6 +134,7 @@
     <Compile Include="EntityConfig\AtividadeConfig.cs" />
     <Compile Include="EntityConfig\AvaliacaoDetalhadaProdutoConfig.cs" />
     <Compile Include="EntityConfig\AvaliacaoProdutoConfig.cs" />
+    <Compile Include="EntityConfig\FeriadoConfig.cs" />
     <Compile Include="EntityConfig\ItemAvaliacaoConfig.cs" />
     <Compile Include="EntityConfig\GrupoAtividadeConfig.cs" />
     <Compile Include="EntityConfig\HistoricoConfig.cs" />
@@ -143,6 +144,8 @@
     <Compile Include="EntityConfig\OS_ItemAvaliacaoConfig.cs" />
     <Compile Include="EntityConfig\OS_CriterioAvaliacaoConfig.cs" />
     <Compile Include="EntityConfig\NivelAvaliacaoConfig.cs" />
+    <Compile Include="EntityConfig\RecursosHumanosConfig.cs" />
+    <Compile Include="EntityConfig\UnidadeConfig.cs" />
     <Compile Include="EntityConfig\Unidade_TipoPactoConfig.cs" />
     <Compile Include="EntityConfig\ParametroSistemaConfig.cs" />
     <Compile Include="EntityConfig\TipoPactoConfig.cs" />
@@ -157,9 +160,16 @@
     <Compile Include="EntityConfig\OS_TipoAtividadeConfig.cs" />
     <Compile Include="EntityConfig\CronogramaConfig.cs" />
     <Compile Include="EntityConfig\TipoAtividadeConfig.cs" />
+    <Compile Include="EntityConfig\UsuarioConfig.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Migrations\202006301923291_criacao_banco.cs" />
+    <Compile Include="Migrations\202006301923291_criacao_banco.Designer.cs">
+      <DependentUpon>202006301923291_criacao_banco.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AvaliacaoDetalhadaProdutoRepository.cs" />
+    <Compile Include="Repository\FeriadoRepository.cs" />
     <Compile Include="Repository\ItemAvaliacaoRepository.cs" />
     <Compile Include="Repository\AvaliacaoProdutoRepository.cs" />
     <Compile Include="Repository\AdministradorRepository.cs" />
@@ -174,6 +184,7 @@
     <Compile Include="Repository\ParametroSistemaRepository.cs" />
     <Compile Include="Repository\NotaAvaliacaoRepository.cs" />
     <Compile Include="Repository\NivelAvaliacaoRepository.cs" />
+    <Compile Include="Repository\PerfilRepository.cs" />
     <Compile Include="Repository\TipoPactoRepository.cs" />
     <Compile Include="Repository\SituacaoPactoRepository.cs" />
     <Compile Include="Repository\LogRepository.cs" />
@@ -185,6 +196,7 @@
     <Compile Include="Repository\CronogramaRepository.cs" />
     <Compile Include="Repository\JustificativaRepository.cs" />
     <Compile Include="Repository\TipoAtividadeRepository.cs" />
+    <Compile Include="Repository\UnidadeRepository.cs" />
     <Compile Include="Repository\Unidade_TipoPactoRepository.cs" />
     <Compile Include="Repository\UsuarioRepository.cs" />
     <Compile Include="UoW\UnitOfWork.cs" />
@@ -209,6 +221,11 @@
     <Content Include="Scripts\Scripts_SQLServer.sql" />
     <Content Include="Scripts\Scripts_SQLServer_2.sql" />
     <Content Include="Scripts\Script_CGU_20170320.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202006301923291_criacao_banco.resx">
+      <DependentUpon>202006301923291_criacao_banco.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

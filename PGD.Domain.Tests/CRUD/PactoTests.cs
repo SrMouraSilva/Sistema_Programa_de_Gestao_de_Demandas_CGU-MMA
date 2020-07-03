@@ -69,14 +69,17 @@ namespace PGD.Domain.Tests.CRUD
                 UnidadeExercicio = 5,
                 TelefoneFixoServidor = "",
                 TelefoneMovelServidor = "",
+                PactoExecutadoNoExterior = false,
+                ProcessoSEI = "Teste",
+                Motivo = "Motivo de Tetste",
                 PossuiCargaHoraria = false,
                 DataPrevistaInicio = DateTime.Now,
                 DataPrevistaTermino = DateTime.Now,
+                CargaHoraria = 10,
                 CargaHorariaTotal = 190,
                 IdSituacaoPacto = 1,
                 CpfUsuario = usuario.CPF,
                 IdOrdemServico = os.IdOrdemServico,
-                CargaHoraria = 8,
                 CpfUsuarioCriador = usuario.CPF
             };
 
@@ -108,7 +111,8 @@ namespace PGD.Domain.Tests.CRUD
                 IdOrdemServico = os.IdOrdemServico,
                 CargaHoraria = 8,
                 CpfUsuarioCriador = usuario.CPF, 
-                IdTipoPacto = 1
+                IdTipoPacto = 1,
+                IndVisualizacaoRestrita = false
             };
 
             _uow.BeginTransaction();
@@ -312,8 +316,8 @@ namespace PGD.Domain.Tests.CRUD
             };
 
             var userAssinante = _usuarioService.ObterPorCPF("11391275861");
-            List<Perfil> perfis = new List<Perfil>();
-            perfis.Add(Perfil.Dirigente);
+            List<Enums.Perfil> perfis = new List<Enums.Perfil>();
+            perfis.Add(Enums.Perfil.Dirigente);
 
             var resultado = pactoService.AtualizarSuspender(pacto, userAssinante, perfis);
 

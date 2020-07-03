@@ -128,9 +128,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FeriadoAppService.cs" />
+    <Compile Include="Interfaces\IFeriadoAppService.cs" />
     <Compile Include="Interfaces\INivelAvaliacaoAppService.cs" />
     <Compile Include="Interfaces\IOS_ItemAvaliacaoAppService.cs" />
     <Compile Include="Interfaces\IOS_CriterioAvaliacaoAppService.cs" />
+    <Compile Include="Interfaces\IPerfilAppService.cs" />
+    <Compile Include="Interfaces\IUnidadeAppService.cs" />
     <Compile Include="ItemAvaliacaoAppService.cs" />
     <Compile Include="AvaliacaoProdutoAppService.cs" />
     <Compile Include="AdministradorAppService.cs" />
@@ -151,6 +155,8 @@
     <Compile Include="NivelAvaliacaoAppService.cs" />
     <Compile Include="OS_ItemAvaliacaoAppService.cs" />
     <Compile Include="OS_CriterioAvaliacaoAppService.cs" />
+    <Compile Include="PerfilAppService.cs" />
+    <Compile Include="UnidadeAppService.cs" />
     <Compile Include="Unidade_TipoPactoAppService.cs" />
     <Compile Include="GrupoAtividadeAppService.cs" />
     <Compile Include="HistoricoAppService.cs" />

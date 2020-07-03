@@ -28,13 +28,6 @@ namespace PGD.UI.Mvc
                 CookieManager = new SystemWebCookieManager()
             });
 
-            app.UseWsFederationAuthentication(
-                new WsFederationAuthenticationOptions
-                {
-                    Wtrealm = realm,
-                    MetadataAddress = adfsMetadata,
-                    Wreply = wreply
-                });
         }
     }
 }

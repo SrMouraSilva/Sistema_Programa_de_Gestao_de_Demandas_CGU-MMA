@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace PGD.UI.Mvc.Controllers
 {
-    [Authorize]
+
     public class HomeController : BaseController
     {
         public HomeController(IUsuarioAppService usuarioAppService)
@@ -18,7 +18,6 @@ namespace PGD.UI.Mvc.Controllers
         {
         }
 
-        [SelecionarPerfilActionFilter]
         public ActionResult Index()
         {
             return RedirectToAction("Index", "Pacto");

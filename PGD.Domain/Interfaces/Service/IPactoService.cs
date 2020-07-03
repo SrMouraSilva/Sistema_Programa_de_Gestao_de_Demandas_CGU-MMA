@@ -21,7 +21,7 @@ namespace PGD.Domain.Interfaces.Service
         List<int> ObterSituacoesPactoValido();
         Pacto BuscarPorId(int id);
         bool PossuiPactoPendencias(Usuario usuario);
-        Pacto AtualizarSuspender(Pacto obj, Usuario usuariologado, List<Perfil> Perfis);
+        Pacto AtualizarSuspender(Pacto obj, Usuario usuariologado, List<PGD.Domain.Enums.Perfil> Perfis);
         int BuscaStatusAssinatura(Pacto objFiltro);
         Pacto AtualizarStatus(Pacto obj, Usuario usuariologado,eAcaoPacto eAcaoPacto);
 

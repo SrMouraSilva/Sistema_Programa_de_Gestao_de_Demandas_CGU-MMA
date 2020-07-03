@@ -22,15 +22,15 @@ namespace PGD.Application
     {
         private readonly IUsuarioService _usuarioService;
         private readonly ILogService _logService;
-        private readonly IRHService _rhService;
         private readonly IAdministradorService _admService;
+        private readonly IPerfilService _perfilService;
 
-        public UsuarioAppService(IUsuarioService usuarioService, IUnitOfWork uow, ILogService logService, IRHService rhservice, IAdministradorService admService)
+        public UsuarioAppService(IUsuarioService usuarioService, IUnitOfWork uow, ILogService logService, IPerfilService perfilService, IAdministradorService admService)
             : base(uow)
         {
             _usuarioService = usuarioService;
             _logService = logService;
-            _rhService = rhservice;
+            _perfilService = perfilService;
             _admService = admService;
         }
 
@@ -89,10 +89,9 @@ namespace PGD.Application
             throw new NotImplementedException();
         }
 
-        public List<Perfil> ObterPerfis(UsuarioViewModel usuario)
+        public List<Domain.Enums.Perfil> ObterPerfis(UsuarioViewModel usuario)
         {
-            var user = Mapper.Map<UsuarioViewModel, Usuario>(usuario);
-            return _rhService.ObterPerfis(user).ToList();
+            return new List<Domain.Enums.Perfil>();
         }
 
         public UsuarioViewModel TornarRemoverAdministrador(UsuarioViewModel usuario, bool admin)
@@ -131,6 +130,11 @@ namespace PGD.Application
                 usuario.Perfis.Contains(Domain.Enums.Perfil.Dirigente) && 
                 usuario.Perfis.Contains(Domain.Enums.Perfil.Solicitante));
 
+        }
+
+        List<Domain.Enums.Perfil> IUsuarioAppService.ObterPerfis(UsuarioViewModel usuario)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -15,13 +15,13 @@ namespace PGD.Infra.Data.Repository
     Justification = "False positive.")]
     public class PactoRepository : Repository<Pacto>, IPactoRepository
     {
-        RHService _rhService;
+        UnidadeService _unidadeService;
         IIniciativaPlanoOperacionalRepository _iniciativaPORepository;
 
-        public PactoRepository(PGDDbContext context, RHService rhService, IIniciativaPlanoOperacionalRepository iniciativaPORepository)
+        public PactoRepository(PGDDbContext context, UnidadeService unidadeService, IIniciativaPlanoOperacionalRepository iniciativaPORepository)
             : base(context)
         {
-            this._rhService = rhService;
+            this._unidadeService = unidadeService;
             this._iniciativaPORepository = iniciativaPORepository;
         }
 
@@ -77,7 +77,7 @@ namespace PGD.Infra.Data.Repository
             {
                 if (incluirUnidadesSubordinadas)
                 {
-                    var unidadesSubordinadas = _rhService.ObterUnidadesSubordinadas(objFiltro.UnidadeExercicio);
+                    var unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadas(objFiltro.UnidadeExercicio);
                     var idsUnidadesSubordinadas = unidadesSubordinadas.Select(us => us.IdUnidade).ToList();
                     query = query.Where(x => idsUnidadesSubordinadas.Contains(x.UnidadeExercicio));
                 }

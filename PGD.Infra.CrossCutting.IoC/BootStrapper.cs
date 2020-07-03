@@ -46,6 +46,9 @@ namespace PGD.Infra.CrossCutting.IoC
             kernel.Bind(typeof(INivelAvaliacaoAppService)).To(typeof(NivelAvaliacaoAppService)).InRequestScope();
             kernel.Bind(typeof(IOS_CriterioAvaliacaoAppService)).To(typeof(OS_CriterioAvaliacaoAppService)).InRequestScope();
             kernel.Bind(typeof(IOS_ItemAvaliacaoAppService)).To(typeof(OS_ItemAvaliacaoAppService)).InRequestScope();
+            kernel.Bind(typeof(IUnidadeAppService)).To(typeof(UnidadeAppService)).InRequestScope();
+            kernel.Bind(typeof(IFeriadoAppService)).To(typeof(FeriadoAppService)).InRequestScope();
+            kernel.Bind(typeof(IPerfilAppService)).To(typeof(PerfilAppService)).InRequestScope();
 
             // Domain
             kernel.Bind(typeof(IAtividadeService)).To(typeof(AtividadeService)).InRequestScope();
@@ -75,6 +78,9 @@ namespace PGD.Infra.CrossCutting.IoC
             kernel.Bind(typeof(INivelAvaliacaoService)).To(typeof(NivelAvaliacaoService)).InRequestScope();
             kernel.Bind(typeof(IOS_CriterioAvaliacaoService)).To(typeof(OS_CriterioAvaliacaoService)).InRequestScope();
             kernel.Bind(typeof(IOS_ItemAvaliacaoService)).To(typeof(OS_ItemAvaliacaoService)).InRequestScope();
+            kernel.Bind(typeof(IUnidadeService)).To(typeof(UnidadeService)).InRequestScope();
+            kernel.Bind(typeof(IFeriadoService)).To(typeof(FeriadoService)).InRequestScope();
+            kernel.Bind(typeof(IPerfilService)).To(typeof(PerfilService)).InRequestScope();
 
             // Infra Dados
             kernel.Bind(typeof(IAtividadeRepository)).To(typeof(AtividadeRepository)).InRequestScope();
@@ -104,6 +110,9 @@ namespace PGD.Infra.CrossCutting.IoC
             kernel.Bind(typeof(INivelAvaliacaoRepository)).To(typeof(NivelAvaliacaoRepository)).InRequestScope();
             kernel.Bind(typeof(IOS_CriterioAvaliacaoRepository)).To(typeof(OS_CriterioAvaliacaoRepository)).InRequestScope();
             kernel.Bind(typeof(IOS_ItemAvaliacaoRepository)).To(typeof(OS_ItemAvaliacaoRepository)).InRequestScope();
+            kernel.Bind(typeof(IUnidadeRepository)).To(typeof(UnidadeRepository)).InRequestScope();
+            kernel.Bind(typeof(IFeriadoRepository)).To(typeof(FeriadoRepository)).InRequestScope();
+            kernel.Bind(typeof(IPerfilRepository)).To(typeof(PerfilRepository)).InRequestScope();
 
             kernel.Bind(typeof(IUnitOfWork)).To(typeof(UnitOfWork)).InRequestScope();
             kernel.Bind(typeof(PGDDbContext)).ToSelf().InRequestScope();
@@ -136,6 +145,9 @@ namespace PGD.Infra.CrossCutting.IoC
             kernel.Bind(typeof(IItemAvaliacaoAppService)).To(typeof(ItemAvaliacaoAppService)).InRequestScope();
             kernel.Bind(typeof(INotaAvaliacaoAppService)).To(typeof(NotaAvaliacaoAppService)).InRequestScope();
             kernel.Bind(typeof(INivelAvaliacaoAppService)).To(typeof(NivelAvaliacaoAppService)).InRequestScope();
+            kernel.Bind(typeof(IUnidadeAppService)).To(typeof(UnidadeAppService)).InRequestScope();
+            kernel.Bind(typeof(IFeriadoAppService)).To(typeof(FeriadoAppService)).InRequestScope();
+            kernel.Bind(typeof(IPerfilAppService)).To(typeof(PerfilAppService)).InRequestScope();
 
             // Domain
             kernel.Bind(typeof(IAtividadeService)).To(typeof(AtividadeService)).InSingletonScope();
@@ -164,6 +176,9 @@ namespace PGD.Infra.CrossCutting.IoC
             kernel.Bind(typeof(INotaAvaliacaoService)).To(typeof(NotaAvaliacaoService)).InRequestScope();
             kernel.Bind(typeof(INivelAvaliacaoService)).To(typeof(NivelAvaliacaoService)).InRequestScope();
             kernel.Bind(typeof(IOS_CriterioAvaliacaoService)).To(typeof(OS_CriterioAvaliacaoService)).InRequestScope();
+            kernel.Bind(typeof(IUnidadeService)).To(typeof(UnidadeService)).InRequestScope();
+            kernel.Bind(typeof(IFeriadoService)).To(typeof(FeriadoService)).InRequestScope();
+            kernel.Bind(typeof(IPerfilService)).To(typeof(PerfilService)).InRequestScope();
 
             // Infra Dados
             kernel.Bind(typeof(IAtividadeRepository)).To(typeof(AtividadeRepository)).InSingletonScope();
@@ -192,6 +207,9 @@ namespace PGD.Infra.CrossCutting.IoC
             kernel.Bind(typeof(INotaAvaliacaoRepository)).To(typeof(NotaAvaliacaoRepository)).InRequestScope();
             kernel.Bind(typeof(INivelAvaliacaoRepository)).To(typeof(NivelAvaliacaoRepository)).InRequestScope();
             kernel.Bind(typeof(IOS_CriterioAvaliacaoRepository)).To(typeof(OS_CriterioAvaliacaoRepository)).InRequestScope();
+            kernel.Bind(typeof(IUnidadeRepository)).To(typeof(UnidadeRepository)).InRequestScope();
+            kernel.Bind(typeof(IFeriadoRepository)).To(typeof(FeriadoRepository)).InRequestScope();
+            kernel.Bind(typeof(IPerfilRepository)).To(typeof(PerfilRepository)).InRequestScope();
 
             kernel.Bind(typeof(IUnitOfWork)).To(typeof(UnitOfWork)).InSingletonScope();
             kernel.Bind(typeof(PGDDbContext)).ToSelf().InSingletonScope();

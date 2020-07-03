@@ -143,21 +143,18 @@
 
                             </ul>
                         </li>
-                        if (User.IsInRole(PGD.Domain.Enums.Perfil.Administrador.ToString()))
-                        {
-                            <li>
-                                <a id="menuConfiguracoes" href="#">Configurações</a>
-                                <ul>
-                                    <li><a id="menuOrdemServico" href="@Url.Action("Index", "OrdemServico")">Gerenciar OS</a></li>
-                                    <li><a id="menuGrupoAtividade" href="@Url.Action("Index", "GrupoAtividade")">Gerenciar Grupo de Atividades</a></li>
-                                    <li><a id="menuAtividade" href="@Url.Action("Index", "Atividade")">Gerenciar Atividades</a></li>
-                                    <li><a id="menuPerfil" href="@Url.Action("Index", "Perfil")">Gerenciar Perfil</a></li>
-                                    <li><a id="menutiposPacto" href="@Url.Action("Index","UnidadeTipoPacto")">Gerenciar Tipos de Pacto</a></li>
-                                    <li><a id="menuAvaliacaoDetalhada" href="@Url.Action("Index","CriterioAvaliacao")">Gerenciar Avaliação Detalhada</a></li>
-                                    <li><a id="trocaUser" href="@Url.Action("Index", "TrocaUsuario")">Trocar Usuário</a></li>
-                                </ul>
-                            </li>
-                        }
+                        <li>
+                            <a id="menuConfiguracoes" href="#">Configurações</a>
+                            <ul>
+                                <li><a id="menuOrdemServico" href="@Url.Action("Index", "OrdemServico")">Gerenciar OS</a></li>
+                                <li><a id="menuGrupoAtividade" href="@Url.Action("Index", "GrupoAtividade")">Gerenciar Grupo de Atividades</a></li>
+                                <li><a id="menuAtividade" href="@Url.Action("Index", "Atividade")">Gerenciar Atividades</a></li>
+                                <li><a id="menuPerfil" href="@Url.Action("Index", "Perfil")">Gerenciar Perfil</a></li>
+                                <li><a id="menutiposPacto" href="@Url.Action("Index","UnidadeTipoPacto")">Gerenciar Tipos de Pacto</a></li>
+                                <li><a id="menuAvaliacaoDetalhada" href="@Url.Action("Index","CriterioAvaliacao")">Gerenciar Avaliação Detalhada</a></li>
+                                <li><a id="trocaUser" href="@Url.Action("Index", "TrocaUsuario")">Trocar Usuário</a></li>
+                            </ul>
+                        </li>
                     }
                 </ul>
             </div>

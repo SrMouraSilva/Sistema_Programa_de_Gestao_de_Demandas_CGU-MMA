@@ -212,7 +212,7 @@ namespace PGD.Domain.Services
             return _classRepository.BuscarPorId(id);
         }
 
-        public Pacto AtualizarSuspender(Pacto obj, Usuario usuariologado, List<Perfil> Perfis)
+        public Pacto AtualizarSuspender(Pacto obj, Usuario usuariologado, List<PGD.Domain.Enums.Perfil> Perfis)
         {
             obj.ValidationResult = new SuspenderPactoValidation(usuariologado, Perfis).Validate(obj);
             if (!obj.ValidationResult.IsValid)

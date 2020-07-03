@@ -12,5 +12,6 @@ namespace PGD.Domain.Interfaces.Service
         Usuario ObterPorEmail(string email);
         IEnumerable<Usuario> ObterTodosPorUnidade(int idUnidade, bool incluirSubordinados = false);
         IEnumerable<Usuario> ObterTodosDaBase();
+        IEnumerable<Usuario> ObterDirigentesUnidade(int idUnidade);
     }
 }
