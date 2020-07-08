@@ -916,6 +916,7 @@ namespace PGD.UI.Mvc.Controllers
             var atividades = new List<SelectListItem>();
             if (!string.IsNullOrEmpty(id))
             {
+                OrdemServico = _ordemServicoService.GetOrdemVigente();
                 var grupo = OrdemServico.Grupos.First(x => x.IdGrupoAtividade == int.Parse(id));
                 grupo.Atividades.OrderBy(x => x.NomAtividade).ToList().ForEach(x => atividades.Add(new SelectListItem { Text = x.NomAtividade, Value = x.IdAtividade.ToString() }));
                 if (atividades.Count > 1)
@@ -928,6 +929,7 @@ namespace PGD.UI.Mvc.Controllers
             var faixas = new List<SelectListItem>();
             if (!string.IsNullOrEmpty(idGrupo) && !string.IsNullOrEmpty(idAtividade))
             {
+                OrdemServico = _ordemServicoService.GetOrdemVigente();
                 var grupo = OrdemServico.Grupos.FirstOrDefault(x => x.IdGrupoAtividade == int.Parse(idGrupo));
                 var atividade = grupo.Atividades.FirstOrDefault(x => x.IdAtividade == int.Parse(idAtividade));
                 var valorMinimoFaixa = GetValorMinimoFaixa(idGrupo, idAtividade, idPacto, idProduto);
@@ -970,6 +972,7 @@ namespace PGD.UI.Mvc.Controllers
             var resultado = "0";
             if (!string.IsNullOrEmpty(idGrupo) && !string.IsNullOrEmpty(idAtividade) && !string.IsNullOrEmpty(idFaixa))
             {
+                OrdemServico = _ordemServicoService.GetOrdemVigente();
                 var grupo = OrdemServico.Grupos.FirstOrDefault(x => x.IdGrupoAtividade == int.Parse(idGrupo));
                 var atividade = grupo.Atividades.FirstOrDefault(x => x.IdAtividade == int.Parse(idAtividade));
                 var faixa = atividade.Tipos.FirstOrDefault(x => x.IdTipoAtividade == int.Parse(idFaixa));
@@ -1255,6 +1258,8 @@ namespace PGD.UI.Mvc.Controllers
             if (ModelState.IsValid)
             {
                 ConfigurarCargaHorariaFormatada(model);
+                OrdemServico = _ordemServicoService.GetOrdemVigente();
+
                 AtualizarReferenciasProduto(model, OrdemServico);
                 if (model.Index == 0)
                 {
