@@ -1,5 +1,7 @@
 ﻿using CGU.Util;
 using PGD.Domain.Entities;
+using PGD.Domain.Entities.RH;
+using PGD.Domain.Entities.Usuario;
 using PGD.Infra.Data.EntityConfig;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
@@ -37,11 +39,8 @@ namespace PGD.Infra.Data.Context
         #region CSU006_CSU008
         public DbSet<Pacto> Pacto { get; set; }
         public DbSet<Produto> Produto { get; set; }
-
         public DbSet<Justificativa> Justificativa { get; set; }
-
         public DbSet<SituacaoPacto> SituacaoPacto { get; set; }
-
         public DbSet<Cronograma> Cronograma { get; set; }
         #endregion
 
@@ -50,6 +49,11 @@ namespace PGD.Infra.Data.Context
         public DbSet<OS_TipoAtividade> OS_TipoAtividade { get; set; }
         public DbSet<OS_GrupoAtividade> OS_GrupoAtividade { get; set; }
         public DbSet<ParametroSistema> ParametrosSistema { get; set; }
+
+        public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<RecursosHumanos> RecursosHumanos { get; set; }
+        public DbSet<Unidade> Unidade { get; set; }
+        public DbSet<Feriado> Feriado { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -101,6 +105,11 @@ namespace PGD.Infra.Data.Context
             modelBuilder.Configurations.Add(new OS_CriterioAvaliacaoConfig());
             modelBuilder.Configurations.Add(new OS_ItemAvaliacaoConfig());
             modelBuilder.Configurations.Add(new AvaliacaoDetalhadaProdutoConfig());
+
+            modelBuilder.Configurations.Add(new UsuarioConfig());
+            modelBuilder.Configurations.Add(new UnidadeConfig());
+            modelBuilder.Configurations.Add(new RecursosHumanosConfig());
+            modelBuilder.Configurations.Add(new FeriadoConfig());
 
             modelBuilder.Configurations.Add(new HistoricoConfig());
 

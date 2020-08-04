@@ -45,7 +45,7 @@ namespace PGD.Domain.Services
 
         public Unidade_TipoPacto BuscarPorIdUnidadeTipoPacto(int idUnidade, int idTipoPacto)
         {
-            return _classRepository.Buscar(a => a.IdUnidade == idUnidade && a.IdTipoPacto == idTipoPacto).SingleOrDefault();
+            return _classRepository.Buscar(a => a.IdUnidade == idUnidade && a.IdTipoPacto == idTipoPacto).OrderByDescending(x => x.IdUnidade_TipoPacto).FirstOrDefault();
         }
 
         public Unidade_TipoPacto ObterPorId(int id)

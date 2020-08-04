@@ -8,7 +8,6 @@ using System.Web.Mvc;
 
 namespace PGD.UI.Mvc.Controllers
 {
-    [AuthorizePerfil(Perfil.Administrador)]
     public class CriterioAvaliacaoController : BaseController
     {
 
@@ -31,7 +30,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Index(string DescCriterioAvaliacao)
         {
             var lista = _criterioAvaliacaoAppService.ObterTodos();
@@ -97,7 +95,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(CriterioAvaliacaoViewModel criterioAvaliacaoViewModel)
         {
             for (int i = 0; i < criterioAvaliacaoViewModel.ItensAvaliacao.Count; i++)
@@ -122,7 +119,7 @@ namespace PGD.UI.Mvc.Controllers
                 if (criterioAvaliacaoViewModel.ValidationResult.IsValid)
                     return setMessageAndRedirect(criterioAvaliacaoViewModel.ValidationResult.Message, "Index");
                 else
-                    setModelError(criterioAvaliacaoViewModel.ValidationResult.Erros);
+                    setModelErrorList(criterioAvaliacaoViewModel.ValidationResult.Erros);
             }
 
             PrepararTempDataDropdowns();

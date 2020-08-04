@@ -12,18 +12,15 @@ using System.Web.Mvc;
 
 namespace PGD.UI.Mvc.Controllers
 {
-    [AuthorizePerfil]
     public class CronogramaController : BaseController
     {
         IPactoAppService _pactoService;
         ICronogramaAppService _cronogramaService;
 
-        public CronogramaController(IUsuarioAppService usuarioAppService, IPactoAppService pactoservice, 
-            IRHService rhservice, ICronogramaAppService cronogramaService)
+        public CronogramaController(IUsuarioAppService usuarioAppService, IPactoAppService pactoservice, ICronogramaAppService cronogramaService)
             : base(usuarioAppService)
         {
             _pactoService = pactoservice;
-            _rhservice = rhservice;
             _cronogramaService = cronogramaService;
         }
 

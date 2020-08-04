@@ -20,16 +20,16 @@ namespace PGD.Application
     public class CronogramaAppService : ApplicationService, ICronogramaAppService
     {
         private readonly IUsuarioService _usuarioService;
-        private readonly IRHService _rhService;
+        private readonly IFeriadoService _feriadoService;
         private readonly ICronogramaService _cronogramaService;
         private readonly IPactoService _pactoService;
 
-        public CronogramaAppService(IUsuarioService usuarioService, IUnitOfWork uow, IRHService rhservice,
+        public CronogramaAppService(IUsuarioService usuarioService, IUnitOfWork uow, IFeriadoService feriadoService,
             ICronogramaService cronogramaService, IPactoService pactoService)
             : base(uow)
         {
             _usuarioService = usuarioService;
-            _rhService = rhservice;
+            _feriadoService = feriadoService;
             _cronogramaService = cronogramaService;
             _pactoService = pactoService;
         }
@@ -157,7 +157,7 @@ namespace PGD.Application
             DateTime? dataInicioSuspensao = null, DateTime? dataFimSuspensao = null, 
             TimeSpan? quantidadeHorasDiasSuspensao = null)
         {
-            var diaFeriado = _rhService.ObterFeriado(dataCronograma.Date);
+            var diaFeriado = _feriadoService.ObterFeriado(dataCronograma.Date);
             TimeSpan duracaoFeriado = TimeSpan.Zero;
             TimeSpan horasDiaCronograma = cargaHorariaDiaria;
             TimeSpan horasUsadasPorOutroPacto = TimeSpan.Zero;

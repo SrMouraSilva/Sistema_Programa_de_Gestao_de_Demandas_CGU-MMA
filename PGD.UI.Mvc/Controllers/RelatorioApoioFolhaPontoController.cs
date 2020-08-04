@@ -19,10 +19,10 @@ namespace PGD.UI.Mvc.Controllers
         IPactoAppService _pactoservice;
 
 
-        public RelatorioApoioFolhaPontoController (IUsuarioAppService usuarioAppService, IRHService rhservice, IPactoAppService pactoservice) : base(usuarioAppService)
+        public RelatorioApoioFolhaPontoController (IUsuarioAppService usuarioAppService, IUnidadeService unidadeService, IPactoAppService pactoservice) : base(usuarioAppService)
         {
             _usuarioservice = usuarioAppService;
-            _rhservice = rhservice;
+            _unidadeService = unidadeService;
             _pactoservice = pactoservice;
         }
 
@@ -58,7 +58,7 @@ namespace PGD.UI.Mvc.Controllers
 
         private List<Unidade> ListarUnidades()
         {
-            return _rhservice.ObterUnidades().ToList();
+            return _unidadeService.ObterUnidades().ToList();
         }
 
         private List<UsuarioViewModel> ListarNomesPorUnidade()
@@ -68,7 +68,7 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost]
         public ActionResult Index(RelatorioFolhaPontoSearchViewModel dadosSearch)
         {
             ModelState.Clear();
@@ -185,7 +185,7 @@ namespace PGD.UI.Mvc.Controllers
         private void SetaErro(string msgErro)
         {
             var lstErros = new List<ValidationError> { new ValidationError(msgErro) };
-            setModelError(lstErros);
+            setModelErrorList(lstErros);
         }
     }
 }

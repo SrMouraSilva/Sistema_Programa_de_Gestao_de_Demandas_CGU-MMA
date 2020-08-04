@@ -2,11 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PGD.Domain.Entities;
 using PGD.Domain.Entities.RH;
-using PGD.Domain.Enums;
 using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -27,9 +23,9 @@ namespace PGD.Domain.Services
             _unidade_TipoPactoService = unidade_TipoPactoService;
         }
 
-        public IEnumerable<Perfil> ObterPerfis(Usuario objUsuario)
+        public IEnumerable<PGD.Domain.Enums.Perfil> ObterPerfis(Usuario objUsuario)
         {
-            var lista = new List<Perfil>();
+            var lista = new List<PGD.Domain.Enums.Perfil>();
 
             if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["SIGRHAPI"].ToString()))
                 return null;
@@ -45,7 +41,7 @@ namespace PGD.Domain.Services
 
                 try
                 {
-                    lista = JsonConvert.DeserializeObject<List<Perfil>>(retorno.Content.ReadAsStringAsync().Result);
+                    lista = JsonConvert.DeserializeObject<List<PGD.Domain.Enums.Perfil>>(retorno.Content.ReadAsStringAsync().Result);
                 }
                 catch
                 {

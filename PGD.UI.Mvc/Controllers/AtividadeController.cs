@@ -10,7 +10,6 @@ using PGD.UI.Mvc.Helpers;
 
 namespace PGD.UI.Mvc.Controllers
 {
-    [AuthorizePerfil(Perfil.Administrador)]
     public class AtividadeController : BaseController
     {
         IAtividadeAppService _atividadeAppService;
@@ -30,7 +29,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Index(string NomAtividade)
         {
             var lista = _atividadeAppService.ObterTodos();
@@ -66,7 +64,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(AtividadeViewModel atividadeViewModel)
         {
             for (int i = 0; i < atividadeViewModel.Tipos.Count; i++)
@@ -91,7 +88,7 @@ namespace PGD.UI.Mvc.Controllers
                 if (atividadeViewModel.ValidationResult.IsValid)
                     return setMessageAndRedirect(atividadeViewModel.ValidationResult.Message, "Index");
                 else
-                    setModelError(atividadeViewModel.ValidationResult.Erros);
+                    setModelErrorList(atividadeViewModel.ValidationResult.Erros);
             }
             return View(atividadeViewModel);
         }

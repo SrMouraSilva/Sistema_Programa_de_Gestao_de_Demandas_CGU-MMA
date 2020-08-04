@@ -25,7 +25,7 @@ namespace PGD.UI.Mvc.Filters
             }
             else
             {
-                filterContext.Result = controller.RedirectToAction("UsuarioNaoEncontrado", "Erro", null);
+                filterContext.Result = controller.RedirectToAction("Index", "Home", null);
             }
 
         }

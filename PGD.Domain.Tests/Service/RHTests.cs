@@ -6,17 +6,16 @@ using PGD.Domain.Tests.CRUD;
 using PGD.Infra.CrossCutting.IoC;
 using PGD.Infra.Data.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PGD.Domain.Tests.Service
 {
     [TestFixture]
     public class RHTests
     {
-        private IRHService _rHService;
+        private IFeriadoService _feriadoService;
+        private IUnidadeService _unidadeService;
+        private IPerfilService _perfilService;
         private IUsuarioService _usuarioService;
         private Usuario usuario;
         private IUnitOfWork _uow;
@@ -39,7 +38,9 @@ namespace PGD.Domain.Tests.Service
             BootStrapper.RegisterServicesSingleton(kernel);
             _uow = kernel.Get<IUnitOfWork>();
             _usuarioService = kernel.Get<IUsuarioService>();
-            _rHService = kernel.Get<IRHService>();
+            _perfilService = kernel.Get<IPerfilService>();
+            _unidadeService = kernel.Get<IUnidadeService>();
+            _feriadoService = kernel.Get<IFeriadoService>();
             usuario = _usuarioService.ObterPorCPF("11391275861");
         }
 
@@ -47,22 +48,22 @@ namespace PGD.Domain.Tests.Service
         public void VerificaFeriado(string dataVerificar)
         {
             var nvData = DateTime.Parse(dataVerificar);
-            Assert.IsTrue(_rHService.VerificaFeriado(nvData));
+            Assert.IsTrue(_feriadoService.VerificaFeriado(nvData));
         }
         [Order(2), TestCase(TestName = "Retorna Perfis"), Category("Integration")]
         public void RetornaPerfis()
         {
-            Assert.IsTrue(_rHService.ObterPerfis(usuario).ToList().Count() > 0);
+            Assert.IsTrue(_perfilService.ObterPerfis(usuario).ToList().Count() > 0);
         }
         [Order(3), TestCase(TestName = "Retorna Unidades"), Category("Integration")]
         public void RetornaUnidades()
         {
-            Assert.IsTrue(_rHService.ObterUnidades().ToList().Count() > 0);
+            Assert.IsTrue(_unidadeService.ObterUnidades().ToList().Count() > 0);
         }
         [Order(4), TestCase(TestName = "Retorna Feriados"), Category("Integration")]
         public void RetornaFeriados()
         {
-            Assert.IsTrue(_rHService.ObterFeriados(DateTime.Now.AddDays(-150)).ToList().Count() > 0);
+            Assert.IsTrue(_feriadoService.ObterFeriados(DateTime.Now.AddDays(-150)).ToList().Count() > 0);
         }
     }
 }

@@ -1,11 +1,8 @@
 ﻿using PGD.Application.Interfaces;
 using PGD.Application.ViewModels;
-using PGD.Domain.Entities;
 using PGD.Domain.Interfaces.Service;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PGD.UI.Mvc.Controllers
@@ -16,9 +13,9 @@ namespace PGD.UI.Mvc.Controllers
         ITipoPactoService tipoPactoService;
 
         public UnidadeTipoPactoController(IUsuarioAppService usuarioAppService, IUnidade_TipoPactoAppService unidadeTipoPactoAppService,
-            IRHService rhService, ITipoPactoService tipoPactoService) : base(usuarioAppService)
+            IUnidadeService unidadeService, ITipoPactoService tipoPactoService) : base(usuarioAppService)
         {
-            _rhservice = rhService;
+            _unidadeService = unidadeService;
             this.tipoPactoService = tipoPactoService;
             this.unidadeTipoPactoAppService = unidadeTipoPactoAppService;
         }
@@ -32,7 +29,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Index(string IdUnidade, string IdTipoPacto)
         {
             var lista = unidadeTipoPactoAppService.ObterTodos();
@@ -63,7 +59,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(Unidade_TipoPactoViewModel model)
         {
             PrepararTempDataDropdowns();
@@ -98,7 +93,7 @@ namespace PGD.UI.Mvc.Controllers
 
         public void PrepararTempDataDropdowns()
         {
-            TempData["lstUnidade"] = _rhservice.ObterUnidades().ToList();
+            TempData["lstUnidade"] = _unidadeService.ObterUnidades().ToList();
             TempData["lstTipos"] = tipoPactoService.ObterTodos().ToList();
         }
     }

@@ -19,7 +19,7 @@ namespace PGD.Domain.Specifications.Pactos
         //assinatura e a avaliação devem ser realizadas pelo dirigente desta unidade ou chefe da unidade imediatamente superior.
         #endregion
         public Usuario UsuarioLogado { get; set;}
-        public List<Perfil> Perfis { get; set; }
+        public List<PGD.Domain.Enums.Perfil> Perfis { get; set; }
         public bool IsSatisfiedBy(Pacto entity)
         {
             
@@ -27,7 +27,7 @@ namespace PGD.Domain.Specifications.Pactos
             {
                 foreach (var obj in Perfis)
                 {
-                    if(Perfil.Dirigente == obj)
+                    if(PGD.Domain.Enums.Perfil.Dirigente == obj)
                     {
                         return false;
                     }

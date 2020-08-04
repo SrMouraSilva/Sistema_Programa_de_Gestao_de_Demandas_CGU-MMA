@@ -75,12 +75,12 @@ namespace PGD.Application.ViewModels
 
         [Range(1, int.MaxValue, ErrorMessage = "Ao menos uma iniciativa deve ser selecionada")]
         public int TotIniciativas => IniciativasPlanoOperacionalSelecionadas?.Count() ?? 0;
-        public string CargaHorariaProdutoFormatada => TimeSpanUtil.FormatarParaHoras(CargaHorariaProduto);
+        public string CargaHorariaProdutoFormatada => Utilitarios.FormatarParaHoras(CargaHorariaProduto);
 
         public bool PossuiAvaliacoes => Avaliacoes?.Count > 0;
 
         public int QuantidadeProdutosAAvaliar => QuantidadeProduto - (Avaliacoes?.Sum(a => a.QuantidadeProdutosAvaliados)).GetValueOrDefault();
         public double CargaHorariaAAvaliar => QuantidadeProdutosAAvaliar * CargaHorariaProduto;
-        public string CargaHorariaAAvaliarFormatada => TimeSpanUtil.FormatarParaHoras(CargaHorariaAAvaliar);
+        public string CargaHorariaAAvaliarFormatada => Utilitarios.FormatarParaHoras(CargaHorariaAAvaliar);
     }
 }

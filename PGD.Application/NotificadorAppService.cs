@@ -17,16 +17,16 @@ namespace PGD.Application
     public class NotificadorAppService: ApplicationService, INotificadorAppService
     {
         private readonly IUsuarioAppService _usuarioAppService;
-        private readonly IRHService _rHService;
+        private readonly IUsuarioService _usuarioService;
         private readonly ISituacaoPactoService _situacaoPactoService;
 
         public NotificadorAppService(IUnitOfWork uow, 
-            IUsuarioAppService usuarioAppService, 
-            IRHService rHService,
+            IUsuarioAppService usuarioAppService,
+            IUsuarioService usuarioService,
             ISituacaoPactoService situacaoPactoService) : base(uow)
         {
             _usuarioAppService = usuarioAppService;
-            _rHService = rHService;
+            _usuarioService = usuarioService;
             _situacaoPactoService = situacaoPactoService;
         }
 
@@ -116,7 +116,7 @@ namespace PGD.Application
             String tabelaProdutos = MontarTextoTabelaProdutos(p);
             String linkPacto = System.Configuration.ConfigurationManager.AppSettings["URL_PGD"].ToString() + "Pacto/Solicitar/" + p.IdPacto;
 
-            var dirigentes = _rHService.ObterDirigentesUnidade(Convert.ToInt32(p.UnidadeExercicio)).ToList();
+            var dirigentes = _usuarioService.ObterDirigentesUnidade(Convert.ToInt32(p.UnidadeExercicio)).ToList();
 
             // Destinatários dos emails:
             // 1) Dirigentes 
@@ -231,7 +231,7 @@ namespace PGD.Application
             String tabelaProdutos = MontarTextoTabelaProdutos(p);
             String linkPacto = System.Configuration.ConfigurationManager.AppSettings["URL_PGD"].ToString() + "Pacto/Solicitar/" + p.IdPacto;
 
-            var dirigentes = _rHService.ObterDirigentesUnidade(Convert.ToInt32(p.UnidadeExercicio)).ToList();
+            var dirigentes = _usuarioService.ObterDirigentesUnidade(Convert.ToInt32(p.UnidadeExercicio)).ToList();
 
             // Destinatários dos emails:
             // 1) Dirigentes 
@@ -286,7 +286,7 @@ namespace PGD.Application
             String tabelaProdutos = MontarTextoTabelaProdutos(p);
             String linkPacto = System.Configuration.ConfigurationManager.AppSettings["URL_PGD"].ToString() + "Pacto/Solicitar/" + p.IdPacto;
 
-            var dirigentes = _rHService.ObterDirigentesUnidade(Convert.ToInt32(p.UnidadeExercicio)).ToList();
+            var dirigentes = _usuarioService.ObterDirigentesUnidade(Convert.ToInt32(p.UnidadeExercicio)).ToList();
 
             // Destinatários dos emails:
             // 1) Dirigentes 
@@ -342,7 +342,7 @@ namespace PGD.Application
             String tabelaProdutos = MontarTextoTabelaProdutos(p);
             String linkPacto = System.Configuration.ConfigurationManager.AppSettings["URL_PGD"].ToString() + "Pacto/Solicitar/" + p.IdPacto;
 
-            var dirigentes = _rHService.ObterDirigentesUnidade(Convert.ToInt32(p.UnidadeExercicio)).ToList();
+            var dirigentes = _usuarioService.ObterDirigentesUnidade(Convert.ToInt32(p.UnidadeExercicio)).ToList();
 
             // Destinatários dos emails:
             // 1) Dirigentes 
@@ -693,7 +693,7 @@ namespace PGD.Application
             string linkPacto = ObterLinkPacto(p);
 
 
-            List<Usuario> lstDestinatarios = _rHService.ObterDirigentesUnidade(Convert.ToInt32(p.UnidadeExercicio)).ToList();
+            List<Usuario> lstDestinatarios = _usuarioService.ObterDirigentesUnidade(Convert.ToInt32(p.UnidadeExercicio)).ToList();
             lstDestinatarios.Add(Mapper.Map<UsuarioViewModel, Usuario>(_usuarioAppService.ObterPorCPF(p.CpfUsuario)));
 
             bool montouMensagem = true;
@@ -750,7 +750,7 @@ namespace PGD.Application
             String destinatario = "";
             string tabelaProdutos = MontarTextoTabelaProdutos(p);
             String linkPacto = System.Configuration.ConfigurationManager.AppSettings["URL_PGD"].ToString() + "Pacto/Solicitar/" + p.IdPacto;
-            List<Usuario> lstDestinatarios = _rHService.ObterDirigentesUnidade(Convert.ToInt32(p.UnidadeExercicio)).ToList();
+            List<Usuario> lstDestinatarios = _usuarioService.ObterDirigentesUnidade(Convert.ToInt32(p.UnidadeExercicio)).ToList();
             lstDestinatarios.Add(Mapper.Map<UsuarioViewModel, Usuario>(_usuarioAppService.ObterPorCPF(p.CpfUsuario)));
 
             String dataSuspensao = p.SuspensoAPartirDe?.ToString("dd/MM/yyyy");

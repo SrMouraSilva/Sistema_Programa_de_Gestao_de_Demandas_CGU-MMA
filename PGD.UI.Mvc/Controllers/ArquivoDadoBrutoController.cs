@@ -14,7 +14,6 @@ using PGD.Domain.Enums;
 
 namespace PGD.UI.Mvc.Controllers
 {
-    [AuthorizePerfil(Perfil.Administrador)]
     public class ArquivoDadoBrutoController : BaseController
     {
         IArquivoDadoBrutoAppService _arquivoDadoBrutoAppService;
@@ -31,7 +30,6 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Index(SearchArquivosDadosBrutosViewModel obj)
         {
             var arqDadosBrutos = new List<ArquivoDadoBrutoViewModel>();

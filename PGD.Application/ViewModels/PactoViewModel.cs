@@ -120,7 +120,7 @@ namespace PGD.Application.ViewModels
         public string StrDataPrevistaInicio => DataPrevistaInicio.ToString("dd/MM/yyyy");
         public string StrDataPrevistaTermino => DataPrevistaTermino?.ToString("dd/MM/yyyy");
 
-        public string StrCargaHorariaHomologada => TimeSpanUtil.FormatarParaHoras(CargaHorariaTotalHomologada);
+        public string StrCargaHorariaHomologada => Utilitarios.FormatarParaHoras(CargaHorariaTotalHomologada);
         [Display(Name = "Carga Horária Total Avaliada")]
         public double CargaHorariaTotalHomologada => Avaliacoes?.Sum(a => a.CargaHorariaAvaliada) ?? 0;
 

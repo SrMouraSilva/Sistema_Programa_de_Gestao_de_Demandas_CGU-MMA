@@ -19,7 +19,7 @@ namespace PGD.Domain.Tests.CRUD
     [TestFixture]
     public class CronogramaTests
     {
-        private IRHService _rHService;
+        private IFeriadoService _feriadoService;
         private ICronogramaService _cronogramaService;
         private IPactoService _pactoService;
         private IOrdemServicoService _osService;
@@ -44,7 +44,7 @@ namespace PGD.Domain.Tests.CRUD
             BootStrapper.RegisterServicesSingleton(kernel);
             _uow = kernel.Get<IUnitOfWork>();
 
-            _rHService = kernel.Get<IRHService>();
+            _feriadoService = kernel.Get<IFeriadoService>();
             _cronogramaService = kernel.Get<ICronogramaService>();
             _pactoService = kernel.Get<IPactoService>();
             _osService = kernel.Get<IOrdemServicoService>();
@@ -136,7 +136,7 @@ namespace PGD.Domain.Tests.CRUD
             bool diaUtil = false;
             try
             {
-                diaUtil = _rHService.VerificaFeriado(DateTime.Now);
+                diaUtil = _feriadoService.VerificaFeriado(DateTime.Now);
             }
             catch (Exception ex)
             {

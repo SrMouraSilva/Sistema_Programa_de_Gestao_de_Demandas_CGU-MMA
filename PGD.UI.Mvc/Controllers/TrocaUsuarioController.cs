@@ -10,7 +10,6 @@ using System.Web.Mvc;
 
 namespace PGD.UI.Mvc.Controllers
 {
-    [AuthorizePerfil(Perfil.Administrador)]
     public class TrocaUsuarioController : BaseController
     {
         IUsuarioAppService _Usuarioservice;
