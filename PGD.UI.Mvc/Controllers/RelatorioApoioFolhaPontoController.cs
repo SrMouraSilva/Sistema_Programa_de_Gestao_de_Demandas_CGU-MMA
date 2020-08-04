@@ -185,7 +185,7 @@ namespace PGD.UI.Mvc.Controllers
         private void SetaErro(string msgErro)
         {
             var lstErros = new List<ValidationError> { new ValidationError(msgErro) };
-            setModelError(lstErros);
+            setModelErrorList(lstErros);
         }
     }
 }

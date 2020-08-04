@@ -1,4 +1,5 @@
-﻿using PGD.Application.Interfaces;
+﻿using DomainValidation.Validation;
+using PGD.Application.Interfaces;
 using PGD.Application.ViewModels;
 using PGD.Domain.Enums;
 using PGD.UI.Mvc.Helpers;
@@ -110,7 +111,7 @@ namespace PGD.UI.Mvc.Controllers
                 if (grupoatividadeViewModel.ValidationResult.IsValid)
                     return setMessageAndRedirect(grupoatividadeViewModel.ValidationResult.Message, "Index");
                 else
-                    setModelError(grupoatividadeViewModel.ValidationResult.Erros);
+                    setModelErrorList(grupoatividadeViewModel.ValidationResult.Erros);
             }
             
             if (grupoatividadeViewModel.idsGrupos == null)
@@ -137,7 +138,13 @@ namespace PGD.UI.Mvc.Controllers
             obj.Usuario = getUserLogado();
             
             if (obj.DatInicioSistema <= DateTime.Today)
+            {
+                var lstErros = new List<ValidationError>() { new ValidationError("Só é possível excluir OS com 'Data de início no sistema' superior a data atual ") };
+                setModelErrorList(lstErros);
                 return setMessageAndRedirect("Só é possível excluir OS com 'Data de início no sistema' superior a data atual ", "Index");
+            }
+           
+            return setMessageAndRedirect("Só é possível excluir OS com 'Data de início no sistema' superior a data atual ", "Index");
             
             var atividadeReturn = _OrdemServicoAppService.Remover(obj);
 

@@ -138,7 +138,7 @@ namespace PGD.UI.Mvc.Controllers
             if (PactoCompleto?.lstPactos?.Count != null && PactoCompleto.lstPactos.Count <= 0)
             {
                 var lstErros = new List<ValidationError>() { new ValidationError("Nenhum registro encontrado.") };
-                setModelError(lstErros);
+                setModelErrorList(lstErros);
             }
 
             ConfigurarNomesServidoresPesquisa();
@@ -825,7 +825,7 @@ namespace PGD.UI.Mvc.Controllers
 
                 if (!pactoViewModel.ValidationResult.IsValid)
                 {
-                    setModelError(pactoViewModel.ValidationResult.Erros);
+                    setModelErrorList(pactoViewModel.ValidationResult.Erros);
                 }
                 else
                 {

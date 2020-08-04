@@ -182,9 +182,14 @@ namespace PGD.UI.Mvc.Controllers
                 ModelState.AddModelError(mensagem.Message, mensagem.Message);
         }
 
-        public void setModelError(IEnumerable<ValidationError> erros)
+        public void setModelErrorList(IEnumerable<ValidationError> erros)
         {
             foreach (var erro in erros)
+                ModelState.AddModelError(string.Empty, erro.Message);
+        }
+
+        public void setModelError(ValidationError erro)
+        {
                 ModelState.AddModelError(string.Empty, erro.Message);
         }
 
@@ -202,7 +207,7 @@ namespace PGD.UI.Mvc.Controllers
 
         public ActionResult setMessageAndRedirect(IEnumerable<ValidationError> erros, string action, object routes = null)
         {
-            setModelError(erros);
+            setModelErrorList(erros);
             return RedirectToAction(action, routes);
         }
 

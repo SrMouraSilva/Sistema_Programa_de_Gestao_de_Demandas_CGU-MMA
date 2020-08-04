@@ -78,7 +78,7 @@ namespace PGD.UI.Mvc.Controllers
                     if (usuarioVM.ValidationResult.IsValid)
                         return setMessageAndRedirect(usuarioVM.ValidationResult.Message, "Index");
                     else
-                        setModelError(usuarioVM.ValidationResult.Erros);
+                        setModelErrorList(usuarioVM.ValidationResult.Erros);
                 }
                 else
                     ModelState.AddModelError("", "Usuário não encontrado");

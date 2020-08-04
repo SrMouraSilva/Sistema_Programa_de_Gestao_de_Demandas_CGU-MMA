@@ -119,7 +119,7 @@ namespace PGD.UI.Mvc.Controllers
                 if (criterioAvaliacaoViewModel.ValidationResult.IsValid)
                     return setMessageAndRedirect(criterioAvaliacaoViewModel.ValidationResult.Message, "Index");
                 else
-                    setModelError(criterioAvaliacaoViewModel.ValidationResult.Erros);
+                    setModelErrorList(criterioAvaliacaoViewModel.ValidationResult.Erros);
             }
 
             PrepararTempDataDropdowns();

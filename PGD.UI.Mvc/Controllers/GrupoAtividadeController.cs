@@ -86,7 +86,7 @@ namespace PGD.UI.Mvc.Controllers
                 if (grupoatividadeViewModel.ValidationResult.IsValid)
                     return setMessageAndRedirect(grupoatividadeViewModel.ValidationResult.Message, "Index");
                 else
-                    setModelError(grupoatividadeViewModel.ValidationResult.Erros);
+                    setModelErrorList(grupoatividadeViewModel.ValidationResult.Erros);
             }
             else
             {
