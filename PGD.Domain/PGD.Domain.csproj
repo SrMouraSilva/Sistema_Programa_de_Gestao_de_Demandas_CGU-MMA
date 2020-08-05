@@ -201,7 +201,6 @@
     <Compile Include="Entities\Produto.cs" />
     <Compile Include="Entities\Pacto.cs" />
     <Compile Include="Entities\RH\Feriado.cs" />
-    <Compile Include="Entities\RH\RecursosHumanos.cs" />
     <Compile Include="Entities\Cronograma.cs" />
     <Compile Include="Entities\Justificativa.cs" />
     <Compile Include="Entities\TipoPacto.cs" />
@@ -241,7 +240,6 @@
     <Compile Include="Interfaces\Repository\IProdutoRepository.cs" />
     <Compile Include="Interfaces\Repository\IPactoRepository.cs" />
     <Compile Include="Interfaces\Repository\IRepository.cs" />
-    <Compile Include="Interfaces\Repository\IRHRepository.cs" />
     <Compile Include="Interfaces\Repository\ICronogramaRepository.cs" />
     <Compile Include="Interfaces\Repository\ITipoAtividadeRepository.cs" />
     <Compile Include="Interfaces\Repository\IUsuarioRepository.cs" />

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Script.Serialization;
 using System.Web.UI.WebControls;
 
@@ -288,8 +289,14 @@ namespace PGD.UI.Mvc.Controllers
         }
 
 
-        public ActionResult Solicitar(int? id = null, int? idTipoPacto = null, int? abrircronograma = null)
+        public ActionResult Solicitar(int? id = null, int? idTipoPacto = null, int? abrircronograma = null, bool contemErro = false)
         {
+            if (contemErro)
+            {
+                var lstErros = new List<ValidationError>() { new ValidationError("Ação Inválida! É necessário informar o produto que será gerado pelo pacto.")};
+                setModelErrorList(lstErros);
+            }
+
             id = id == 0 ? null : id;
             var user = getUserLogado();
             ViewBag.CpfUsuarioLogado = RetornaCpfCorrigido(user.CPF);
@@ -591,8 +598,16 @@ namespace PGD.UI.Mvc.Controllers
         [HttpPost]
         public ActionResult Solicitar(PactoViewModel pactoViewModel)
         {
+            if (pactoViewModel.Produtos.Count == 0)
+            {
+                return setMessageAndRedirect(
+                    "Solicitar",
+                    new RouteValueDictionary { { "idTipoPacto", pactoViewModel.IdTipoPacto.ToString()}, { "contemErro", true }
+                    });
+            }
+
             string acao = pactoViewModel.Acao;
-            if (acao.Equals("Salvando") || acao.Equals("Assinando"))
+            if ((acao.Equals("Salvando") || acao.Equals("Assinando")) && ModelState.IsValid)
             {
                 pactoViewModel = SalvarSolicitar(pactoViewModel);
                 if (pactoViewModel.ValidationResult != null && pactoViewModel.ValidationResult.IsValid)
@@ -1252,8 +1267,7 @@ namespace PGD.UI.Mvc.Controllers
         [HttpPost]
         public ActionResult AddProduto(ProdutoViewModel model)
         {
-            var lista = (List<ProdutoViewModel>)TempData[GetNomeVariavelTempData("Produtos", model.IdPacto)];
-            TempData[GetNomeVariavelTempData("Produtos", model.IdPacto)] = lista;
+            var lista = new List<ProdutoViewModel>();
 
             if (ModelState.IsValid)
             {
@@ -1569,6 +1583,7 @@ namespace PGD.UI.Mvc.Controllers
             {
                 return null;
             }
+            AtualizaOrdemServico(0);
             var grupo = OrdemServico.Grupos.First(x => x.IdGrupoAtividade == idGrupo);
             var atividade = grupo.Atividades.First(a => a.IdAtividade == idAtividade);
             return Json(new { Link = atividade.Link });

@@ -199,6 +199,11 @@ namespace PGD.UI.Mvc.Controllers
             return RedirectToAction(action, routes);
         }
 
+        public ActionResult setMessageAndRedirect(string action, RouteValueDictionary routeValues)
+        {
+            return RedirectToAction(action, routeValues);
+        }
+
         public ActionResult setMessageAndRedirect(ValidationResult result, string action, object routes = null)
         {
             setMessage(result);
