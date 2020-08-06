@@ -607,13 +607,13 @@ namespace PGD.Application
         public PactoViewModel OrdemVigenteProdutos(OrdemServicoViewModel ordemVigente, PactoViewModel pacto)
         {
             pacto.OrdemServico = ordemVigente;
-            foreach (var produto in pacto.Produtos)
-            {
-                produto.GrupoAtividade = ordemVigente.Grupos.FirstOrDefault(x => x.IdGrupoAtividade == produto.IdGrupoAtividade);
-                produto.Atividade = produto.GrupoAtividade.Atividades.FirstOrDefault(x => x.IdAtividade == produto.IdAtividade);
-                produto.TipoAtividade = produto.Atividade.Tipos.FirstOrDefault(x => x.IdTipoAtividade == produto.IdTipoAtividade);
+                foreach (var produto in pacto.Produtos)
+                {
+                    produto.GrupoAtividade = ordemVigente.Grupos.FirstOrDefault(x => x.IdGrupoAtividade == produto.IdGrupoAtividade);
+                    produto.Atividade = produto.GrupoAtividade.Atividades.FirstOrDefault(x => x.IdAtividade == produto.IdAtividade);
+                    produto.TipoAtividade = produto.Atividade.Tipos.FirstOrDefault(x => x.IdTipoAtividade == produto.IdTipoAtividade);
 
-            }
+                }
             return pacto;
         }
 

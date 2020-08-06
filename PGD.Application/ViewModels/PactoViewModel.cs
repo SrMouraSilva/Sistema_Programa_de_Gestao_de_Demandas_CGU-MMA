@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Xml.Serialization;
 
 namespace PGD.Application.ViewModels
 {
@@ -13,6 +14,7 @@ namespace PGD.Application.ViewModels
         {
             Produtos = new List<ProdutoViewModel>();
             Historicos = new List<HistoricoViewModel>();
+            ValidationResult = new DomainValidation.Validation.ValidationResult();
         }
         [Display(Name = "Código do Pacto")]
         public int IdPacto { get; set; }
@@ -54,7 +56,9 @@ namespace PGD.Application.ViewModels
         public TimeSpan CargaHorariaDiaria{ get; set; }
         
         [Display(Name = "Carga Horária Total Pactuada")]
-        public double CargaHorariaTotal { get; set; }        
+        public double CargaHorariaTotal { get; set; }
+
+        [Required(ErrorMessage = "É necessário informar o produto que será produzido nesse Pacto")]
         public List<ProdutoViewModel> Produtos { get; set; }
         public List<HistoricoViewModel> Historicos { get; set; }        
         public List<AvaliacaoProdutoViewModel> Avaliacoes => Produtos?.SelectMany(p => p.Avaliacoes)?.ToList();

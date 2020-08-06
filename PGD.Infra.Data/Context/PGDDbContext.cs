@@ -51,7 +51,6 @@ namespace PGD.Infra.Data.Context
         public DbSet<ParametroSistema> ParametrosSistema { get; set; }
 
         public DbSet<Usuario> Usuario { get; set; }
-        public DbSet<RecursosHumanos> RecursosHumanos { get; set; }
         public DbSet<Unidade> Unidade { get; set; }
         public DbSet<Feriado> Feriado { get; set; }
 
@@ -108,7 +107,6 @@ namespace PGD.Infra.Data.Context
 
             modelBuilder.Configurations.Add(new UsuarioConfig());
             modelBuilder.Configurations.Add(new UnidadeConfig());
-            modelBuilder.Configurations.Add(new RecursosHumanosConfig());
             modelBuilder.Configurations.Add(new FeriadoConfig());
 
             modelBuilder.Configurations.Add(new HistoricoConfig());

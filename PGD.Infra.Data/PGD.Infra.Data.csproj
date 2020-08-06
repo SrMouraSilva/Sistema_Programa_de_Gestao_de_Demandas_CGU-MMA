@@ -144,7 +144,6 @@
     <Compile Include="EntityConfig\OS_ItemAvaliacaoConfig.cs" />
     <Compile Include="EntityConfig\OS_CriterioAvaliacaoConfig.cs" />
     <Compile Include="EntityConfig\NivelAvaliacaoConfig.cs" />
-    <Compile Include="EntityConfig\RecursosHumanosConfig.cs" />
     <Compile Include="EntityConfig\UnidadeConfig.cs" />
     <Compile Include="EntityConfig\Unidade_TipoPactoConfig.cs" />
     <Compile Include="EntityConfig\ParametroSistemaConfig.cs" />

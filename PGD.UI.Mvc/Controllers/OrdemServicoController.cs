@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace PGD.UI.Mvc.Controllers
 {
@@ -29,8 +30,14 @@ namespace PGD.UI.Mvc.Controllers
 
 
         // GET: OrdemServico
-        public ActionResult Index()
+        public ActionResult Index(bool contemErro = false, string mensagem = null)
         {
+            if (contemErro)
+            {
+                var lstErros = new List<ValidationError>() { new ValidationError(mensagem) };
+                setModelErrorList(lstErros);
+            }
+
             ViewBag.OrdemVigente = _OrdemServicoAppService.GetOrdemVigente();
             return View(_OrdemServicoAppService.ObterTodos());
         }
@@ -139,15 +146,15 @@ namespace PGD.UI.Mvc.Controllers
             
             if (obj.DatInicioSistema <= DateTime.Today)
             {
-                var lstErros = new List<ValidationError>() { new ValidationError("Só é possível excluir OS com 'Data de início no sistema' superior a data atual ") };
-                setModelErrorList(lstErros);
-                return setMessageAndRedirect("Só é possível excluir OS com 'Data de início no sistema' superior a data atual ", "Index");
+                return setMessageAndRedirect(
+                    "Index",
+                    new RouteValueDictionary { 
+                        { "mensagem", "Não é possível excluir uma OS com Data de início menor ou igual a data de hoje!" },
+                        { "contemErro", true }
+                    });
             }
-           
-            return setMessageAndRedirect("Só é possível excluir OS com 'Data de início no sistema' superior a data atual ", "Index");
-            
+             
             var atividadeReturn = _OrdemServicoAppService.Remover(obj);
-
             return setMessageAndRedirect(atividadeReturn.ValidationResult.Message, "Index");
         }
 
