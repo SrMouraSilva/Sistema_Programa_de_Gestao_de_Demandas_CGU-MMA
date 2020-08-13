@@ -31,7 +31,7 @@
     {
         @Html.AntiForgeryToken()
 
-        @Html.HiddenFor(model => Model.Nome)
+        <input type="hidden" name="Nome" value="@Model.Nome"/>
         @Html.HiddenFor(model => Model.IdPacto)
         @Html.HiddenFor(model => Model.MatriculaSIAPE)
         @Html.HiddenFor(model => Model.IdOrdemServico)
