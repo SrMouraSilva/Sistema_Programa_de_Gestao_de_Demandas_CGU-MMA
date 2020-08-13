@@ -1,5 +1,10 @@
 ﻿@model List<PGD.Application.ViewModels.ProdutoViewModel>
 
+@if (Model != null && Model.Any())
+{
+    @Html.EditorFor(x => x, "AddProdutoHiddens")
+}
+
 <table class="table table-bordered table-responsive" id="tblProdutos" data-paging="true" data-sorting="true" data-page-size="5" style="table-layout: fixed;word-wrap: break-word;">
     <thead>
         @if (Model != null && Model.Count > 0 && Model[0] != null && Model[0].PodeVisualizarPactuadoAvaliado)

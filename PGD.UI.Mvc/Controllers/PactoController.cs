@@ -333,7 +333,7 @@ namespace PGD.UI.Mvc.Controllers
 
                 ConfigurarNomesServidoresUnidadesSolicitacao(ViewBag.isDirigente, _pactoVM.Nome, id.GetValueOrDefault(), idTipoPacto.GetValueOrDefault());
 
-                AtualizaOrdemServico(id);
+                AtualizaOrdemServico(_pactoVM.OrdemServico.IdOrdemServico);
                 ConfigurarGruposAtividades(OrdemServico, _pactoVM.IdTipoPacto);
 
                 if (_pactoVM.Produtos.Count > 0)
@@ -424,7 +424,7 @@ namespace PGD.UI.Mvc.Controllers
         private void AtualizaOrdemServico(int? id)
         {
             if (id > 0)
-                OrdemServico = _ordemServicoService.ObterPorId(_pactoVM.OrdemServico.IdOrdemServico.Value);
+                OrdemServico = _ordemServicoService.ObterPorId(id.Value);
             else
                 OrdemServico = _ordemServicoService.GetOrdemVigente();
         }
@@ -606,6 +606,11 @@ namespace PGD.UI.Mvc.Controllers
                     });
             }
 
+            ModelState.Where(x => x.Key.Contains("Produtos[")).ToList().ForEach(x =>
+            {
+                ModelState[x.Key].Errors.Clear();
+            });
+
             string acao = pactoViewModel.Acao;
             if ((acao.Equals("Salvando") || acao.Equals("Assinando")) && ModelState.IsValid)
             {
@@ -676,8 +681,9 @@ namespace PGD.UI.Mvc.Controllers
             if (pactoViewModel.PossuiCargaHoraria != null && pactoViewModel.PossuiCargaHoraria == false)
                 pactoViewModel.CargaHorariaDiaria = TimeSpan.FromHours(8);
             var user = getUserLogado();
+            AtualizaOrdemServico(pactoViewModel.IdOrdemServico);
             ConfigurarGruposAtividades(OrdemServico, pactoViewModel.IdTipoPacto);
-            ConfigurarListaProdutos(pactoViewModel, OrdemServico);
+            // ConfigurarListaProdutos(pactoViewModel, OrdemServico);
 
             ViewBag.isDirigente = user.IsDirigente;
 
@@ -759,15 +765,27 @@ namespace PGD.UI.Mvc.Controllers
 
             if (ModelState.IsValid)
             {
+
+                pactoViewModel.Produtos.ForEach(x =>
+                {
+                    x.IniciativasPlanoOperacionalProduto = x.IniciativasPlanoOperacionalProduto ??
+                                                           new List<IniciativaPlanoOperacionalProdutoViewModel>();
+
+                    x.IniciativasPlanoOperacionalSelecionadas.ForEach(y =>
+                    {
+                        x.IniciativasPlanoOperacionalProduto.Add(new IniciativaPlanoOperacionalProdutoViewModel {IdIniciativaPlanoOperacional = y});
+                    });
+                });
+
                 // Inclusao
                 if (pactoViewModel.IdPacto == 0)
                 {
                     var perfil = user?.Perfis?.FirstOrDefault();
                     if (perfil != null && perfil.Value == Domain.Enums.Perfil.Solicitante)
                         pactoViewModel.CpfUsuario = RetornaCpfCorrigido(user.CPF);
-
                     
                     var acao = pactoViewModel.Acao;
+
                     pactoViewModel = _Pactoservice.Adicionar(pactoViewModel, user.IsDirigente, user);
 
                     if (pactoViewModel.ValidationResult.IsValid && pactoViewModel.IdPacto != 0  )
@@ -780,10 +798,10 @@ namespace PGD.UI.Mvc.Controllers
 
                         // Quando cadastrado por solicitante: Notificar a chefia pelo cadastro de pacto de subordinado que requer conferência e autorização, com cópia ao próprio solicitante.
                         // Quando cadastrado por chefe: notifica quem cadastrou e pra quem cadastrou. 
-                        if (! _notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, operEmail))
-                        {
-                            pactoViewModel.ValidationResult.Message = "Pacto incluído com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
-                        }
+                        // if (! _notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, operEmail))
+                        // {
+                        //     pactoViewModel.ValidationResult.Message = "Pacto incluído com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
+                        // }
                     }
                     if (pactoViewModel.ValidationResult.IsValid && pactoViewModel.IdPacto != 0 && acao == "Assinando")
                     {
@@ -815,26 +833,26 @@ namespace PGD.UI.Mvc.Controllers
                         pactoBuscado = _Pactoservice.BuscarPorId(pactoViewModel.IdPacto);
                         pactoBuscado.IdSituacaoPactoAnteriorAcao = idSituacaoAnterior;
 
-                        if (acao == "Assinando")
-                        {
-                            //Notificar o solicitante da assinatura do pacto pela chefia.
-                            if (user.IsDirigente)
-                            {
-                                if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, Domain.Enums.Operacao.Assinatura.ToString()))
-                                {
-                                    pactoViewModel.ValidationResult.Message = "Pacto alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
-                                }
-                            }
-                            
-                        }
-                        else // "Salvando"
-                        {
-                            //Notificar a chefia pelo cadastro de pacto de subordinado que requer conferência e autorização, com cópia ao próprio solicitante.
-                            if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, Domain.Enums.Operacao.Alteração.ToString()))
-                            {
-                                pactoViewModel.ValidationResult.Message = "Pacto alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
-                            }
-                        }
+                        // if (acao == "Assinando")
+                        // {
+                        //     //Notificar o solicitante da assinatura do pacto pela chefia.
+                        //     if (user.IsDirigente)
+                        //     {
+                        //         if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, Domain.Enums.Operacao.Assinatura.ToString()))
+                        //         {
+                        //             pactoViewModel.ValidationResult.Message = "Pacto alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
+                        //         }
+                        //     }
+                        //     
+                        // }
+                        // else // "Salvando"
+                        // {
+                        //     //Notificar a chefia pelo cadastro de pacto de subordinado que requer conferência e autorização, com cópia ao próprio solicitante.
+                        //     if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, Domain.Enums.Operacao.Alteração.ToString()))
+                        //     {
+                        //         pactoViewModel.ValidationResult.Message = "Pacto alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
+                        //     }
+                        // }
                     }
                 }
 
@@ -1267,7 +1285,7 @@ namespace PGD.UI.Mvc.Controllers
         [HttpPost]
         public ActionResult AddProduto(ProdutoViewModel model)
         {
-            var lista = new List<ProdutoViewModel>();
+            var lista = TempData[GetNomeVariavelTempData("Produtos", 0)] as List<ProdutoViewModel> ?? new List<ProdutoViewModel>();
 
             if (ModelState.IsValid)
             {
@@ -1287,6 +1305,8 @@ namespace PGD.UI.Mvc.Controllers
                     int indexLista = lista.IndexOf(lista.First(p => p.Index == model.Index));
                     lista[indexLista] = model;
                 }
+
+                TempData[GetNomeVariavelTempData("Produtos", 0)] = lista;
             }
             else
             {
@@ -1358,7 +1378,7 @@ namespace PGD.UI.Mvc.Controllers
         [HttpPost]
         public JsonResult GetCargaHorariaTotal(int idPacto)
         {
-            List<ProdutoViewModel> lista = (List<ProdutoViewModel>)TempData[GetNomeVariavelTempData("Produtos", idPacto)];
+            List<ProdutoViewModel> lista = (List<ProdutoViewModel>)TempData[GetNomeVariavelTempData("Produtos", idPacto)] ?? new List<ProdutoViewModel>();
             var cargaTotal = lista.Sum(p => p.CargaHorariaProduto * p.QuantidadeProduto);
             TempData[GetNomeVariavelTempData("Produtos", idPacto)] = lista;
             return Json(new { cargaHorariaTotal = cargaTotal });
