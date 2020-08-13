@@ -106,6 +106,12 @@ namespace PGD.UI.Mvc.Controllers
             getMessages();
         }
 
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            ModelState.AddModelError(string.Empty, "Ocorreu um erro ao executar a operação");
+            //base.OnException(filterContext);
+        }
+
         public string GetVersaoSistema()
         {
             // string versao =  ConfigurationManager.AppSettings["VersaoSistema"].ToString();

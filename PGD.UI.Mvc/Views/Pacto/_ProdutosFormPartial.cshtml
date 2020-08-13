@@ -113,10 +113,24 @@
         txtCargaHoraria.val(hourTohhmm(carga));
     }
 
+    function atualizaCargaHorariaTotalDoPacto() {
+        var cargaHorariaProduto = Number($("#form0").find("#CargaHorariaProduto").val() || 0);
+        var qtdProduto = Number($("#form0").find("#QuantidadeProduto").val() || 0);
+        var hdnCargaTotalPacto = $("#frmPacto").find("#CargaHorariaTotal");
+
+        hdnCargaTotalPacto.val(hdnCargaTotalPacto.val() ? hdnCargaTotalPacto.val().replace(",", ".") : 0);
+
+        var cargaTotalAnterior = Number(hdnCargaTotalPacto.val());
+        var cargaTotalNova = cargaTotalAnterior + (cargaHorariaProduto * qtdProduto);
+
+        hdnCargaTotalPacto.val(cargaTotalNova);
+        $("#divCargaHorariaTotal").find("#lblCargaTotal").val(hourTohhmm(cargaTotalNova));
+    }
+
     function addProdutoSucess(response) {
+        atualizaCargaHorariaTotalDoPacto();
         //Limpa o form de Produtos
         LimpaFormProdutos();
-        atualizaCargaHorariaTotal();
     }
 
     function LimpaFormProdutos() {
@@ -132,10 +146,9 @@
 
         //var selectIniciativas = $('#@Html.IdFor(m => m.IniciativasPlanoOperacionalSelecionadas)');
         //selectIniciativas[0].selectize.clear();
-        
-         
-        if (eval(habilitarEdicaoProdutos.toLowerCase()))
-        {
+
+
+        if (eval(habilitarEdicaoProdutos.toLowerCase())) {
             cmbGrupoAtividades.removeAttr("disabled");
             cmbAtividades.removeAttr("disabled");
             txtQtdProduto.removeAttr("readonly");

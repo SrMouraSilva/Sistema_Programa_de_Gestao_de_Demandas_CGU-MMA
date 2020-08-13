@@ -506,6 +506,7 @@
     <Content Include="Views\CriterioAvaliacao\Create.cshtml" />
     <Content Include="Views\CriterioAvaliacao\_ItemAvaliacaoPartial.cshtml" />
     <Content Include="Views\Pacto\_AvaliacaoDetalhadaPartial.cshtml" />
+    <Content Include="Views\Pacto\EditorTemplates\AddProdutoHiddens.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
