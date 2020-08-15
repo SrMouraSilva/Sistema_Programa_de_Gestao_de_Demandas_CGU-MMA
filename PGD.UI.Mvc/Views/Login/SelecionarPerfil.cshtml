@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Selecionar perfil";
+}
+
+<br /><br />
+
+      <div class="well" style="margin: auto; width: 50%; padding: 10px;">
+          <h2 class="col-md-12 text-center">Ministério do Meio Ambiente</h2>
+          <br /><br /><br />
+          <h2 class="col-md-12 text-center">Selecione o perfil desejado:</h2>
+          <br /><br />
+
+          @using (Html.BeginForm("SelecionarPerfil", "Login", FormMethod.Post, htmlAttributes: new { @class = "form col-md-12" }))
+          {
+              @Html.AntiForgeryToken()
+              <div class="panel panel-default" style="border: 2px solid black">
+                  <div class="panel-heading" style="background-image: none; background-color: #165abf"></div>
+                  <div class="panel-body text-center">
+                      <div class="row">
+                          <div class="col-md-4">
+                              @Html.RadioButton("Perfil", PGD.Domain.Enums.Perfil.Administrador, false, new { @id = "perfilAdministrador" })
+                              @Html.Label("Administrador", new { @for = "perfilAdministrador" })
+                          </div>
+                          <div class="col-md-4">
+                              @Html.RadioButton("Perfil", PGD.Domain.Enums.Perfil.Dirigente, false, new { @id = "perfilDirigente" })
+                              @Html.Label("Dirigente", new { @for = "perfilDirigente" })
+                          </div>
+                          <div class="col-md-4">
+                              @Html.RadioButton("Perfil", PGD.Domain.Enums.Perfil.Solicitante, false, new { @class = "cssSolicitante", @id = "perfilSolicitante" })
+                              @Html.Label("Solicitante", new { @for = "perfilSolicitante" })
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="col text-center">
+                      <button class="btn btn-primary">Entrar</button>
+                  </div>
+              </div>
+          }
+
+          <div class="clearfix"></div>
+      </div>

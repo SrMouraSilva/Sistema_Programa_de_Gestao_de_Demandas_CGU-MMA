@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PGD.Domain.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -45,13 +46,27 @@ namespace PGD.Application.ViewModels
         [ScaffoldColumn(false)]
         public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }
 
-        public List<Domain.Enums.Perfil> Perfis { get; set; }
+        public List<Perfil> Perfis { get; set; }
+
+        public Perfil? PerfilSelecionado { get; set; }
+
+        public int? IdUnidadeSelecionada { get; set; }
 
         public UsuarioViewModel Usuario { get; set; }
 
         public string DescricaoPerfil => $"{Perfis.FirstOrDefault().ToString()}{(Administrador ? " / Administrador" : "")}";
 
         public bool IsDirigente => Perfis.Any(x => x == Domain.Enums.Perfil.Dirigente);
+
+        public void AlterarPerfilSelecionado(Perfil perfil)
+        {
+            PerfilSelecionado = perfil;
+        }
+
+        public void AlterarUnidadeSelecionada(int idUnidade)
+        {
+            IdUnidadeSelecionada = idUnidade;
+        }
     }
 
 

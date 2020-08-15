@@ -113,7 +113,9 @@
         <div class="menu">
             <div class="container" style="padding-bottom: 0;">
                 <ul class="pull-left">
-                    @if (controller != null && !(controller.ControllerContext.RouteData.Values["controller"].ToString() == "Perfil" && controller.ControllerContext.RouteData.Values["action"].ToString() == "Selecionar"))
+                    @if (controller != null && 
+                        !(controller.ControllerContext.RouteData.Values["controller"].ToString() == "Perfil" && controller.ControllerContext.RouteData.Values["action"].ToString() == "Selecionar")
+                        && controller.ControllerContext.RouteData.Values["controller"].ToString() != "Login")
                     {
                         <li>
                             <a href="#" id="menuPactos">Pactos</a>
