@@ -2,12 +2,11 @@
 using PGD.Application.ViewModels;
 using PGD.Domain.Interfaces.Service;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using System.DirectoryServices;
 using System.Configuration;
 using System.DirectoryServices.Protocols;
+using System.Linq;
 using System.Net;
+using System.Web.Mvc;
 
 namespace PGD.UI.Mvc.Controllers
 {
@@ -46,11 +45,9 @@ namespace PGD.UI.Mvc.Controllers
         {
             try
             {
-                // verifica se esta tudo certo no LDAP
                 AutenticarLDAP(loginViewModel);
 
-                // busca na base
-                var usuario = NovoUsuarioFake();
+                var usuario = BuscarUsuario(loginViewModel);
 
                 var deveSelecionarPerfil = _usuarioAppService.PodeSelecionarPerfil(usuario);
 
@@ -101,7 +98,7 @@ namespace PGD.UI.Mvc.Controllers
 
             setUserLogado(usuario);
 
-            var possuiUnidades = VerificarPerfilSePossuiMaisDeUmaUnidade(perfil.Value);
+            var possuiUnidades = _usuarioAppService.PodeSelecionarUnidade(usuario);
 
             if (possuiUnidades)
                 return RedirectToAction("SelecionarUnidade", "Login");
@@ -140,15 +137,6 @@ namespace PGD.UI.Mvc.Controllers
             return RedirectToAction("Index", "Login");
         }
 
-        private bool VerificarPerfilSePossuiMaisDeUmaUnidade(Domain.Enums.Perfil perfil)
-        {
-            // RNG007 se o perfil for Dirigente ou Administrador e possuir mais de uma unidade, selecionar unidade
-            if (perfil == Domain.Enums.Perfil.Administrador || perfil == Domain.Enums.Perfil.Dirigente)
-                return true;
-
-            return false;
-        }
-
         private void PrepararTempDataDropdowns()
         {
             TempData["lstUnidade"] = _unidadeService.ObterUnidades().ToList();
@@ -161,11 +149,11 @@ namespace PGD.UI.Mvc.Controllers
             Session.Abandon();
         }
 
-        private UsuarioViewModel NovoUsuarioFake()
+        private UsuarioViewModel BuscarUsuario(LoginViewModel loginViewModel)
         {
             return new UsuarioViewModel
             {
-                CPF = "999.999.999-99",
+                CPF = loginViewModel.Cpf,
                 Nome = "Bruno Corcino",
                 Matricula = "99999",
                 Perfis = new List<Domain.Enums.Perfil> { Domain.Enums.Perfil.Dirigente, Domain.Enums.Perfil.Solicitante, Domain.Enums.Perfil.Administrador }

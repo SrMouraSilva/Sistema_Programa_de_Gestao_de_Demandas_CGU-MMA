@@ -132,6 +132,15 @@ namespace PGD.Application
 
         }
 
+        public bool PodeSelecionarUnidade(UsuarioViewModel usuario)
+        {
+            // RNG007 se o perfil for Dirigente ou Administrador e possuir mais de uma unidade, selecionar unidade
+            if (usuario.PerfilSelecionado == Domain.Enums.Perfil.Administrador || usuario.PerfilSelecionado == Domain.Enums.Perfil.Dirigente)
+                return true;
+
+            return false;
+        }
+
         List<Domain.Enums.Perfil> IUsuarioAppService.ObterPerfis(UsuarioViewModel usuario)
         {
             throw new NotImplementedException();
