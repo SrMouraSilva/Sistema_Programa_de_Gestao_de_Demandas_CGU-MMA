@@ -38,7 +38,18 @@ namespace PGD.UI.Mvc.Controllers
             if (!usuario.PerfilSelecionado.HasValue)
                 return RedirectToAction("SelecionarPerfil", "Login");
             else
-                return RedirectToAction("Index", "Pacto");
+            {
+                var deveSelecionarUnidade = _usuarioAppService.PodeSelecionarUnidade(usuario);
+
+                if (!deveSelecionarUnidade)
+                {
+                    usuario.SelecionarUnidadePadrao();
+                    setUserLogado(usuario);
+                    return RedirectToAction("Index", "Home");
+                }
+
+                return RedirectToAction("SelecionarUnidade", "Login");
+            }
         }
 
         private UsuarioViewModel Login(LoginViewModel loginViewModel)
@@ -52,10 +63,7 @@ namespace PGD.UI.Mvc.Controllers
                 var deveSelecionarPerfil = _usuarioAppService.PodeSelecionarPerfil(usuario);
 
                 if (!deveSelecionarPerfil)
-                {
                     usuario.AlterarPerfilSelecionado(usuario.Perfis.FirstOrDefault());
-                    usuario.SelecionarUnidadePadrao();
-                }
 
                 setUserLogado(usuario);
                 return usuario;
@@ -109,7 +117,7 @@ namespace PGD.UI.Mvc.Controllers
             {
                 usuario.SelecionarUnidadePadrao();
                 setUserLogado(usuario);
-                return RedirectToAction("Index", "Pacto");
+                return RedirectToAction("Index", "Home");
             }
                 
         }
@@ -134,7 +142,7 @@ namespace PGD.UI.Mvc.Controllers
 
             setUserLogado(usuario);
 
-            return RedirectToAction("Index", "Pacto");
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult LogOut()
