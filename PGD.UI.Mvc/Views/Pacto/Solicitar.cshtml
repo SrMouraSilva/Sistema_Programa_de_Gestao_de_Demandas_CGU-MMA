@@ -32,6 +32,7 @@
         @Html.AntiForgeryToken()
 
         <input type="hidden" name="Nome" value="@Model.Nome"/>
+        <input type="hidden" id="hdn-lista-produtos-pacto-temp-data" value="@Json.Encode(TempData["Produtos" + Model.IdPacto] as List<ProdutoViewModel> ?? new List<ProdutoViewModel>())"/>
         @Html.HiddenFor(model => Model.IdPacto)
         @Html.HiddenFor(model => Model.MatriculaSIAPE)
         @Html.HiddenFor(model => Model.IdOrdemServico)
@@ -215,13 +216,13 @@
                 </div>
 
                 <div class="form-group col-md-12 text-left">
-                    @using (Ajax.BeginForm("ExibirCronograma", "Cronograma", new { @id = "frmExibirCronograma" }, new AjaxOptions()
+                    @using (Ajax.BeginForm("ExibirCronograma", "Cronograma", null, new AjaxOptions()
                     {
                         HttpMethod = "Post",
                         UpdateTargetId = "divConteudoCronograma",
                         OnSuccess = "exibirPopupCronograma",
                         OnFailure = "defaultFailureHandler"
-                    }))
+                    }, new { @id = "frmExibirCronograma" }))
                     {
 
                         @Html.Hidden("DataInicial", Model.DataPrevistaInicio.ToShortDateString(), new { })
@@ -380,7 +381,7 @@
                 //     $("#lblCargaTotal").val(hourTohhmm(carga));
                 //     atualizaData();
                 // });
-                var carga = parseFloat(Number(@Model.CargaHorariaTotal)).toFixed(2);
+                var carga = parseFloat(($("[name*='@Html.IdFor(m => m.CargaHorariaTotal)']").val() || "0,0").replace(",", ".")).toFixed(2);
                 $("[name*='@Html.IdFor(m => m.CargaHorariaTotal)']").each(function () {
                     this.value = carga;
                     this.value = this.value.replace('.', ',');

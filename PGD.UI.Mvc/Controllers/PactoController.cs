@@ -1363,16 +1363,23 @@ namespace PGD.UI.Mvc.Controllers
             TempData[GetNomeVariavelTempData("Produtos", idPacto)] = lista;
             return PartialView("_ProdutosObservacaoPartial", pvm);
         }
-        
 
-        public PartialViewResult ExcluiProduto(int indexProduto, int idPacto, int idTipoPacto)
+
+        public ActionResult ExcluiProduto(int indexProduto, int idPacto, int idTipoPacto)
         {
-            List<ProdutoViewModel> lista = (List<ProdutoViewModel>)TempData[GetNomeVariavelTempData("Produtos", idPacto)];
-            ProdutoViewModel pvm = lista.First(m => m.Index == indexProduto);
+            List<ProdutoViewModel> lista =
+                (List<ProdutoViewModel>) TempData[GetNomeVariavelTempData("Produtos", idPacto)];
+            ProdutoViewModel pvm = lista.FirstOrDefault(m => m.Index == indexProduto);
             ConfigurarGruposAtividades(OrdemServico, idTipoPacto);
-            lista.Remove(pvm);
+            if (pvm != null) lista.Remove(pvm);
             TempData[GetNomeVariavelTempData("Produtos", idPacto)] = lista;
-            return PartialView("_ProdutosTablePartial", lista);
+            return pvm != null
+                ? Json(new
+                {
+                    html = RenderPartialViewToString("~/Views/Pacto/_ProdutosTablePartial.cshtml", lista),
+                    hrsRemovidas = pvm.CargaHorariaProduto * pvm.QuantidadeProduto
+                }, JsonRequestBehavior.AllowGet)
+                : Json(new {html = RenderPartialViewToString("~/Views/Pacto/_ProdutosTablePartial.cshtml", lista), hrsRemovidas = 0}, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

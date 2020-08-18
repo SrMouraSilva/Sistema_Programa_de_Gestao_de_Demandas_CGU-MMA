@@ -1,4 +1,5 @@
-﻿using PGD.Application.AutoMapper;
+﻿using System;
+using PGD.Application.AutoMapper;
 using System.Net;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -23,6 +24,11 @@ namespace PGD.UI.Mvc
 #endif
 
         }
+        
+        void Session_Start(object sender, EventArgs e) 
+        {
+            if (Request.IsSecureConnection) Response.Cookies["ASP.NET_SessionID"].Secure = false;
+        }
 
         protected void Application_EndRequest()
         {
@@ -32,7 +38,7 @@ namespace PGD.UI.Mvc
                 Context.Response.End();
             }
         }
-
+        
 
     }
 }
