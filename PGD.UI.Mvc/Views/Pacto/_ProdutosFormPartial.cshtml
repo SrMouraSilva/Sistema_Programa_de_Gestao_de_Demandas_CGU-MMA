@@ -1,13 +1,13 @@
 ﻿@model PGD.Application.ViewModels.ProdutoViewModel
 @using PGD.Application.ViewModels;
 
-@using (Ajax.BeginForm("AddProduto", new AjaxOptions()
+@using (Ajax.BeginForm("AddProduto", null, ajaxOptions: new AjaxOptions()
 {
     HttpMethod = "Post",
     UpdateTargetId = "containerProdutosTablePartial",
     OnSuccess = "addProdutoSucess",
     OnFailure = "defaultFailureHandler"
-}))
+},  htmlAttributes: new { id = "form-add-produto"}))
 {
 
 <div class="panel panel-body panel-default">
@@ -103,7 +103,9 @@
 
     var habilitarEdicaoProdutos = '@(Model.PodeEditar || Model.PodeEditarAndamento)';
     $('#LinkAtividade').hide();
-
+    var formAddProduto = $('#form-add-produto');
+    var hrsAntigaProduto = 0;
+    
     function calcularCargaHoraria(resultado) {
         var txtCargaHoraria = $('#@Html.IdFor(m => m.CargaHorariaTotalProdutoFormatada)');
         var hiddenCargaHoraria = $('#@Html.IdFor(m => m.CargaHorariaProduto)');
@@ -114,23 +116,35 @@
     }
 
     function atualizaCargaHorariaTotalDoPacto() {
-        var cargaHorariaProduto = Number($("#form0").find("#CargaHorariaProduto").val() || 0);
-        var qtdProduto = Number($("#form0").find("#QuantidadeProduto").val() || 0);
+        var cargaHorariaProduto = Number(formAddProduto.find("#CargaHorariaProduto").val() || 0);
+        var qtdProduto = Number(formAddProduto.find("#QuantidadeProduto").val() || 0);
         var hdnCargaTotalPacto = $("#frmPacto").find("#CargaHorariaTotal");
+        var hdnHorasTotaisCronograma = $("#frmExibirCronograma").find("#HorasTotais");
 
         hdnCargaTotalPacto.val(hdnCargaTotalPacto.val() ? hdnCargaTotalPacto.val().replace(",", ".") : 0);
 
         var cargaTotalAnterior = Number(hdnCargaTotalPacto.val());
-        var cargaTotalNova = cargaTotalAnterior + (cargaHorariaProduto * qtdProduto);
+        var cargaTotalNova = (cargaTotalAnterior - hrsAntigaProduto) + (cargaHorariaProduto * qtdProduto);
 
         hdnCargaTotalPacto.val(cargaTotalNova);
+        hdnHorasTotaisCronograma.val(cargaTotalNova);
         $("#divCargaHorariaTotal").find("#lblCargaTotal").val(hourTohhmm(cargaTotalNova));
+        hrsAntigaProduto = 0;
     }
 
     function addProdutoSucess(response) {
         atualizaCargaHorariaTotalDoPacto();
         //Limpa o form de Produtos
         LimpaFormProdutos();
+        atualizaData();
+    }
+    
+    function excluirProdutoSucesso(retorno){
+        var hdnCargaTotalPacto = $("#frmPacto").find("#CargaHorariaTotal");
+        hdnCargaTotalPacto.val(hdnCargaTotalPacto.val() ? hdnCargaTotalPacto.val().replace(",", ".") : 0);
+        hdnCargaTotalPacto.val(Number(hdnCargaTotalPacto.val()) - Number(retorno.hrsRemovidas || 0));
+        $('#containerProdutosTablePartial').html(retorno.html);
+        atualizaCargaHorariaTotal();
     }
 
     function LimpaFormProdutos() {
@@ -162,7 +176,12 @@
     }
 
     function preparaAlteracaoProdutoSuccess(data) {
-
+       var view = $.parseHTML(`<div>${data}</div>`);
+       var cargaProduto = Number($(view).find('#form-add-produto').find("#CargaHorariaProduto").val() || 0);
+       var qtdProduto = Number($(view).find('#form-add-produto').find("#QuantidadeProduto").val() || 0);
+       
+       hrsAntigaProduto = cargaProduto * qtdProduto;
+        
         var cmdQtd = $('#@Html.IdFor(m => m.QuantidadeProduto)');
         var hddIdProduto = $('#@Html.IdFor(m => m.IdProduto)');
 
@@ -173,7 +192,8 @@
         
 
         $('#@Html.IdFor(m => m.IdGrupoAtividade)').trigger("change");
-        $('#@Html.IdFor(m => m.IdGrupoAtividade)').focus();    }
+        $('#@Html.IdFor(m => m.IdGrupoAtividade)').focus();    
+    }
 
     function preparaAlteracaoObservacaoProdutoSuccess(response) {
         exibirPopupObservacaoProduto(response);
