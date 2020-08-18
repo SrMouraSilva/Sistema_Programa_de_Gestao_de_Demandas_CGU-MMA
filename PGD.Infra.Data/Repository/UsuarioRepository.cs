@@ -23,14 +23,14 @@ namespace PGD.Infra.Data.Repository
         public Usuario ObterPorCPF(string cpf)
         {
             cpf = cpf.PadLeft(11, '0');
-            var usuario = DbSet.AsNoTracking().Where(a => a.CPF.Replace("\r", string.Empty).Replace("\n", string.Empty) == cpf).FirstOrDefault();
+            var usuario = DbSet.AsNoTracking().Where(a => a.Cpf.Replace("\r", string.Empty).Replace("\n", string.Empty) == cpf).FirstOrDefault();
             if (usuario == null)
             {
                 long novocpf;
                 if (long.TryParse(cpf, out novocpf))
                 {
                     cpf = novocpf.ToString();
-                    usuario = DbSet.AsNoTracking().Where(a => a.CPF.Replace("\r", string.Empty).Replace("\n", string.Empty) == cpf).FirstOrDefault();
+                    usuario = DbSet.AsNoTracking().Where(a => a.Cpf.Replace("\r", string.Empty).Replace("\n", string.Empty) == cpf).FirstOrDefault();
                 }
 
             }

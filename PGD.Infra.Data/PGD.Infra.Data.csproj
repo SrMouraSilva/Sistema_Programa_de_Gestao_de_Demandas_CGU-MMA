@@ -159,11 +159,17 @@
     <Compile Include="EntityConfig\OS_TipoAtividadeConfig.cs" />
     <Compile Include="EntityConfig\CronogramaConfig.cs" />
     <Compile Include="EntityConfig\TipoAtividadeConfig.cs" />
+    <Compile Include="EntityConfig\PerfilConfig.cs" />
+    <Compile Include="EntityConfig\UsuarioPerfilUnidadeConfig.cs" />
     <Compile Include="EntityConfig\UsuarioConfig.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\202006301923291_criacao_banco.cs" />
     <Compile Include="Migrations\202006301923291_criacao_banco.Designer.cs">
       <DependentUpon>202006301923291_criacao_banco.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008182316502_modelagemUsuarioPerfil.cs" />
+    <Compile Include="Migrations\202008182316502_modelagemUsuarioPerfil.Designer.cs">
+      <DependentUpon>202008182316502_modelagemUsuarioPerfil.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -224,6 +230,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202006301923291_criacao_banco.resx">
       <DependentUpon>202006301923291_criacao_banco.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008182316502_modelagemUsuarioPerfil.resx">
+      <DependentUpon>202008182316502_modelagemUsuarioPerfil.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

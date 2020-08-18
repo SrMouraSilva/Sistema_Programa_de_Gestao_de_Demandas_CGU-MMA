@@ -37,7 +37,7 @@ namespace PGD.Domain.Services
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));//"application/json"
                 client.Timeout = new TimeSpan(1, 0, 0);
-                var retorno = client.GetAsync(string.Format("api/Perfil/{0}", objUsuario.CPF)).Result;
+                var retorno = client.GetAsync(string.Format("api/Perfil/{0}", objUsuario.Cpf)).Result;
 
                 try
                 {
@@ -45,7 +45,7 @@ namespace PGD.Domain.Services
                 }
                 catch
                 {
-                    string errMsg = $"erro no obterperfis, cpf: {objUsuario.CPF} \n Retorno: {retorno.Content.ReadAsStringAsync().Result}";
+                    string errMsg = $"erro no obterperfis, cpf: {objUsuario.Cpf} \n Retorno: {retorno.Content.ReadAsStringAsync().Result}";
                     throw new Exception(errMsg);
                 }
             }
