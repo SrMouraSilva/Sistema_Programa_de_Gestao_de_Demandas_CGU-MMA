@@ -510,6 +510,7 @@
     <Content Include="Views\CriterioAvaliacao\Create.cshtml" />
     <Content Include="Views\CriterioAvaliacao\_ItemAvaliacaoPartial.cshtml" />
     <Content Include="Views\Pacto\_AvaliacaoDetalhadaPartial.cshtml" />
+    <Content Include="Views\Pacto\EditorTemplates\AddProdutoHiddens.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\SelecionarPerfil.cshtml" />
     <Content Include="Views\Login\SelecionarUnidade.cshtml" />

@@ -808,7 +808,7 @@ namespace PGD.Application
             catch (Exception ex)
             {
                 // Nada a fazer, apenas loga. Futuramente podem-se armazenar os emails que falharam e tentar reenviar
-                LogManagerComum.LogarErro(ex, null, " Email não enviado. Detalhe: Para: " + destinatario + "\n Assunto: " + assunto + "\n Mensagem: " + mensagem);
+               LogManagerComum.LogarErro(ex, null, " Email não enviado. Detalhe: Para: " + destinatario + "\n Assunto: " + assunto + "\n Mensagem: " + mensagem);
                 throw;
             }
         }

@@ -16,6 +16,7 @@ using System.Threading;
 using System.Globalization;
 using System.Data;
 using System.IO;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -106,12 +107,45 @@ namespace PGD.UI.Mvc.Controllers
             getMessages();
         }
 
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            ModelState.AddModelError(string.Empty, "Ocorreu um erro ao executar a operação");
+            //base.OnException(filterContext);
+        }
+
         public string GetVersaoSistema()
         {
             // string versao =  ConfigurationManager.AppSettings["VersaoSistema"].ToString();
             string assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             return assemblyVersion;
+        }
+        
+        public string RenderPartialViewToString(string viewName, object model)
+        {    
+            using (var sw = new StringWriter())
+            {
+                
+                // Create an MVC Controller Context
+                var wrapper = new HttpContextWrapper(System.Web.HttpContext.Current);
+
+                RouteData routeData = new RouteData();
+
+                routeData.Values.Add("controller", this.GetType().Name
+                    .ToLower()
+                    .Replace("controller", ""));
+
+                this.ControllerContext = new ControllerContext(wrapper, routeData, this);
+
+                this.ViewData.Model = model;
+
+                var viewResult = ViewEngines.Engines.FindPartialView(this.ControllerContext, viewName);
+
+                var viewContext = new ViewContext(this.ControllerContext, viewResult.View, this.ViewData, this.TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+
+                return sw.ToString();
+            }
         }
 
         public new RedirectToRouteResult RedirectToAction(string action, string controller, object routeValues)
