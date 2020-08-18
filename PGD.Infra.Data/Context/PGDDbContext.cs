@@ -139,7 +139,10 @@ namespace PGD.Infra.Data.Context
                    cs.MapLeftKey("IdGrupoAtividade");
                    cs.MapRightKey("IdTipoPacto");
                    cs.ToTable("OS_TipoPacto_GrupoAtividade");
-               });            
+               });
+            
+            modelBuilder.Configurations.Add(new PerfilConfig());
+            modelBuilder.Configurations.Add(new UsuarioPerfilUnidadeConfig());
 
             base.OnModelCreating(modelBuilder);
 

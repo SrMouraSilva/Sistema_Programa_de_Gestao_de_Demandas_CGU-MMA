@@ -17,10 +17,10 @@ namespace PGD.Domain.Services
         {
             var lista = new List<Enums.Perfil>();
 
-            if (this.EhDirigente(objUsuario.CPF))
+            if (this.EhDirigente(objUsuario.Cpf))
                 lista.Add(Enums.Perfil.Dirigente);
 
-            if (this.EhSolicitante(objUsuario.CPF))
+            if (this.EhSolicitante(objUsuario.Cpf))
                 lista.Add(Enums.Perfil.Solicitante);
 
             //Se não for nem dirigente nem solicitante, retorna como consulta
