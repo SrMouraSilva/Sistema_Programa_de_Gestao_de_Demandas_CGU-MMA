@@ -52,7 +52,10 @@ namespace PGD.UI.Mvc.Controllers
                 var deveSelecionarPerfil = _usuarioAppService.PodeSelecionarPerfil(usuario);
 
                 if (!deveSelecionarPerfil)
-                    usuario.PerfilSelecionado = usuario.Perfis.FirstOrDefault();
+                {
+                    usuario.AlterarPerfilSelecionado(usuario.Perfis.FirstOrDefault());
+                    usuario.SelecionarUnidadePadrao();
+                }
 
                 setUserLogado(usuario);
                 return usuario;
@@ -161,7 +164,7 @@ namespace PGD.UI.Mvc.Controllers
                 CPF = loginViewModel.Cpf,
                 Nome = "Bruno Corcino",
                 Matricula = "99999",
-                Perfis = new List<Domain.Enums.Perfil> { Domain.Enums.Perfil.Dirigente, Domain.Enums.Perfil.Solicitante, Domain.Enums.Perfil.Administrador }
+                Perfis = new List<Domain.Enums.Perfil> { Domain.Enums.Perfil.Solicitante, Domain.Enums.Perfil.Administrador, Domain.Enums.Perfil.Dirigente }
             };
         }
     }
