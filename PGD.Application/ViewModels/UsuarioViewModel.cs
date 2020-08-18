@@ -56,7 +56,7 @@ namespace PGD.Application.ViewModels
 
         public string DescricaoPerfil => $"{Perfis.FirstOrDefault().ToString()}{(Administrador ? " / Administrador" : "")}";
 
-        public bool IsDirigente => Perfis.Any(x => x == Domain.Enums.Perfil.Dirigente);
+        public bool IsDirigente => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.Dirigente;
 
         public void AlterarPerfilSelecionado(Perfil perfil)
         {
@@ -66,6 +66,11 @@ namespace PGD.Application.ViewModels
         public void AlterarUnidadeSelecionada(int idUnidade)
         {
             IdUnidadeSelecionada = idUnidade;
+        }
+
+        public void SelecionarUnidadePadrao()
+        {
+            IdUnidadeSelecionada = 0;
         }
     }
 

@@ -79,8 +79,8 @@
                     <p>PROGRAMA DE GESTÃO DE DEMANDAS</p>
                 </div>
 
-                @*@if (Request.IsAuthenticated)
-                {*@
+                @if (user != null && user.IdUsuario > 0)
+                {
                     <div class="loginpartial pull-right">
                         <p>
                             <a href="#" onclick="alto_contraste();">ALTO CONTRASTE</a>
@@ -96,17 +96,17 @@
                                 <span>@user.Perfis.FirstOrDefault().ToString() |</span>
                             }
                             @*@Html.ActionLink("Sair", "SignOut", "Account", null, htmlAttributes: new { id = "linkSignOut" })*@
-                            <a id="linkSignOut" href="@Url.Action("SignOut", "Account")"><span onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_001');">Sair</span></a>
+                            <a id="linkSignOut" href="@Url.Action("LogOut", "Login")"><span onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_001');">Sair</span></a>
                         </p>
 
                     </div>
-                @*} else
+                } else
                 {
                 <div class="loginpartial pull-right">
                     <p><a href="#" onclick="alto_contraste();">ALTO CONTRASTE</a></p>
-                    @Html.ActionLink("Entrar", "Index", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                    @Html.ActionLink("Entrar", "Index", "Login", routeValues: null, htmlAttributes: new { id = "loginLink" })
                 </div>
-                }*@
+                }
 
             </div>
         </div>

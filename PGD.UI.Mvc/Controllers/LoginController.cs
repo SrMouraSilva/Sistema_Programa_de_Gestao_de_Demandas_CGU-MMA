@@ -103,7 +103,12 @@ namespace PGD.UI.Mvc.Controllers
             if (possuiUnidades)
                 return RedirectToAction("SelecionarUnidade", "Login");
             else
+            {
+                usuario.SelecionarUnidadePadrao();
+                setUserLogado(usuario);
                 return RedirectToAction("Index", "Pacto");
+            }
+                
         }
 
         public ActionResult SelecionarUnidade()
@@ -129,7 +134,6 @@ namespace PGD.UI.Mvc.Controllers
             return RedirectToAction("Index", "Pacto");
         }
 
-        [HttpPost]
         public ActionResult LogOut()
         {
             LimparSessionUsuario();
@@ -153,6 +157,7 @@ namespace PGD.UI.Mvc.Controllers
         {
             return new UsuarioViewModel
             {
+                IdUsuario = 15,
                 CPF = loginViewModel.Cpf,
                 Nome = "Bruno Corcino",
                 Matricula = "99999",
