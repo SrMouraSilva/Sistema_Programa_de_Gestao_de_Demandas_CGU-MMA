@@ -203,7 +203,7 @@ namespace PGD.Domain.Services
         {
             var listaStatusPendencia = new[] { (int)eSituacaoPacto.PendenteDeAssinatura, (int)eSituacaoPacto.AIniciar,
                (int) eSituacaoPacto.EmAndamento, (int)eSituacaoPacto.PendenteDeAvaliacao, (int)eSituacaoPacto.Suspenso };
-            var resultado = _classRepository.Buscar(x => listaStatusPendencia.Contains(x.IdSituacaoPacto) && x.CpfUsuario == usuario.CPF);
+            var resultado = _classRepository.Buscar(x => listaStatusPendencia.Contains(x.IdSituacaoPacto) && x.CpfUsuario == usuario.Cpf);
             return resultado.Any();
         }
 
@@ -506,14 +506,14 @@ namespace PGD.Domain.Services
                 if (pacto.StatusAprovacaoSolicitante == null && pacto.DataPrevistaInicio > DateTime.Now)
                 {
                     pacto.IdSituacaoPacto = (int)eSituacaoPacto.AIniciar;
-                    pacto.CpfUsuarioSolicitante = usuariologado.CPF;
+                    pacto.CpfUsuarioSolicitante = usuariologado.Cpf;
                     pacto.StatusAprovacaoSolicitante = 1;
                     pacto.DataAprovacaoSolicitante = DateTime.Now;
                 }
                 if (pacto.StatusAprovacaoSolicitante == null && pacto.DataPrevistaInicio <= DateTime.Now)
                 {
                     pacto.IdSituacaoPacto = (int)eSituacaoPacto.EmAndamento;
-                    pacto.CpfUsuarioSolicitante = usuariologado.CPF;
+                    pacto.CpfUsuarioSolicitante = usuariologado.Cpf;
                     pacto.StatusAprovacaoSolicitante = 1;
                     pacto.DataAprovacaoSolicitante = DateTime.Now;
                 }
@@ -545,7 +545,7 @@ namespace PGD.Domain.Services
         private static bool PodeEditarPermissoesDirigente(Pacto pacto, Usuario usuariologado, bool isDirigente)
         {
             bool possuiPermissoesDirigente = false;
-            if (isDirigente && pacto.CpfUsuario != usuariologado.CPF)
+            if (isDirigente && pacto.CpfUsuario != usuariologado.Cpf)
             {
                 if (pacto.IdSituacaoPacto == (int)eSituacaoPacto.AIniciar)
                 {
@@ -568,7 +568,7 @@ namespace PGD.Domain.Services
         private static bool PodeEditarPermissoesSolicitante(Pacto pacto, Usuario usuariologado, bool isDirigente)
         {
             bool possuiPermissoesSolicitante = false;
-            if (!isDirigente && pacto.CpfUsuario == usuariologado.CPF)
+            if (!isDirigente && pacto.CpfUsuario == usuariologado.Cpf)
             {
 
                 if (pacto.IdSituacaoPacto == (int)eSituacaoPacto.AIniciar || (pacto.IdSituacaoPacto == (int)eSituacaoPacto.PendenteDeAssinatura && pacto.StatusAprovacaoSolicitante.GetValueOrDefault() == 0))
@@ -593,7 +593,7 @@ namespace PGD.Domain.Services
 
         public bool PodeEditarEmAndamento(Pacto pacto, Usuario usr, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
-            if (isDirigente && usr.CPF != pacto.CpfUsuario)
+            if (isDirigente && usr.Cpf != pacto.CpfUsuario)
             {
                 //Desde que o pacto não esteja suspenso, será exibido para qq Dirigente,
                 //mesmo após início do pacto(RN059).
@@ -626,7 +626,7 @@ namespace PGD.Domain.Services
 
         private static bool PodeDeletarPermissaoSolicitante(Pacto pacto, Usuario usuariologado, bool isDirigente)
         {
-            bool usuarioLogadoECriador = (usuariologado.CPF == pacto.CpfUsuario || (usuariologado.CPF == pacto.CpfUsuarioCriador));
+            bool usuarioLogadoECriador = (usuariologado.Cpf == pacto.CpfUsuario || (usuariologado.Cpf == pacto.CpfUsuarioCriador));
             bool situacaoElegivel = (pacto.DataPrevistaInicio > DateTime.Now && pacto.IdSituacaoPacto != (int)eSituacaoPacto.Excluido && pacto.IdSituacaoPacto != (int)eSituacaoPacto.Negado)
                     || pacto.IdSituacaoPacto == (int)eSituacaoPacto.PendenteDeAssinatura;
 
@@ -643,7 +643,7 @@ namespace PGD.Domain.Services
             #endregion
 
             #region PERMISSÕES DE AÇÕES DO DIRIGENTE
-            else if (usuariologado.CPF != pacto.CpfUsuario)
+            else if (usuariologado.Cpf != pacto.CpfUsuario)
             {
                 return  PodeAssinarDirigente(pacto, usuariologado, unidadePactoEhSubordinadaUnidadeUsuario);
             }
@@ -660,7 +660,7 @@ namespace PGD.Domain.Services
             //do pacto ou o dirigente(ou administrador / dirigente) responsável pelo pacto e para dirigentes hierarquicamente superiores à unidade.
             var assinatura = BuscaStatusAssinatura(pacto);
 
-            if (pacto.CpfUsuarioDirigente == usuariologado.CPF || !unidadePactoEhSubordinadaUnidadeUsuario)
+            if (pacto.CpfUsuarioDirigente == usuariologado.Cpf || !unidadePactoEhSubordinadaUnidadeUsuario)
             {
                 podeAssinarDirigente = false;
             } else
@@ -678,13 +678,13 @@ namespace PGD.Domain.Services
         private bool PodeAssinarSolicitante(Pacto pacto, Usuario usuariologado)
         {
             bool podeAssinarSolicitante = false;
-            if (usuariologado.CPF == pacto.CpfUsuario || usuariologado.CPF == pacto.CpfUsuarioCriador)
+            if (usuariologado.Cpf == pacto.CpfUsuario || usuariologado.Cpf == pacto.CpfUsuarioCriador)
             {
                 //Opção disponível para os pactos até o dia de início do pacto ou enquanto não tiver sido assinado.
                 //Opção só é exibida para o solicitante(ou administrador / solicitante) do pacto ou o dirigente(ou administrador / dirigente) responsável pelo pacto e para dirigentes hierarquicamente
                 //superiores à unidade.
                 var assinatura = BuscaStatusAssinatura(pacto);
-                if (pacto.CpfUsuarioSolicitante == usuariologado.CPF)
+                if (pacto.CpfUsuarioSolicitante == usuariologado.Cpf)
                 {
                     podeAssinarSolicitante = false;
                 }
@@ -705,7 +705,7 @@ namespace PGD.Domain.Services
         public bool PodeInterromper(Pacto pacto, Usuario usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
             #region PERMISSÕES DE AÇÕES DO DIRIGENTE
-            if (isDirigente && unidadePactoEhSubordinadaUnidadeUsuario && usuariologado.CPF != pacto.CpfUsuario)
+            if (isDirigente && unidadePactoEhSubordinadaUnidadeUsuario && usuariologado.Cpf != pacto.CpfUsuario)
             {
                 var assinatura = BuscaStatusAssinatura(pacto);
                 if (pacto.IdSituacaoPacto == (int)PGD.Domain.Enums.eSituacaoPacto.Interrompido)
@@ -735,7 +735,7 @@ namespace PGD.Domain.Services
         {
 
             #region PERMISSÕES DE AÇÕES DO DIRIGENTE
-            if (isDirigente && unidadePactoEhSubordinadaUnidadeUsuario && usuariologado.CPF != pacto.CpfUsuario)
+            if (isDirigente && unidadePactoEhSubordinadaUnidadeUsuario && usuariologado.Cpf != pacto.CpfUsuario)
             {
                 //Disponível para pactos que já foram iniciados e que foram assinados. Caso um pacto seja suspenso, o ícone de "Interromper"
                 //continua sendo exibido. Após ser acionado, este ícone não é exibido. Caso o pacto tenha sido avaliado, negado, interrompido ou esteja suspenso, esta opção não é exibida.
@@ -769,7 +769,7 @@ namespace PGD.Domain.Services
                         return true;
                 }
 
-                if (pacto.CpfUsuario?.Equals(usuariologado.CPF) ?? false)
+                if (pacto.CpfUsuario?.Equals(usuariologado.Cpf) ?? false)
                 {
                     //disponível para o próprio usuário solicitar o retorno da suspensão
                     return true;
@@ -784,7 +784,7 @@ namespace PGD.Domain.Services
         public bool PodeNegar(Pacto pacto, Usuario usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
             #region PERMISSÕES DE AÇÕES DO DIRIGENTE
-            if (isDirigente && unidadePactoEhSubordinadaUnidadeUsuario && usuariologado.CPF != pacto.CpfUsuario)
+            if (isDirigente && unidadePactoEhSubordinadaUnidadeUsuario && usuariologado.Cpf != pacto.CpfUsuario)
             {
                 if (pacto.IdSituacaoPacto == (int)PGD.Domain.Enums.eSituacaoPacto.Negado || pacto.IdSituacaoPacto == (int)eSituacaoPacto.Excluido)
                 {
@@ -803,7 +803,7 @@ namespace PGD.Domain.Services
         public bool PodeAvaliar(Pacto pacto, Usuario usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
             #region PERMISSÕES DE AÇÕES DO DIRIGENTE
-            if (isDirigente && unidadePactoEhSubordinadaUnidadeUsuario && pacto.CpfUsuario != usuariologado.CPF)
+            if (isDirigente && unidadePactoEhSubordinadaUnidadeUsuario && pacto.CpfUsuario != usuariologado.Cpf)
             {
                 if (pacto.IdSituacaoPacto == (int)PGD.Domain.Enums.eSituacaoPacto.Avaliado)
                 {
@@ -833,7 +833,7 @@ namespace PGD.Domain.Services
 
         public bool PodeCancelarAvaliacao(Pacto pacto, Usuario usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
-            if (isDirigente && unidadePactoEhSubordinadaUnidadeUsuario && pacto.CpfUsuario != usuariologado.CPF
+            if (isDirigente && unidadePactoEhSubordinadaUnidadeUsuario && pacto.CpfUsuario != usuariologado.Cpf
              && (pacto.IdSituacaoPacto == (int)PGD.Domain.Enums.eSituacaoPacto.Avaliado))
             {
                 return true;
@@ -856,7 +856,7 @@ namespace PGD.Domain.Services
 
         public bool PodeEditarObservacaoProduto(Pacto pactoVM, Usuario usr, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
-            if ((isDirigente && unidadePactoEhSubordinadaUnidadeUsuario) || (usr.CPF.Equals(pactoVM.CpfUsuario))
+            if ((isDirigente && unidadePactoEhSubordinadaUnidadeUsuario) || (usr.Cpf.Equals(pactoVM.CpfUsuario))
              && (pactoVM.IdSituacaoPacto == (int)eSituacaoPacto.EmAndamento ||
                     pactoVM.IdSituacaoPacto == (int)eSituacaoPacto.AvaliadoParcialmente ||
                     pactoVM.IdSituacaoPacto == (int)eSituacaoPacto.PendenteDeAvaliacao))
@@ -1005,7 +1005,7 @@ namespace PGD.Domain.Services
             {
                 return ( isDirigente && ( usuario.Unidade == pacto.UnidadeExercicio || unidadePactoESubordinadaUnidadeUsuario )) || 
                        usuario.Administrador || 
-                       (pacto.CpfUsuario?.Equals(usuario.CPF) ?? true);
+                       (pacto.CpfUsuario?.Equals(usuario.Cpf) ?? true);
             } else
             {
                 return true;

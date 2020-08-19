@@ -20,7 +20,7 @@
             @Html.LabelFor(m => m.NomeServidor, "Nome Servidor", htmlAttributes: new { @class = "control-label" })
             @if (Model.IsDirigente)
             {
-                @(Html.DropDownListCGUFor(model => Model.CpfServidor, new SelectList((List<UsuarioViewModel>)TempData["NomesSubordinados"], "CPF", "Nome"), new { @class = "form-control" })
+                @(Html.DropDownListCGUFor(model => Model.CpfServidor, new SelectList((List<UsuarioViewModel>)TempData["NomesSubordinados"], "Cpf", "Nome"), new { @class = "form-control" })
                                         .Selectize())
             }
             else

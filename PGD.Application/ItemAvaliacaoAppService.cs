@@ -72,7 +72,7 @@ namespace PGD.Application
 
             //if (atividadeReturn.ValidationResult.IsValid)
             //{
-            //    _logService.Logar(itemAvaliacao, itemAvaliacaoViewModel.Usuario.CPF, Domain.Enums.Operacao.Alteração.ToString());
+            //    _logService.Logar(itemAvaliacao, itemAvaliacaoViewModel.Usuario.Cpf, Domain.Enums.Operacao.Alteração.ToString());
             //    Commit();
             //}
             //itemAvaliacaoViewModel = Mapper.Map<Atividade, AtividadeViewModel>(atividadeReturn);

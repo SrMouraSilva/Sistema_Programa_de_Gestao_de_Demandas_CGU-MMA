@@ -23,7 +23,7 @@ namespace PGD.Domain.Specifications.Pactos
         public bool IsSatisfiedBy(Pacto entity)
         {
             
-            if(entity.CpfUsuario.ToString() == UsuarioLogado.CPF)
+            if(entity.CpfUsuario.ToString() == UsuarioLogado.Cpf)
             {
                 foreach (var obj in Perfis)
                 {

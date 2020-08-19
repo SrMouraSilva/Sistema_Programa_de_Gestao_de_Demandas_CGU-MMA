@@ -13,6 +13,15 @@ namespace PGD.Infra.Data.EntityConfig
             Property(x => x.IndPermitePactoExterior).IsRequired();
             
             Ignore(c => c.ValidationResult);
+
+            // Relacionamentos
+            HasRequired(x => x.Unidade)
+                .WithMany(x => x.UnidadesTiposPactos)
+                .HasForeignKey(x => x.IdUnidade);
+
+            HasRequired(x => x.TipoPacto)
+                .WithMany(x => x.UnidadesTiposPactos)
+                .HasForeignKey(x => x.IdTipoPacto);
         }
     }
 }

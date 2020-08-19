@@ -21,7 +21,7 @@ namespace PGD.Infra.Data.Repository
         //    var atividade = ObterPorId(id);
         //    if(atividade!= null)
         //    {
-        //        atividade.Inativo = true;
+        //        atividade.Excluido = true;
         //        Atualizar(atividade);
         //    }
         //}
