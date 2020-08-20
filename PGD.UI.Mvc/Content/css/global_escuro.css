@@ -603,3 +603,6 @@ submitLink:focus {
 .label-primary {
     background-color: #333;
 }
+.field-validation-error {
+    color: #333
+}

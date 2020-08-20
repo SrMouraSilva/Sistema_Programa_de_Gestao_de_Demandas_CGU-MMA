@@ -1,11 +1,10 @@
-﻿using System;
-using PGD.Domain.Entities;
+﻿using PGD.Domain.Entities.Usuario;
 using PGD.Domain.Interfaces.Repository;
 using PGD.Infra.Data.Context;
+using System;
 using System.Data.Entity;
-using System.Linq;
-using PGD.Domain.Entities.Usuario;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace PGD.Infra.Data.Repository
 {
@@ -23,14 +22,23 @@ namespace PGD.Infra.Data.Repository
         public Usuario ObterPorCPF(string cpf)
         {
             cpf = cpf.PadLeft(11, '0');
-            var usuario = DbSet.AsNoTracking().Where(a => a.Cpf.Replace("\r", string.Empty).Replace("\n", string.Empty) == cpf).FirstOrDefault();
+            var usuario = DbSet.AsNoTracking()
+                .Where(a => a.Cpf.Replace("\r", string.Empty).Replace("\n", string.Empty) == cpf)
+                .Include("UsuariosPerfisUnidades")
+                .Include("UsuariosPerfisUnidades.Perfil")
+                .Include("UsuariosPerfisUnidades.Unidade")
+                .FirstOrDefault();
             if (usuario == null)
             {
                 long novocpf;
                 if (long.TryParse(cpf, out novocpf))
                 {
                     cpf = novocpf.ToString();
-                    usuario = DbSet.AsNoTracking().Where(a => a.Cpf.Replace("\r", string.Empty).Replace("\n", string.Empty) == cpf).FirstOrDefault();
+                    usuario = DbSet.AsNoTracking().Where(a => a.Cpf.Replace("\r", string.Empty).Replace("\n", string.Empty) == cpf)
+                        .Include("UsuariosPerfisUnidades")
+                        .Include("UsuariosPerfisUnidades.Perfil")
+                        .Include("UsuariosPerfisUnidades.Unidade")
+                        .FirstOrDefault();
                 }
 
             }

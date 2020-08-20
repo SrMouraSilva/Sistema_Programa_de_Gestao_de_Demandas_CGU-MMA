@@ -79,7 +79,7 @@ namespace PGD.Infra.Data.Repository
                 {
                     var unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadas(objFiltro.UnidadeExercicio);
                     var idsUnidadesSubordinadas = unidadesSubordinadas.Select(us => us.IdUnidade).ToList();
-                    query = query.Where(x => idsUnidadesSubordinadas.Contains(x.UnidadeExercicio));
+                    // query = query.Where(x => idsUnidadesSubordinadas.Contains(x.UnidadeExercicio));
                 }
                 else
                 {

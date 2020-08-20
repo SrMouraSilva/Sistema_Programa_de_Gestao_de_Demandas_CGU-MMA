@@ -194,6 +194,7 @@
     <Compile Include="ViewModels\AdministradorViewModel.cs" />
     <Compile Include="ViewModels\ArquivoDadoBrutoViewModel.cs" />
     <Compile Include="ViewModels\AvaliacaoDetalhadaProdutoViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\OS_ItemAvaliacaoViewModel.cs" />
     <Compile Include="ViewModels\ItemAvaliadoViewModel.cs" />
     <Compile Include="ViewModels\OS_CriterioAvaliacaoViewModel.cs" />
@@ -204,6 +205,7 @@
     <Compile Include="ViewModels\CriterioAvaliacaoViewModel.cs" />
     <Compile Include="ViewModels\NotaAvaliacaoViewModel.cs" />
     <Compile Include="ViewModels\NivelAvaliacaoViewModel.cs" />
+    <Compile Include="ViewModels\SelecionarUnidadeViewModel.cs" />
     <Compile Include="ViewModels\Unidade_TipoPactoViewModel.cs" />
     <Compile Include="ViewModels\IniciativaPlanoOperacionalProdutoViewModel.cs" />
     <Compile Include="ViewModels\IniciativaPlanoOperacionalViewModel.cs" />
@@ -234,6 +236,7 @@
     <Compile Include="ViewModels\SuspenderPactoViewModel.cs" />
     <Compile Include="ViewModels\JustificativaViewModel.cs" />
     <Compile Include="ViewModels\TipoAtividadeViewModel.cs" />
+    <Compile Include="ViewModels\UsuarioPerfilUnidadeViewModel.cs" />
     <Compile Include="ViewModels\UsuarioViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

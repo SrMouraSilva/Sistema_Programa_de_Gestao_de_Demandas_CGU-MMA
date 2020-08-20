@@ -25,5 +25,8 @@ namespace PGD.Application.Interfaces
         IEnumerable<UsuarioViewModel> ObterTodosAdministradores();
 
         bool PodeSelecionarPerfil(UsuarioViewModel usuario);
+        bool PodeSelecionarUnidade(UsuarioViewModel usuario);
+
+        UsuarioViewModel ObterUsuarioComPerfilPorCPF(string cpf);
     }
 }

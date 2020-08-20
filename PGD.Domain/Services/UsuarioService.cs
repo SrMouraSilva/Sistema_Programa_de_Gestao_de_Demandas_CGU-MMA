@@ -44,7 +44,7 @@ namespace PGD.Domain.Services
 
         public Usuario ObterPorCPF(string cpf)
         {
-            var user = _usuarioRepository.ObterTodos().FirstOrDefault(usuario => usuario.Cpf.Equals(cpf));
+            var user = _usuarioRepository.ObterPorCPF(cpf);
 
             return user;
         }

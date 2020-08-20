@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PGD.Domain.Enums
 {
     public enum Perfil
     {
-        Solicitante,
-        Dirigente,
-        Consulta,
-        Administrador,
+        Nenhum = 0,
+        Solicitante = 1,
+        Dirigente = 2,
+        Administrador = 3,
+        Consulta = 4,
     }
 
     #region CSU008_RN051

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PGD.Domain.Enums;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -9,6 +10,7 @@ namespace PGD.Application.ViewModels
         public UsuarioViewModel()
         {
             Perfis = new List<Domain.Enums.Perfil>();
+            PerfisUnidades = new List<UsuarioPerfilUnidadeViewModel>();
         }
 
         public int IdUsuario { get; set; }
@@ -38,20 +40,57 @@ namespace PGD.Application.ViewModels
 
         public string nomeUnidade { get; set; }
 
-        public bool Administrador { get; set; }
+        public bool Administrador => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.Administrador;
 
         public bool Inativo { get; set; }
 
         [ScaffoldColumn(false)]
         public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }
 
-        public List<Domain.Enums.Perfil> Perfis { get; set; }
+        public List<Perfil> Perfis { get; set; }
 
         public UsuarioViewModel Usuario { get; set; }
 
-        public string DescricaoPerfil => $"{Perfis.FirstOrDefault().ToString()}{(Administrador ? " / Administrador" : "")}";
+        public ICollection<UsuarioPerfilUnidadeViewModel> PerfisUnidades { get; set; }
 
-        public bool IsDirigente => Perfis.Any(x => x == Domain.Enums.Perfil.Dirigente);
+        public string DescricaoPerfil => $"{PerfilSelecionado.ToString()}{(Administrador ? " / Administrador" : "")}";
+
+        public bool IsDirigente => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.Dirigente;
+
+
+        public Perfil? PerfilSelecionado { get; private set; }
+        public int? IdPerfilSelecionado => PerfilSelecionado?.GetHashCode();
+        public int? IdUnidadeSelecionada { get; private set; }
+        public string NomeUnidadeSelecionada { get; private set; }
+        public string SiglaUnidadeSelecionada { get; private set; }
+
+        public void AlterarPerfilSelecionado(Perfil perfil)
+        {
+            PerfilSelecionado = perfil;
+        }
+
+        public void AlterarUnidadeSelecionada(int idUnidade)
+        {
+            var unidade = PerfisUnidades.FirstOrDefault(x => x.IdUnidade == idUnidade);
+
+            if (unidade != null)
+            {
+                IdUnidadeSelecionada = unidade.IdUnidade;
+                NomeUnidadeSelecionada = unidade.NomeUnidade;
+                SiglaUnidadeSelecionada = unidade.SiglaUnidade;
+            }
+        }
+
+        public void SelecionarUnidadePerfil()
+        {
+            if (IdPerfilSelecionado.HasValue)
+            {
+                var unidade = PerfisUnidades.FirstOrDefault(x => x.IdPerfil == IdPerfilSelecionado);
+
+                if (unidade != null)
+                    AlterarUnidadeSelecionada(unidade.IdUnidade);
+            }
+        }
     }
 
 

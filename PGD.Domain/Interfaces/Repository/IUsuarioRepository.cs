@@ -1,5 +1,6 @@
 ﻿using PGD.Domain.Entities;
 using PGD.Domain.Entities.Usuario;
+using System.Collections.Generic;
 
 namespace PGD.Domain.Interfaces.Repository
 {

@@ -570,4 +570,6 @@ submitLink:focus {
 {
     color:white;
 }
-
+.field-validation-error {
+    color: darkred
+}

@@ -79,41 +79,43 @@
                     <p>PROGRAMA DE GESTÃO DE DEMANDAS</p>
                 </div>
 
-                @*@if (Request.IsAuthenticated)
-                {*@
+                @if (user != null && user.IdUsuario > 0)
+                {
                     <div class="loginpartial pull-right">
                         <p>
                             <a href="#" onclick="alto_contraste();">ALTO CONTRASTE</a>
                         </p>
                         <p>
-                            <span id="cpfUsuarioLogado">Cpf: @user.CPF &nbsp;</span>
-                            @if (user != null && user.Perfis.Count == 1)
+                            <a href="#" class="cpfUsuarioLogado" onclick="openModalUsuario();">CPF: @user.CPF &nbsp;</a>
+                            @if (user.PerfilSelecionado.HasValue)
                             {
-                                if (user.Administrador)
-                                {
-                                    <span>Administrador / </span>
-                                }
-                                <span>@user.Perfis.FirstOrDefault().ToString() |</span>
+@*                                  if (user.Administrador) *@
+@*                                  { *@
+@*                                      <span>Administrador / </span> *@
+@*                                  } *@
+                                <span>- @user.PerfilSelecionado.ToString() |</span>
                             }
-                            @*@Html.ActionLink("Sair", "SignOut", "Account", null, htmlAttributes: new { id = "linkSignOut" })*@
-                            <a id="linkSignOut" href="@Url.Action("SignOut", "Account")"><span onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_001');">Sair</span></a>
+                            <a id="linkSignOut" href="@Url.Action("LogOut", "Login")"><span onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_001');">Sair</span></a>
                         </p>
 
                     </div>
-                @*} else
+                }
+                else
                 {
-                <div class="loginpartial pull-right">
-                    <p><a href="#" onclick="alto_contraste();">ALTO CONTRASTE</a></p>
-                    @Html.ActionLink("Entrar", "Index", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })
-                </div>
-                }*@
+                    <div class="loginpartial pull-right">
+                        <p><a href="#" onclick="alto_contraste();">ALTO CONTRASTE</a></p>
+                        @Html.ActionLink("Entrar", "Index", "Login", routeValues: null, htmlAttributes: new { id = "loginLink" })
+                    </div>
+                }
 
             </div>
         </div>
         <div class="menu">
             <div class="container" style="padding-bottom: 0;">
                 <ul class="pull-left">
-                    @if (controller != null && !(controller.ControllerContext.RouteData.Values["controller"].ToString() == "Perfil" && controller.ControllerContext.RouteData.Values["action"].ToString() == "Selecionar"))
+                    @if (controller != null &&
+                        !(controller.ControllerContext.RouteData.Values["controller"].ToString() == "Perfil" && controller.ControllerContext.RouteData.Values["action"].ToString() == "Selecionar")
+                        && controller.ControllerContext.RouteData.Values["controller"].ToString() != "Login")
                     {
                         <li>
                             <a href="#" id="menuPactos">Pactos</a>
@@ -191,6 +193,8 @@
         </div>
     </div>
 
+    @Html.Partial("_UsuarioPartial")
+
     <div class="modal fade" id="modalWaiting" tabindex="-1" role="dialog" aria-labelledby="GenericModalLabel" aria-hidden="true">
         <div id="ModalWaiting-dialog" class="modal-dialog modal-lg">
             <div id="ContentmodalWaiting" style="margin-left:50%; margin-top:30%; width:50%">
@@ -228,6 +232,9 @@
             });
         });
 
+        function openModalUsuario() {
+            $("#modalUsuario").modal('show');
+        }
     </script>
     @RenderSection("scripts", required: false)
 </body>

@@ -22,7 +22,7 @@ using System.Web.UI.WebControls;
 
 namespace PGD.UI.Mvc.Controllers
 {
- 
+
     public class BaseController : Controller
     {
         protected readonly IUsuarioAppService _usuarioAppService;
@@ -50,60 +50,38 @@ namespace PGD.UI.Mvc.Controllers
 
         public UsuarioViewModel getUserLogado()
         {
-            UsuarioViewModel userLogado = null;
-            if (Session != null)
-            {
-                if (Session["UserLogado"] == null)
-                {
-                    var claimsIdentity = User.Identity as ClaimsIdentity;
-                    var cpf = "02354568842";
-
-                    if (Session["CpfUsuarioForcado"] != null)
-                        cpf = Session["CpfUsuarioForcado"].ToString();
-
-
-                    if (cpf != null)
-                    {
-                        userLogado = new UsuarioViewModel
-                        {
-                            CPF = cpf,
-                            CpfUsuario = cpf,
-                        };
-
-                        userLogado = _usuarioAppService.ObterPorCPF(cpf);
-                        if (userLogado.IdUsuario != 0)
-                        {
-                            //userLogado.Perfis = _usuarioAppService.ObterPerfis(userLogado);
-                            userLogado.Perfis = new List<Perfil>();
-
-                            userLogado.IdUnidade = 1;
-
-                            //Limpando se algum perfil ja foi associado
-                            Enum.GetNames(typeof(Perfil)).ToList().ForEach(p => ClaimsUtil.RemoveRole(claimsIdentity, p));
-
-                            //Adicionando perfis aos roles do principal.
-                            var perfis = userLogado.Perfis.Select(p => p.ToString()).ToList();
-                            if (true)
-                            {
-                                perfis.Add(Perfil.Administrador.ToString());
-                            }
-                            
-                            Session["UserLogado"] = userLogado;
-                        }
-                    }
-                }
-                else
-                    userLogado = (UsuarioViewModel)Session["UserLogado"];
-            }
-            return userLogado;
+            return (UsuarioViewModel)Session["UserLogado"];
         }
 
         [NonAction]
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            var user = getUserLogado();
+            var controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+            var action = filterContext.ActionDescriptor.ActionName;
+
+
+            if (controller != "Login" || action != "LogOut")
+            {
+                if (user == null && (controller != "Login" || action != "Index"))
+                    filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Login", action = "Index" }));
+
+                if (user != null)
+                {
+                    if (!user.PerfilSelecionado.HasValue && (controller != "Login" || action != "SelecionarPerfil"))
+                        filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Login", action = "SelecionarPerfil" }));
+
+                    if (user.PerfilSelecionado.HasValue && !user.IdUnidadeSelecionada.HasValue && (controller != "Login" || action != "SelecionarUnidade"))
+                        filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Login", action = "SelecionarUnidade" }));
+
+                    if (user.PerfilSelecionado.HasValue && user.IdUnidadeSelecionada.HasValue && controller == "Login")
+                        filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+                }
+            }
+
+
             base.OnActionExecuting(filterContext);
 
-      
             getMessages();
         }
 
@@ -120,12 +98,12 @@ namespace PGD.UI.Mvc.Controllers
 
             return assemblyVersion;
         }
-        
+
         public string RenderPartialViewToString(string viewName, object model)
-        {    
+        {
             using (var sw = new StringWriter())
             {
-                
+
                 // Create an MVC Controller Context
                 var wrapper = new HttpContextWrapper(System.Web.HttpContext.Current);
 
@@ -224,7 +202,7 @@ namespace PGD.UI.Mvc.Controllers
 
         public void setModelError(ValidationError erro)
         {
-                ModelState.AddModelError(string.Empty, erro.Message);
+            ModelState.AddModelError(string.Empty, erro.Message);
         }
 
         public ActionResult setMessageAndRedirect(string message, string action, object routes = null)
