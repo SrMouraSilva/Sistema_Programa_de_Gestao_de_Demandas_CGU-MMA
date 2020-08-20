@@ -348,6 +348,7 @@ namespace PGD.UI.Mvc.Controllers
                         ConfigurarCargaHorariaFormatada(pdrt);
                         ConfigurarTotalAvaliado(pdrt);
                         pdrt.Index = i + 1;
+                        pdrt.IdOrdemServico = _pactoVM.IdOrdemServico;
                     }
 
                 }
@@ -423,10 +424,7 @@ namespace PGD.UI.Mvc.Controllers
 
         private void AtualizaOrdemServico(int? id)
         {
-            if (id > 0)
-                OrdemServico = _ordemServicoService.ObterPorId(id.Value);
-            else
-                OrdemServico = _ordemServicoService.GetOrdemVigente();
+            OrdemServico = id.HasValue && id > 0 ? _ordemServicoService.ObterPorId(id.Value) : _ordemServicoService.GetOrdemVigente();
         }
 
         private static void ConfigurarCargaHorariaFormatada(ProdutoViewModel pdrt)
@@ -944,12 +942,12 @@ namespace PGD.UI.Mvc.Controllers
             return listSemSolicitante;
         }
 
-        public JsonResult GetAtividades(string id)
+        public JsonResult GetAtividades(string id, int? idOrdemServico)
         {
             var atividades = new List<SelectListItem>();
             if (!string.IsNullOrEmpty(id))
             {
-                OrdemServico = _ordemServicoService.GetOrdemVigente();
+                OrdemServico = idOrdemServico.HasValue && idOrdemServico.Value > 0 ? _ordemServicoService.ObterPorId(idOrdemServico.Value) : _ordemServicoService.GetOrdemVigente();
                 var grupo = OrdemServico.Grupos.First(x => x.IdGrupoAtividade == int.Parse(id));
                 grupo.Atividades.OrderBy(x => x.NomAtividade).ToList().ForEach(x => atividades.Add(new SelectListItem { Text = x.NomAtividade, Value = x.IdAtividade.ToString() }));
                 if (atividades.Count > 1)
@@ -957,12 +955,12 @@ namespace PGD.UI.Mvc.Controllers
             }
             return Json(atividades);
         }
-        public JsonResult GetFaixas(string idGrupo, string idAtividade, string idPacto, int idProduto)
+        public JsonResult GetFaixas(string idGrupo, string idAtividade, string idPacto, int idProduto, int? idOrdemServico)
         {
             var faixas = new List<SelectListItem>();
             if (!string.IsNullOrEmpty(idGrupo) && !string.IsNullOrEmpty(idAtividade))
             {
-                OrdemServico = _ordemServicoService.GetOrdemVigente();
+                OrdemServico = !idOrdemServico.HasValue || idOrdemServico == 0 ? _ordemServicoService.GetOrdemVigente() : _ordemServicoService.ObterPorId(idOrdemServico.Value);
                 var grupo = OrdemServico.Grupos.FirstOrDefault(x => x.IdGrupoAtividade == int.Parse(idGrupo));
                 var atividade = grupo.Atividades.FirstOrDefault(x => x.IdAtividade == int.Parse(idAtividade));
                 var valorMinimoFaixa = GetValorMinimoFaixa(idGrupo, idAtividade, idPacto, idProduto);
@@ -1000,12 +998,12 @@ namespace PGD.UI.Mvc.Controllers
             return duracaoMinima;
         }
 
-        public JsonResult GetFaixaValor(string idGrupo, string idAtividade, string idFaixa)
+        public JsonResult GetFaixaValor(string idGrupo, string idAtividade, string idFaixa, int? idOrdemServico)
         {
             var resultado = "0";
             if (!string.IsNullOrEmpty(idGrupo) && !string.IsNullOrEmpty(idAtividade) && !string.IsNullOrEmpty(idFaixa))
             {
-                OrdemServico = _ordemServicoService.GetOrdemVigente();
+                OrdemServico = !idOrdemServico.HasValue || idOrdemServico == 0 ? _ordemServicoService.GetOrdemVigente() : _ordemServicoService.ObterPorId(idOrdemServico.Value);
                 var grupo = OrdemServico.Grupos.FirstOrDefault(x => x.IdGrupoAtividade == int.Parse(idGrupo));
                 var atividade = grupo.Atividades.FirstOrDefault(x => x.IdAtividade == int.Parse(idAtividade));
                 var faixa = atividade.Tipos.FirstOrDefault(x => x.IdTipoAtividade == int.Parse(idFaixa));
@@ -1285,12 +1283,12 @@ namespace PGD.UI.Mvc.Controllers
         [HttpPost]
         public ActionResult AddProduto(ProdutoViewModel model)
         {
-            var lista = TempData[GetNomeVariavelTempData("Produtos", 0)] as List<ProdutoViewModel> ?? new List<ProdutoViewModel>();
+            var lista = TempData[GetNomeVariavelTempData("Produtos", model.IdPacto)] as List<ProdutoViewModel> ?? new List<ProdutoViewModel>();
 
             if (ModelState.IsValid)
             {
                 ConfigurarCargaHorariaFormatada(model);
-                OrdemServico = _ordemServicoService.GetOrdemVigente();
+                AtualizaOrdemServico(model.IdOrdemServico);
 
                 AtualizarReferenciasProduto(model, OrdemServico);
                 if (model.Index == 0)
@@ -1306,10 +1304,11 @@ namespace PGD.UI.Mvc.Controllers
                     lista[indexLista] = model;
                 }
 
-                TempData[GetNomeVariavelTempData("Produtos", 0)] = lista;
+                TempData[GetNomeVariavelTempData("Produtos", model.IdPacto)] = lista;
             }
             else
             {
+                TempData[GetNomeVariavelTempData("Produtos", model.IdPacto)] = lista;
                 return RetornarErrosModelState();
             }
             return PartialView("_ProdutosTablePartial", lista);
@@ -1603,14 +1602,14 @@ namespace PGD.UI.Mvc.Controllers
             return Json(new { CPF = usuario.CPF, Matricula = usuario.Matricula, UnidadeExercicio = usuario.Unidade, UnidadeDescricao = usuario.nomeUnidade });
         }
 
-        public JsonResult GetLinkAtividade(int idGrupo, int? idAtividade)
+        public JsonResult GetLinkAtividade(int idGrupo, int? idAtividade, int? idOrdemServico)
         {
         
             if (idAtividade == null)
             {
                 return null;
             }
-            AtualizaOrdemServico(0);
+            AtualizaOrdemServico(idOrdemServico ?? 0);
             var grupo = OrdemServico.Grupos.First(x => x.IdGrupoAtividade == idGrupo);
             var atividade = grupo.Atividades.First(a => a.IdAtividade == idAtividade);
             return Json(new { Link = atividade.Link });

@@ -12,10 +12,9 @@ namespace PGD.Domain.Entities
         public int IdUnidade_TipoPacto { get; set; }        
         public int IdUnidade { get; set; } 
         public int IdTipoPacto { get; set; }
-        public virtual TipoPacto TipoPacto { get; set; }
         public bool IndPermitePactoExterior { get; set; }        
         public ValidationResult ValidationResult { get; set; }
-        public virtual TipoPacto Tipo { get; set; }
+        public virtual TipoPacto TipoPacto { get; set; }
         public virtual Unidade Unidade { get; set; }
         public bool IsValid()
         {
