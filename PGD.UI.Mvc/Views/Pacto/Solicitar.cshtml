@@ -32,7 +32,6 @@
         @Html.AntiForgeryToken()
 
         <input type="hidden" name="Nome" value="@Model.Nome"/>
-        <input type="hidden" id="hdn-lista-produtos-pacto-temp-data" value="@Json.Encode(TempData["Produtos" + Model.IdPacto] as List<ProdutoViewModel> ?? new List<ProdutoViewModel>())"/>
         @Html.HiddenFor(model => Model.IdPacto)
         @Html.HiddenFor(model => Model.MatriculaSIAPE)
         @Html.HiddenFor(model => Model.IdOrdemServico)
