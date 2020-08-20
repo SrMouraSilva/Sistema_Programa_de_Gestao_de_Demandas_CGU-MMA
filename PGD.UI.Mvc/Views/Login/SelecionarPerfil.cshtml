@@ -17,18 +17,13 @@
                   <div class="panel-heading" style="background-image: none; background-color: #165abf"></div>
                   <div class="panel-body text-center">
                       <div class="row">
-                          <div class="col-md-4">
-                              @Html.RadioButton("Perfil", PGD.Domain.Enums.Perfil.Administrador, false, new { @id = "perfilAdministrador" })
-                              @Html.Label("Administrador", new { @for = "perfilAdministrador" })
-                          </div>
-                          <div class="col-md-4">
-                              @Html.RadioButton("Perfil", PGD.Domain.Enums.Perfil.Dirigente, false, new { @id = "perfilDirigente" })
-                              @Html.Label("Dirigente", new { @for = "perfilDirigente" })
-                          </div>
-                          <div class="col-md-4">
-                              @Html.RadioButton("Perfil", PGD.Domain.Enums.Perfil.Solicitante, false, new { @class = "cssSolicitante", @id = "perfilSolicitante" })
-                              @Html.Label("Solicitante", new { @for = "perfilSolicitante" })
-                          </div>
+                          @foreach (var item in (List<PGD.Domain.Enums.Perfil>)TempData["lstPerfil"])
+                          {
+                              <div class="col-md-4">
+                                  @Html.RadioButton("Perfil", item, false, new { @id = "perfil" + item.ToString() })
+                                  @Html.Label(item.ToString(), new { @for = "perfil" + item.ToString() })
+                              </div>
+                          }
                       </div>
                   </div>
               </div>

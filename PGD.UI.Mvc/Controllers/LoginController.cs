@@ -1,5 +1,7 @@
 ﻿using PGD.Application.Interfaces;
 using PGD.Application.ViewModels;
+using PGD.Domain.Entities.RH;
+using PGD.Domain.Enums;
 using PGD.Domain.Interfaces.Service;
 using System.Collections.Generic;
 using System.Configuration;
@@ -43,7 +45,7 @@ namespace PGD.UI.Mvc.Controllers
 
                 if (!deveSelecionarUnidade)
                 {
-                    usuario.SelecionarUnidadePadrao();
+                    usuario.SelecionarUnidadePerfil();
                     setUserLogado(usuario);
                     return RedirectToAction("Index", "Home");
                 }
@@ -60,10 +62,19 @@ namespace PGD.UI.Mvc.Controllers
 
                 var usuario = BuscarUsuario(loginViewModel);
 
+                if (usuario == null)
+                {
+                    ModelState.AddModelError("", "Usuário ou senha incorretos.");
+                    return null;
+                }
+
                 var deveSelecionarPerfil = _usuarioAppService.PodeSelecionarPerfil(usuario);
 
                 if (!deveSelecionarPerfil)
-                    usuario.AlterarPerfilSelecionado(usuario.Perfis.FirstOrDefault());
+                {
+                    var perfil = usuario.PerfisUnidades.Select(x => x.PerfilEnum).FirstOrDefault(); 
+                    usuario.AlterarPerfilSelecionado(perfil);
+                } 
 
                 setUserLogado(usuario);
                 return usuario;
@@ -95,14 +106,18 @@ namespace PGD.UI.Mvc.Controllers
 
         public ActionResult SelecionarPerfil()
         {
+            PrepararTempDataPerfis();
             return View();
         }
 
         [HttpPost]
-        public ActionResult SelecionarPerfil(Domain.Enums.Perfil? perfil)
+        public ActionResult SelecionarPerfil(Perfil? perfil)
         {
             if (perfil == null)
+            {
+                PrepararTempDataPerfis();
                 return View();
+            }
 
             var usuario = getUserLogado();
             usuario.AlterarPerfilSelecionado(perfil.Value);
@@ -115,7 +130,7 @@ namespace PGD.UI.Mvc.Controllers
                 return RedirectToAction("SelecionarUnidade", "Login");
             else
             {
-                usuario.SelecionarUnidadePadrao();
+                usuario.SelecionarUnidadePerfil();
                 setUserLogado(usuario);
                 return RedirectToAction("Index", "Home");
             }
@@ -124,7 +139,7 @@ namespace PGD.UI.Mvc.Controllers
 
         public ActionResult SelecionarUnidade()
         {
-            PrepararTempDataDropdowns();
+            PrepararTempDataUnidade();
             return View(new SelecionarUnidadeViewModel());
         }
 
@@ -133,7 +148,7 @@ namespace PGD.UI.Mvc.Controllers
         {
             if (!ModelState.IsValid)
             {
-                PrepararTempDataDropdowns();
+                PrepararTempDataUnidade();
                 return View(selecionarUnidadeViewModel);
             }
 
@@ -152,28 +167,50 @@ namespace PGD.UI.Mvc.Controllers
             return RedirectToAction("Index", "Login");
         }
 
-        private void PrepararTempDataDropdowns()
+        private void PrepararTempDataUnidade()
         {
-            TempData["lstUnidade"] = _unidadeService.ObterUnidades().ToList();
+            TempData["lstUnidade"] = GetUnidadesUsuario();
+        }
+
+        private void PrepararTempDataPerfis()
+        {
+            TempData["lstPerfil"] = GetPerfisUsuario();
+        }
+
+        private List<Unidade> GetUnidadesUsuario()
+        {
+            var retorno = new List<Unidade>();
+            var usuario = getUserLogado();
+            if (usuario == null || !usuario.IdPerfilSelecionado.HasValue)
+                return retorno;
+
+            return usuario.PerfisUnidades.Where(x => x.IdPerfil == usuario.IdPerfilSelecionado).Select(x => new Unidade
+            {
+                IdUnidade = x.IdUnidade,
+                Nome = x.NomeUnidade,
+                Sigla = x.SiglaUnidade
+            }).ToList();
+        }
+
+        private List<Perfil> GetPerfisUsuario()
+        {
+            var retorno = new List<Perfil>();
+            var usuario = getUserLogado();
+            if (usuario == null)
+                return retorno;
+
+            return usuario.PerfisUnidades.Select(p => p.PerfilEnum).Distinct().ToList();
         }
 
         private void LimparSessionUsuario()
         {
             Session["UserLogado"] = null;
-            Session["CpfUsuarioForcado"] = null;
             Session.Abandon();
         }
 
         private UsuarioViewModel BuscarUsuario(LoginViewModel loginViewModel)
         {
-            return new UsuarioViewModel
-            {
-                IdUsuario = 15,
-                CPF = loginViewModel.Cpf,
-                Nome = "Bruno Corcino",
-                Matricula = "99999",
-                Perfis = new List<Domain.Enums.Perfil> { Domain.Enums.Perfil.Solicitante, Domain.Enums.Perfil.Administrador, Domain.Enums.Perfil.Dirigente }
-            };
+            return _usuarioAppService.ObterUsuarioComPerfilPorCPF(loginViewModel.Cpf);
         }
     }
 }

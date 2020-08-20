@@ -26,5 +26,7 @@ namespace PGD.Application.Interfaces
 
         bool PodeSelecionarPerfil(UsuarioViewModel usuario);
         bool PodeSelecionarUnidade(UsuarioViewModel usuario);
+
+        UsuarioViewModel ObterUsuarioComPerfilPorCPF(string cpf);
     }
 }

@@ -1,20 +1,13 @@
-﻿using PGD.Application.Interfaces;
+﻿using AutoMapper;
+using PGD.Application.Interfaces;
+using PGD.Application.ViewModels;
+using PGD.Domain.Entities;
+using PGD.Domain.Entities.Usuario;
+using PGD.Domain.Interfaces.Service;
+using PGD.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PGD.Application.ViewModels;
-using PGD.Domain.Interfaces.Service;
-using PGD.Infra.Data.Interfaces;
-using AutoMapper;
-using PGD.Domain.Entities;
-using PGD.Domain.Enums;
-using System.Configuration;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Newtonsoft.Json;
-using PGD.Domain.Entities.Usuario;
 
 namespace PGD.Application
 {
@@ -68,6 +61,28 @@ namespace PGD.Application
                 user.Administrador = true;
 
             return user;
+        }
+
+        public UsuarioViewModel ObterUsuarioComPerfilPorCPF(string cpf)
+        {
+            if (string.IsNullOrEmpty(cpf))
+                return null;
+
+            cpf = cpf.Replace(".", "").Replace("-", "");
+            var usuario = _usuarioService.ObterPorCPF(cpf);
+            var usuarioViewModel = Mapper.Map<Usuario, UsuarioViewModel>(usuario);
+            usuarioViewModel.PerfisUnidades = usuario.UsuariosPerfisUnidades.Where(x => !x.Excluido).Select(x => new UsuarioPerfilUnidadeViewModel
+            {
+                Id = x.Id,
+                IdPerfil = x.IdPerfil,
+                IdUnidade = x.IdUnidade,
+                NomePerfil = x.Perfil.Nome,
+                NomeUnidade = x.Unidade.Nome,
+                SiglaUnidade = x.Unidade.Sigla,
+                IdUsuario = x.IdUsuario
+            }).ToList();
+
+            return usuarioViewModel;
         }
 
         public UsuarioViewModel ObterPorId(int id)
@@ -126,17 +141,17 @@ namespace PGD.Application
 
         public bool PodeSelecionarPerfil(UsuarioViewModel usuario)
         {
-            return (usuario.Perfis.Count > 1 && 
-                usuario.Perfis.Contains(Domain.Enums.Perfil.Dirigente) && 
-                usuario.Perfis.Contains(Domain.Enums.Perfil.Solicitante));
-
+            return usuario.PerfisUnidades.Select(x => x.PerfilEnum).Distinct().ToList().Count > 1;
         }
 
         public bool PodeSelecionarUnidade(UsuarioViewModel usuario)
         {
             // RNG007 se o perfil for Dirigente ou Administrador e possuir mais de uma unidade, selecionar unidade
             if (usuario.PerfilSelecionado == Domain.Enums.Perfil.Administrador || usuario.PerfilSelecionado == Domain.Enums.Perfil.Dirigente)
-                return true;
+            {
+                var idPerfilSelecionado = usuario.IdPerfilSelecionado;
+                return usuario.PerfisUnidades.Where(x => x.IdPerfil == idPerfilSelecionado).Count() > 1;
+            }
 
             return false;
         }

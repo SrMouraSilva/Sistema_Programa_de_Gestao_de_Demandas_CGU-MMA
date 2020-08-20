@@ -236,6 +236,7 @@
     <Compile Include="ViewModels\SuspenderPactoViewModel.cs" />
     <Compile Include="ViewModels\JustificativaViewModel.cs" />
     <Compile Include="ViewModels\TipoAtividadeViewModel.cs" />
+    <Compile Include="ViewModels\UsuarioPerfilUnidadeViewModel.cs" />
     <Compile Include="ViewModels\UsuarioViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
