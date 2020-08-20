@@ -87,13 +87,13 @@
                         </p>
                         <p>
                             <a href="#" class="cpfUsuarioLogado" onclick="openModalUsuario();">CPF: @user.CPF &nbsp;</a>
-                            @if (user != null && user.PerfilSelecionado.HasValue)
+                            @if (user.PerfilSelecionado.HasValue)
                             {
-                                if (user.Administrador)
-                                {
-                                    <span>Administrador / </span>
-                                }
-                                <span>@user.PerfilSelecionado.ToString() |</span>
+@*                                  if (user.Administrador) *@
+@*                                  { *@
+@*                                      <span>Administrador / </span> *@
+@*                                  } *@
+                                <span>- @user.PerfilSelecionado.ToString() |</span>
                             }
                             <a id="linkSignOut" href="@Url.Action("LogOut", "Login")"><span onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_001');">Sair</span></a>
                         </p>

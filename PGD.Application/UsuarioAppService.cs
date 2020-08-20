@@ -51,14 +51,7 @@ namespace PGD.Application
         {
             var eAdm = new Administrador();
             var user = Mapper.Map<Usuario, UsuarioViewModel>(_usuarioService.ObterPorCPF(cpf));
-            if (cpf.Length < 11)
-                eAdm = _admService.ObterTodosAdm().FirstOrDefault(a => a.CPF.Replace("\r", string.Empty).Replace("\n", string.Empty) == cpf.PadLeft(11, '0'));
-            else
-            {
-                eAdm = _admService.ObterTodosAdm().Where(a => a.CPF.Replace("\r", string.Empty).Replace("\n", string.Empty) == cpf).FirstOrDefault();
-            }
-            if (eAdm != null)
-                user.Administrador = true;
+            // user.Administrador = user.PerfisUnidades.Any(x => x.IdPerfil == (int) Domain.Enums.Perfil.Administrador);
 
             return user;
         }
@@ -111,7 +104,7 @@ namespace PGD.Application
 
         public UsuarioViewModel TornarRemoverAdministrador(UsuarioViewModel usuario, bool admin)
         {
-            usuario.Administrador = admin;
+            // usuario.Administrador = admin;
             if (usuario.ValidationResult.IsValid)
                 if (admin)
                 {

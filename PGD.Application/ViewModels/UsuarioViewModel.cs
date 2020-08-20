@@ -40,7 +40,7 @@ namespace PGD.Application.ViewModels
 
         public string nomeUnidade { get; set; }
 
-        public bool Administrador { get; set; }
+        public bool Administrador => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.Administrador;
 
         public bool Inativo { get; set; }
 
@@ -53,7 +53,7 @@ namespace PGD.Application.ViewModels
 
         public ICollection<UsuarioPerfilUnidadeViewModel> PerfisUnidades { get; set; }
 
-        public string DescricaoPerfil => $"{Perfis.FirstOrDefault().ToString()}{(Administrador ? " / Administrador" : "")}";
+        public string DescricaoPerfil => $"{PerfilSelecionado.ToString()}{(Administrador ? " / Administrador" : "")}";
 
         public bool IsDirigente => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.Dirigente;
 

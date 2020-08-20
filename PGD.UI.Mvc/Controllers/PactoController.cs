@@ -400,14 +400,14 @@ namespace PGD.UI.Mvc.Controllers
                 _pactoVM.OrdemServico = OrdemServico;
 
                 var perfil = user?.Perfis?.FirstOrDefault();
-                if (perfil != null && perfil.Value == Domain.Enums.Perfil.Solicitante)
+                if (user.IdPerfilSelecionado == (int)Domain.Enums.Perfil.Solicitante)
                 {
                     _pactoVM.Nome = user.Nome;
                     _pactoVM.CpfUsuario = RetornaCpfCorrigido(user.CPF);
                     _pactoVM.MatriculaSIAPE = user.Matricula;
                     
                     _pactoVM.UnidadeDescricao = user.nomeUnidade;
-                    _pactoVM.UnidadeUsuarioPermitePactoExecucaoNoExterior = _unidade_tipoPactoAppService.BuscarPorIdUnidadeTipoPacto(user.Unidade, _pactoVM.IdTipoPacto)?.IndPermitePactoExterior ?? false;
+                    _pactoVM.UnidadeUsuarioPermitePactoExecucaoNoExterior = _unidade_tipoPactoAppService.BuscarPorIdUnidadeTipoPacto(user.IdUnidadeSelecionada ?? 0, _pactoVM.IdTipoPacto)?.IndPermitePactoExterior ?? false;
                 }
                 _pactoVM.UnidadeExercicio = user.Unidade;
                 _pactoVM.podeEditar = true;
