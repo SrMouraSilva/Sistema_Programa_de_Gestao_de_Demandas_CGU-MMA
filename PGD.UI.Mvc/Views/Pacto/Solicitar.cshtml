@@ -31,11 +31,12 @@
     {
         @Html.AntiForgeryToken()
 
-        <input type="hidden" name="Nome" value="@Model.Nome"/>
+        <input type="hidden" name="Nome" value="@Model.Nome" id="hdn-nome-servidor-pacto"/>
+        <input type="hidden" name="CpfUsuario" value="@Model.CpfUsuario"/>
         @Html.HiddenFor(model => Model.IdPacto)
         @Html.HiddenFor(model => Model.MatriculaSIAPE)
         @Html.HiddenFor(model => Model.IdOrdemServico)
-        @Html.HiddenFor(model => Model.CpfUsuario)
+        @*@Html.HiddenFor(model => Model.CpfUsuario)*@
         @Html.HiddenFor(model => Model.CpfUsuarioDirigente)
         @Html.HiddenFor(model => Model.CpfUsuarioSolicitante)
         @Html.HiddenFor(model => Model.StatusAprovacaoSolicitante)
@@ -61,10 +62,10 @@
                     <div class="row">
                         <div class="form-group col-md-9">
                             <label for="exampleInputName2">Nome:</label>
-                            @(Html.DropDownListCGUFor(model => Model.Nome, new SelectList((List<UsuarioViewModel>)TempData["NomesSubordinados"], "Nome", "Nome"), new { @class = "form-control", @required = "required" })
+                            @(Html.DropDownListCGUFor(model => Model.CpfUsuario, new SelectList((List<UsuarioViewModel>)TempData["NomesSubordinados"], "CPF", "Nome", Model.CpfUsuario), new { @class = "form-control", @required = "required" })
                                                                         .SetDisabled(!Model.podeEditar || !ViewBag.isDirigente)
                                                                         .Selectize()
-                                                                        .OnChangeAtualizaExecutaCallback("Pacto", "GetDadosUsuario", new Dictionary<string, string>() { { "nomeSelecionado", Html.IdFor(m => m.Nome).ToString() } }, callbackFunction: "atualizaCamposUsuario"))
+                                                                        .OnChangeAtualizaExecutaCallback("Pacto", "GetDadosUsuarioPorCpf", new Dictionary<string, string>() { { "cpf", Html.IdFor(m => m.CpfUsuario).ToString() } }, callbackFunction: "atualizaCamposUsuario"))
                         </div>
                         <div class="form-group col-md-3">
                             <label for="exampleInputName2">Matrícula SIAPE: </label>
@@ -437,10 +438,12 @@
                     ShowErrorMessage(resultado['Mensagem']);
                     atualizaValorCampo('@Html.IdFor(m => m.MatriculaSIAPE)', '');
                     atualizaValorCampo('@Html.IdFor(m => m.CpfUsuario)', '');
+                    $("#hdn-nome-servidor-pacto").val("");
                     atualizaValorCampo('@Html.IdFor(m => m.UnidadeDescricao)', '');
                     atualizaValorCampo('@Html.IdFor(m => m.UnidadeExercicio)', '');
                 } else {
                     atualizaValorCampo('@Html.IdFor(m => m.MatriculaSIAPE)', resultado['Matricula']);
+                    $("#hdn-nome-servidor-pacto").val(resultado["Nome"]);
                     atualizaValorCampo('@Html.IdFor(m => m.CpfUsuario)', resultado['CPF']);
                     atualizaValorCampo('@Html.IdFor(m => m.UnidadeDescricao)', resultado['UnidadeDescricao']);
                     atualizaValorCampo('@Html.IdFor(m => m.UnidadeExercicio)', resultado['UnidadeExercicio']);
@@ -531,3 +534,4 @@
 
         </script>
     }
+</div>

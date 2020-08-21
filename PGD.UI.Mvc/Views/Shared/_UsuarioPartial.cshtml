@@ -1,4 +1,5 @@
-﻿@{
+﻿@using PGD.Application.Util
+@{
     var controller = ViewContext.Controller as PGD.UI.Mvc.Controllers.BaseController;
     PGD.Application.ViewModels.UsuarioViewModel user = new PGD.Application.ViewModels.UsuarioViewModel();
     if (controller != null)
@@ -25,7 +26,7 @@
                             <div class="panel-body text-center">
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <p>CPF: @(user?.CPF)</p>
+                                        <p>CPF: @(user?.CPF.MaskCpfCpnj())</p>
                                         <p>SIGLA - Unidade: @(user?.SiglaUnidadeSelecionada) - @(user?.NomeUnidadeSelecionada)</p>
                                     </div>
                                 </div>
