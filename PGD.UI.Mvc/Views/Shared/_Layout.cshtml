@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using PGD.Application.Util
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -86,7 +87,7 @@
                             <a href="javascript:void(0)" onclick="alto_contraste();">ALTO CONTRASTE</a>
                         </p>
                         <p>
-                            <a href="javascript:void(0)" class="cpfUsuarioLogado" onclick="openModalUsuario();">CPF: @user.CPF &nbsp;</a>
+                            <a href="javascript:void(0)" class="cpfUsuarioLogado" onclick="openModalUsuario();">CPF: @(user?.CPF.MaskCpfCpnj()) &nbsp;</a>
                             @if (user.PerfilSelecionado.HasValue)
                             {
                                 <span>- @user.PerfilSelecionado.ToString() |</span>

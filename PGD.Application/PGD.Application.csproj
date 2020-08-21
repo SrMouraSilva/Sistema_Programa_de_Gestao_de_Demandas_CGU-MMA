@@ -190,6 +190,7 @@
     <Compile Include="JustificativaAppService.cs" />
     <Compile Include="TipoAtividadeAppService.cs" />
     <Compile Include="UsuarioAppService.cs" />
+    <Compile Include="Util\Extensions.cs" />
     <Compile Include="Util\TimeSpanUtil.cs" />
     <Compile Include="ViewModels\AdministradorViewModel.cs" />
     <Compile Include="ViewModels\ArquivoDadoBrutoViewModel.cs" />

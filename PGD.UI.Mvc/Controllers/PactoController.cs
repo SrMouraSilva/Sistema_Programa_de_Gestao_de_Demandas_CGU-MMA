@@ -14,6 +14,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
 using System.Web.UI.WebControls;
+using PGD.Application.Util;
 
 namespace PGD.UI.Mvc.Controllers
 {
@@ -1602,6 +1603,13 @@ namespace PGD.UI.Mvc.Controllers
         {
             var usuario = _usuarioAppService.ObterPorNome(nomeSelecionado);
             return Json(new { CPF = usuario.CPF, Matricula = usuario.Matricula, UnidadeExercicio = usuario.Unidade, UnidadeDescricao = usuario.nomeUnidade });
+        }
+        
+        public JsonResult GetDadosUsuarioPorCpf(string cpf)
+        {
+            cpf = cpf.RemoverMaskCpfCnpj();
+            var usuario = _usuarioAppService.ObterPorCPF(cpf);
+            return Json(new {usuario.CPF, usuario.Matricula, UnidadeExercicio = usuario.Unidade, UnidadeDescricao = usuario.nomeUnidade, usuario.Nome });
         }
 
         public JsonResult GetLinkAtividade(int idGrupo, int? idAtividade, int? idOrdemServico)
