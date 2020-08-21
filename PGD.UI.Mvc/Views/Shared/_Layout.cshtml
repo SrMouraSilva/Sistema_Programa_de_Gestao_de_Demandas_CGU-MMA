@@ -83,16 +83,12 @@
                 {
                     <div class="loginpartial pull-right">
                         <p>
-                            <a href="#" onclick="alto_contraste();">ALTO CONTRASTE</a>
+                            <a href="javascript:void(0)" onclick="alto_contraste();">ALTO CONTRASTE</a>
                         </p>
                         <p>
-                            <a href="#" class="cpfUsuarioLogado" onclick="openModalUsuario();">CPF: @user.CPF &nbsp;</a>
+                            <a href="javascript:void(0)" class="cpfUsuarioLogado" onclick="openModalUsuario();">CPF: @user.CPF &nbsp;</a>
                             @if (user.PerfilSelecionado.HasValue)
                             {
-@*                                  if (user.Administrador) *@
-@*                                  { *@
-@*                                      <span>Administrador / </span> *@
-@*                                  } *@
                                 <span>- @user.PerfilSelecionado.ToString() |</span>
                             }
                             <a id="linkSignOut" href="@Url.Action("LogOut", "Login")"><span onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_001');">Sair</span></a>

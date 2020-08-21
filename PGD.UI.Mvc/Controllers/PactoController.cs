@@ -364,6 +364,8 @@ namespace PGD.UI.Mvc.Controllers
                             c.HorasUsadasPorOutroPacto = TimeSpan.FromHours(Convert.ToDouble(_cronogramaService.GetQuantidadeHorasNoDia(c.DataCronograma, pactosConcorrentes)));
                         });
 
+                _pactoVM.CargaHorariaTotal =
+                    (_pactoVM.Produtos ?? new List<ProdutoViewModel>()).Sum(x => x.CargaHorariaProduto * x.QuantidadeProduto);
 
                 TempData[GetNomeVariavelTempData("Cronogramas", id.GetValueOrDefault())] = new CronogramaPactoViewModel()
                 {
