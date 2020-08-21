@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Diagnostics.CodeAnalysis;
+using CsQuery.ExtensionMethods;
+using PGD.Domain.Entities.RH;
 using RefactorThis.GraphDiff;
 using PGD.Domain.Services;
 
@@ -51,6 +53,24 @@ namespace PGD.Infra.Data.Repository
         {
             Db.UpdateGraph(pacto, m => m.OwnedCollection(p => p.Produtos, with => with.OwnedCollection(p2 => p2.IniciativasPlanoOperacionalProduto).OwnedCollection(p2 => p2.Avaliacoes, with2 => with2.OwnedCollection(p3 => p3.AvaliacoesDetalhadas))).OwnedCollection(p => p.Cronogramas));
         }
+
+        private IQueryable<Unidade> RetornaUnidadesSubordinadas(IQueryable<Unidade> lista, bool forcarParada = false)
+        {
+            if (lista.All(x => x.IdUnidadeSuperior == null) || forcarParada)
+                return lista;
+
+            var lista2 = lista;
+            
+            var lista3 = Db.Set<Unidade>()
+                .Where(x => lista2.All(y => y.IdUnidade != x.IdUnidade) && lista2.Any(y => y.IdUnidade == x.IdUnidadeSuperior));
+ 
+            forcarParada = !lista3.Any();
+            
+            lista = lista.Concat(lista3);
+
+            return RetornaUnidadesSubordinadas(lista, forcarParada);
+        }
+        
         public IEnumerable<Pacto> ConsultarPactos(Pacto objFiltro, bool incluirUnidadesSubordinadas = false)
         {
             var query = DbSet.AsNoTracking().Include("Produtos")
@@ -77,9 +97,13 @@ namespace PGD.Infra.Data.Repository
             {
                 if (incluirUnidadesSubordinadas)
                 {
-                    var unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadas(objFiltro.UnidadeExercicio);
-                    var idsUnidadesSubordinadas = unidadesSubordinadas.Select(us => us.IdUnidade).ToList();
-                    // query = query.Where(x => idsUnidadesSubordinadas.Contains(x.UnidadeExercicio));
+                    var a = from u in Db.Set<Unidade>()
+                        where u.IdUnidadeSuperior == objFiltro.UnidadeExercicio
+                        select u;
+                    
+                    var unidadesSubordinadas = RetornaUnidadesSubordinadas(a).Select(x => x.IdUnidade).Distinct();
+                    
+                    query = query.Where(x => x.UnidadeExercicio == objFiltro.UnidadeExercicio || unidadesSubordinadas.Contains(x.UnidadeExercicio));
                 }
                 else
                 {

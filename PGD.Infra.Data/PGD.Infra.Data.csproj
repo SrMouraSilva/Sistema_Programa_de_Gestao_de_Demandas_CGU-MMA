@@ -175,6 +175,10 @@
     <Compile Include="Migrations\202008191425035_alteracaoUnidadeEUnidade_tipoPacto.Designer.cs">
       <DependentUpon>202008191425035_alteracaoUnidadeEUnidade_tipoPacto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008210142234_Vinculo_Unidade_Superior.cs" />
+    <Compile Include="Migrations\202008210142234_Vinculo_Unidade_Superior.Designer.cs">
+      <DependentUpon>202008210142234_Vinculo_Unidade_Superior.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AvaliacaoDetalhadaProdutoRepository.cs" />
@@ -240,6 +244,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008191425035_alteracaoUnidadeEUnidade_tipoPacto.resx">
       <DependentUpon>202008191425035_alteracaoUnidadeEUnidade_tipoPacto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008210142234_Vinculo_Unidade_Superior.resx">
+      <DependentUpon>202008210142234_Vinculo_Unidade_Superior.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

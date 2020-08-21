@@ -96,7 +96,7 @@ namespace PGD.Infra.Data.Context
 
             modelBuilder.Configurations.Add(new OS_AtividadeConfig());
             modelBuilder.Configurations.Add(new OS_TipoAtividadeConfig());
-            modelBuilder.Configurations.Add(new OS_GrupoAtividadeConfig());
+            modelBuilder.Configurations.Add(new OsGrupoAtividadeConfig());
 
             modelBuilder.Configurations.Add(new NotaAvaliacaoConfig());
             modelBuilder.Configurations.Add(new CriterioAvaliacaoConfig());
