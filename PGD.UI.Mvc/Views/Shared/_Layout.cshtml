@@ -118,11 +118,11 @@
                         && controller.ControllerContext.RouteData.Values["controller"].ToString() != "Login")
                     {
                         <li>
-                            <a href="#" id="menuPactos">Pactos</a>
+                            <a href="#" id="menuPactos">Plano de Trabalho</a>
                             <ul>
                                 @if (!User.IsInRole(PGD.Domain.Enums.Perfil.Consulta.ToString()))
                                 {
-                                    <li><a href="@Url.Action("Solicitar", "Pacto", new { id = "", idTipoPacto = (int) PGD.Domain.Enums.eTipoPacto.PGD_Pontual})" id="menuSolicitar">Solicitar PGD - Pontual</a></li>
+                                    <li><a href="@Url.Action("Solicitar", "Pacto", new { id = "", idTipoPacto = (int) PGD.Domain.Enums.eTipoPacto.PGD_Pontual})" id="menuSolicitar">Solicitar PGD - Processo de Trabalho</a></li>
                                     <li><a href="@Url.Action("Solicitar", "Pacto", new { id = "", idTipoPacto = (int) PGD.Domain.Enums.eTipoPacto.PGD_Projeto})" id="menuSolicitar">Solicitar PGD - Projetos</a></li>
 
                                 }
@@ -147,11 +147,11 @@
                         <li>
                             <a id="menuConfiguracoes" href="#">Configurações</a>
                             <ul>
-                                <li><a id="menuOrdemServico" href="@Url.Action("Index", "OrdemServico")">Gerenciar OS</a></li>
+                                <li><a id="menuOrdemServico" href="@Url.Action("Index", "OrdemServico")">Tabela de Atividades</a></li>
                                 <li><a id="menuGrupoAtividade" href="@Url.Action("Index", "GrupoAtividade")">Gerenciar Grupo de Atividades</a></li>
                                 <li><a id="menuAtividade" href="@Url.Action("Index", "Atividade")">Gerenciar Atividades</a></li>
                                 <li><a id="menuPerfil" href="@Url.Action("Index", "Perfil")">Gerenciar Perfil</a></li>
-                                <li><a id="menutiposPacto" href="@Url.Action("Index","UnidadeTipoPacto")">Gerenciar Tipos de Pacto</a></li>
+                                <li><a id="menutiposPacto" href="@Url.Action("Index","UnidadeTipoPacto")">Gerenciar Tipos de Plano de Trabalho</a></li>
                                 <li><a id="menuAvaliacaoDetalhada" href="@Url.Action("Index","CriterioAvaliacao")">Gerenciar Avaliação Detalhada</a></li>
                                 <li><a id="trocaUser" href="@Url.Action("Index", "TrocaUsuario")">Trocar Usuário</a></li>
                             </ul>

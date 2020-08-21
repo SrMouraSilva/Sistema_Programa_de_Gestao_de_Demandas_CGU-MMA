@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col text-center">
-                                        <a href="#" onclick="trocarPerfil();"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Trocar de perfil?</a>
+                                        <a href="javascript:void(0)" onclick="trocarPerfil();"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Trocar de perfil?</a>
                                     </div>
                                 </div>
 
@@ -67,7 +67,14 @@
 
     function trocarPerfil() {
         if (confirm('Deseja trocar de perfil?')) {
-            $('#frmLogout').submit();
+            $.ajax({
+                type: 'GET',
+                url: '/Login/AlterarPerfil',
+                success: (data) => {
+                    if(data && data.ok) location.reload(); 
+                },
+                error: err => console.log(err)
+            });
         }
     }
 </script>

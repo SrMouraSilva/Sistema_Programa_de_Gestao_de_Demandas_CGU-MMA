@@ -61,7 +61,7 @@ namespace PGD.UI.Mvc.Controllers
             var action = filterContext.ActionDescriptor.ActionName;
 
 
-            if (controller != "Login" || action != "LogOut")
+            if (controller != "Login" || (action != "LogOut" && action != "AlterarPerfil"))
             {
                 if (user == null && (controller != "Login" || action != "Index"))
                     filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Login", action = "Index" }));

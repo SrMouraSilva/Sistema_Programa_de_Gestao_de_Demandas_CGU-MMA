@@ -3,7 +3,7 @@
 
 @model PactoViewModel
 @{
-    ViewBag.Title = "Solicitar o Pacto";
+    ViewBag.Title = "Solicitar Plano de Trabalho";
 }
 
 <div class="modal fade" id="infoModalPGD-Projeto" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -23,7 +23,7 @@
     </div>
 </div>
 
-<h1 class="">Solicitar Pacto (@Model.TipoPacto.DescTipoPacto)</h1>
+<h1 class="">Solicitar Plano de Trabalho (@Model.TipoPacto.DescTipoPacto)</h1>
 <div class="clearfix"></div>
 
 <div class="panel-group" role="tablist">
@@ -76,7 +76,7 @@
                             <label for="exampleInputName2">Unidade em exercício: </label>
                             @if (Model.IdPacto == 0)
                             {
-                                <p class="label label-info">Apenas unidade habilitadas para pactos do tipo @Model.TipoPacto.DescTipoPacto</p>
+                                <p class="label label-info">Apenas unidade habilitadas para planos de trabalho do tipo @Model.TipoPacto.DescTipoPacto</p>
                             }
                             @Html.DropDownListCGUFor(m => m.UnidadeExercicio, new SelectList((List<PGD.Domain.Entities.RH.Unidade>)TempData[PactoController.GetNomeVariavelTempData("Unidades", Model.IdPacto)], "IdUnidade", "Nome"), new { @class = "form-control" }).Selectize().SetDisabled(!Model.podeEditar)
                         </div>
@@ -154,11 +154,11 @@
 
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="text-vertical-line">Tipo de Pacto: </label>
+                            <label class="text-vertical-line">Tipo de Plano de Trabalho: </label>
                             @Html.TextBoxCGUFor(x => x.TipoPacto.DescTipoPacto, new { @class = "form-control" }).SetReadonly(true)
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="text-vertical-line">Data prevista de início do pacto: </label>
+                            <label class="text-vertical-line">Data prevista de início do plano de trabalho: </label>
                             @Html.TextBoxCGUFor(x => x.DataPrevistaInicio, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", @placeholder = "", @required = "required", @onchange = "$('#DataInicial').val(this.value);atualizaData();" }).SetReadonly(!Model.podeEditar)
                         </div>
 
@@ -203,7 +203,7 @@
             <div class="panel panel-body">
 
                 <div class="form-group col-md-12 text-left">
-                    <label for="exampleInputName2">Data prevista de término do pacto: </label>
+                    <label for="exampleInputName2">Data prevista de término do plano de trabalho: </label>
                     @Html.TextBoxFor(m => m.DataPrevistaTermino, "dd/MM/yyyy", new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" } })
                 </div>
 

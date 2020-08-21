@@ -23,19 +23,19 @@
                 <div class="form-check">
                     <label class="form-check-label">
                         @Html.CheckBoxCGUFor(m => m.ObterPactosUnidadesSubordinadas, new { @class = "form-check-input" })
-                        Incluir Pactos de Unidades Subordinadas
+                        Incluir Planos de Trabalho de Unidades Subordinadas
                     </label>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-4">
-                <label for="exampleInputName3">Situação do Pacto</label>
+                <label for="exampleInputName3">Situação do Plano de Trabalho</label>
                 @Html.DropDownListCGUFor(m => m.idSituacao, new SelectList((List<SituacaoPactoViewModel>)TempData["Situacoes"], "IdSituacaoPacto", "DescSituacaoPacto"),
                                               new { @class = "form-control" }).Selectize()
             </div>
             <div class="form-group col-md-4">
-                <label for="exampleInputName3">Tipo do Pacto</label>
+                <label for="exampleInputName3">Tipo do Plano de Trabalho</label>
                 @Html.DropDownListCGUFor(m => m.idTipoPacto, new SelectList((List<TipoPactoViewModel>)TempData["TiposPacto"], "IdTipoPacto", "DescTipoPacto"),
                                               new { @class = "form-control" }).Selectize()
             </div>

@@ -137,6 +137,15 @@ namespace PGD.UI.Mvc.Controllers
                 
         }
 
+        public ActionResult AlterarPerfil()
+        {
+            var usuario = getUserLogado();
+            usuario.LimparPerfil();
+            usuario.LimparUnidade();
+            setUserLogado(usuario);
+            return Json(new {ok = true}, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult SelecionarUnidade()
         {
             PrepararTempDataUnidade();

@@ -1,9 +1,9 @@
 ﻿@using PGD.Application.ViewModels
 @model IEnumerable<OrdemServicoViewModel>
 @{
-    ViewBag.Title = "Ordem Servico";
+    ViewBag.Title = "Tabela de Atividades";
 }
-<h1 class="col-md-12">Ordem de Serviço </h1>
+<h1 class="col-md-12">Tabela de Atividades </h1>
 
 <div class="clearfix"></div>
 @Html.Partial("_SearchPartial", new PGD.Application.ViewModels.SearchOrdemServicoViewModel())
@@ -21,7 +21,7 @@ else
                 <div class="panel-heading" role="tab" id="grup_@os.IdOrdemServico">
                     <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_@os.IdOrdemServico" aria-expanded="true" aria-controls="collapse_@os.IdOrdemServico">
-                            Os nº @os.IdOrdemServico
+                            Tabele de Atividade nº @os.IdOrdemServico
                             <div class="pull-right">
                                 @{var ov = ((OrdemServicoViewModel)ViewBag.OrdemVigente);}
                                 @*Desabilitado até decidir se pode editar ou não OS - Work Item 3819*@

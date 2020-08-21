@@ -23,7 +23,7 @@
 
             </div>
             <div class="form-group col-md-6">
-                <label class="text-vertical-line">Atividade pactuada:</label>
+                <label class="text-vertical-line">Atividade plano de trabalho:</label>
                 @(Html.DropDownListCGUFor(m => m.IdAtividade, new SelectList(string.Empty, "Value", "Text"), new Dictionary<string, object>() {{"style", "overflow:hidden;word-wrap: normal !important;white-space: normal;"}, {"class", "form-control short"}})
                     .OnChangeAtualizaDropDownContextual("Pacto", "GetFaixas",
                         new Dictionary<string, string>()
@@ -43,7 +43,7 @@
 
         <div class="row ">
             <div class="col-md-6">
-                <label class="text-vertical-line">Faixa:</label>
+                <label class="text-vertical-line">Nível de Complexidade:</label>
                 @(Html.DropDownListCGUFor(m => m.IdTipoAtividade, new SelectList(string.Empty, "Value", "Text"), new Dictionary<string, object> {{"class", "form-control"}})
                     .OnChangeAtualizaExecutaCallback("Pacto", "GetFaixaValor",
                         new Dictionary<string, string>()

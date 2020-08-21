@@ -4,11 +4,11 @@
 @model IEnumerable<PGD.Application.ViewModels.Unidade_TipoPactoViewModel>
 
 @{
-    ViewBag.Title = "Gerenciar Tipos de Pacto por Unidade";
+    ViewBag.Title = "Gerenciar Tipos de Plano de Trabalho por Unidade";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Gerenciar tipos de pacto por unidade</h1>
+<h1>Gerenciar tipos de plano de trabalho por unidade</h1>
 
 @Html.Partial("_SearchPartial", new Unidade_TipoPactoViewModel())
 
@@ -23,8 +23,8 @@ else
             <thead>
                 <tr>
                     <th class="text-center">Unidade</th>
-                    <th class="text-center">Tipo de pacto</th>
-                    <th class="text-center">Permite pacto no exterior?</th>
+                    <th class="text-center">Plano de Trabalho</th>
+                    <th class="text-center">Permite plano de trabalho no exterior?</th>
                     <th class="text-center">Ações</th>
                 </tr>
             </thead>
