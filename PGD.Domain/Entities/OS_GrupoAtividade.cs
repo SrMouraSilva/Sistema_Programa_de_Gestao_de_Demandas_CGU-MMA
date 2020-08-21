@@ -22,6 +22,7 @@ namespace PGD.Domain.Entities
 
         public int IdOrdemServico { get; set; }
         public virtual OrdemServico OrdemServico { get; set; }
+        public virtual GrupoAtividade GrupoAtividade { get; set; }
 
         public virtual ICollection<OS_Atividade> Atividades { get; set; }
         public virtual ICollection<TipoPacto> TiposPacto { get; set; }

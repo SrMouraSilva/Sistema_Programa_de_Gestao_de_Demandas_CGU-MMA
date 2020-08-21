@@ -22,6 +22,11 @@ namespace PGD.Infra.Data.EntityConfig
                 .HasMaxLength(50);
 
             Property(x => x.Excluido).IsOptional();
+
+            // Relacionamentos
+            HasOptional(x => x.UnidadeSuperior)
+                .WithMany(x => x.Unidades)
+                .HasForeignKey(x => x.IdUnidadeSuperior);
         }
     }
 }
