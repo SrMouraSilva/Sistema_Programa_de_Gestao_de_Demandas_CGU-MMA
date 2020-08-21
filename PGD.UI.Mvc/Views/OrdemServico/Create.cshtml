@@ -1,5 +1,5 @@
 ﻿@model PGD.Application.ViewModels.OrdemServicoViewModel
-<h1 class="col-md-12">Cadastro de Nova OS</h1>
+<h1 class="col-md-12">Cadastro de Nova Tabela de Atividade</h1>
 <div class="col-md-8">
     @using (Html.BeginForm("Create", "OrdemServico", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", @id = "frmOrdemServico" }))
     {
@@ -7,7 +7,7 @@
         @Html.HiddenFor(x => x.IdOrdemServico)
 
         <div class="form-group">
-            <label for="nomeAtividade" class="col-sm-4 control-label">Número OS:</label>
+            <label for="nomeAtividade" class="col-sm-4 control-label">Número Tabela de Atividade:</label>
             <div class="col-sm-8">
                 @Html.TextBoxFor(x => x.IdOrdemServico, new { @id = "nomeAtividade", @class = "form-control", @disabled = true, @type = "number" })
             </div>

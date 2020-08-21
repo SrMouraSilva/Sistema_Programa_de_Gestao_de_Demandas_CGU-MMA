@@ -81,6 +81,18 @@ namespace PGD.Application.ViewModels
             }
         }
 
+        public void LimparPerfil()
+        {
+            PerfilSelecionado = null;
+        }
+
+        public void LimparUnidade()
+        {
+            IdUnidadeSelecionada = null;
+            NomeUnidadeSelecionada = null;
+            SiglaUnidadeSelecionada = null;
+        }
+
         public void SelecionarUnidadePerfil()
         {
             if (IdPerfilSelecionado.HasValue)

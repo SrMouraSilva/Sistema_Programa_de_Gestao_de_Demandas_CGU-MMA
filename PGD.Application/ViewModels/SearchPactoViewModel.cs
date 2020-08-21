@@ -14,7 +14,7 @@ namespace PGD.Application.ViewModels
     public class SearchPactoViewModel
     {
         
-        [Display(Name = "Código do Pacto")]
+        [Display(Name = "Código do Plano de Trabalho")]
         public int? IdPacto { get; set; }
         public string NomeServidor { get; set; }
         public int? UnidadeId { get; set; }

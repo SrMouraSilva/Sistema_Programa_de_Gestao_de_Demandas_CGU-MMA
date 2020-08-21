@@ -24,7 +24,7 @@ namespace PGD.Application.ViewModels
         public string NomAtividade { get; set; }
 
         [Required(ErrorMessage = "O campo Percentual Mínimo de Redução é de preenchimento obrigatório!")]
-        [Display(Name = "Percentual Mínimo de Redução")]
+        [Display(Name = "Percentual de Produtividade Adicional")]
         [Range(0, 100, ErrorMessage = "Percentual Mínimo de Redução deve ser um número de 0 a 100!")]
         //[DataAnnotationsExtensions.Integer(ErrorMessage = "Favor informar um número válido.")]
         //[DataType(DataType.Currency, ErrorMessage = "Percentual Mínimo de Redução deve ser um número de 0 à 100!")]
@@ -36,7 +36,7 @@ namespace PGD.Application.ViewModels
 
         public UsuarioViewModel Usuario { get; set; }
 
-        [Display(Name = "Link para base de conhecimento")]
+        [Display(Name = "Link para explicações sobre a atividade")]
         public string Link { get; set; }
 
         [ScaffoldColumn(false)]

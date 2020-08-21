@@ -1,6 +1,6 @@
 ﻿@model PGD.Application.ViewModels.PactoCompletoViewModel
 @{
-    ViewBag.Title = "Pacto";
+    ViewBag.Title = "Plano de Trabalho";
 }
 
 @{var controller = ViewContext.Controller as PGD.UI.Mvc.Controllers.BaseController;
@@ -17,7 +17,7 @@
     }
 }
 
-<h1 class="">Pacto </h1>
+<h1 class="">Plano de Trabalho </h1>
 
 <div class="clearfix"></div>
 @Html.Partial("_SearchPartial", Model.Searchpacto)
@@ -27,11 +27,11 @@
     <table class="table table-bordered tableFilter">
         <thead>
             <tr>
-                <th class="text-center hidden-xs hidden-sm">Código do Pacto</th>
+                <th class="text-center hidden-xs hidden-sm">Código do Plano de Trabalho</th>
                 <th class="text-center">Nome</th>
                 <th class="text-center hidden-sm hidden-xs">Tipo</th>
-                <th class="text-center">Data início pacto</th>
-                <th class="text-center hidden-sm hidden-xs">Data término pacto</th>
+                <th class="text-center">Data início do plano de trabalho</th>
+                <th class="text-center hidden-sm hidden-xs">Data término plano de trabalho</th>
                 <th class="text-center">Situação</th>
                 <th class="text-center hidden-sm hidden-xs">Unidade</th>
                 @if (perfil != PGD.Domain.Enums.Perfil.Consulta)
