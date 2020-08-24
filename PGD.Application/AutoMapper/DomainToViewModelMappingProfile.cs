@@ -4,6 +4,14 @@ using PGD.Domain.Entities;
 using PGD.Domain.Entities.RH;
 using PGD.Domain.Entities.Usuario;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using PGD.Application.ViewModels.Filtros;
+using PGD.Application.ViewModels.Filtros.Base;
+using PGD.Application.ViewModels.Paginacao;
+using PGD.Domain.Filtros;
+using PGD.Domain.Filtros.Base;
+using PGD.Domain.Paginacao;
 
 namespace PGD.Application.AutoMapper
 {
@@ -17,7 +25,22 @@ namespace PGD.Application.AutoMapper
             CreateMap<OS_TipoAtividade, TipoAtividadeViewModel>();
             CreateMap<GrupoAtividade, GrupoAtividadeViewModel>();
             CreateMap<OS_GrupoAtividade, GrupoAtividadeViewModel>();
-            CreateMap<Usuario, UsuarioViewModel>();
+            CreateMap<Usuario, UsuarioViewModel>()
+                .ForMember(x => x.PerfisUnidades, opt => opt.MapFrom(src =>
+
+                    src.UsuariosPerfisUnidades == null
+                        ? new List<UsuarioPerfilUnidadeViewModel>()
+                        : src.UsuariosPerfisUnidades.Where(x => !x.Excluido).Select(x => new UsuarioPerfilUnidadeViewModel
+                        {
+                            Id = x.Id,
+                            IdPerfil = x.IdPerfil,
+                            IdUnidade = x.IdUnidade,
+                            NomePerfil = x.Perfil.Nome,
+                            NomeUnidade = x.Unidade.Nome,
+                            SiglaUnidade = x.Unidade.Sigla,
+                            IdUsuario = x.IdUsuario
+                        }).ToList()
+                ));
             CreateMap<OrdemServico, OrdemServicoViewModel>();
             CreateMap<Pacto, PactoViewModel>()
                 .ForMember(dest => dest.CargaHorariaDiaria, opt => opt.MapFrom(src => TimeSpan.FromHours(src.CargaHoraria)))
@@ -49,7 +72,8 @@ namespace PGD.Application.AutoMapper
             CreateMap<AvaliacaoDetalhadaProduto, AvaliacaoDetalhadaProdutoViewModel>();
             CreateMap<OS_ItemAvaliacao, OS_ItemAvaliacaoViewModel>();
 
-
+            // Paginacao
+            CreateMap(typeof(Paginacao<>), typeof(PaginacaoViewModel<>));
         }
     }
 }

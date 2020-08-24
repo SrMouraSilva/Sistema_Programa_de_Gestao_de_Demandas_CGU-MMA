@@ -1,9 +1,7 @@
 ﻿using PGD.Domain.Entities.RH;
-using System;
+using PGD.Domain.Filtros;
+using PGD.Domain.Paginacao;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PGD.Domain.Interfaces.Service
 {
@@ -12,7 +10,6 @@ namespace PGD.Domain.Interfaces.Service
         IEnumerable<Unidade> ObterUnidades(int idTipoPacto = 0);
         IEnumerable<Unidade> ObterUnidadesSubordinadas(int idUnidadePai);
         Unidade ObterUnidade(int idUnidade);
-
-
+        Paginacao<Unidade> Buscar(UnidadeFiltro filtro);
     }
 }

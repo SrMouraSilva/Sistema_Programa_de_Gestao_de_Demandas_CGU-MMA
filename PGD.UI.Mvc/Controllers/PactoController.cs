@@ -150,6 +150,7 @@ namespace PGD.UI.Mvc.Controllers
 
             return View(PactoCompleto);
         }
+
         [HttpPost]
         public ActionResult GerarExcel(SearchPactoViewModel obj)
         {

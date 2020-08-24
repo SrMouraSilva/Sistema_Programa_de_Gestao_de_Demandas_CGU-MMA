@@ -4,6 +4,10 @@ using PGD.Domain.Entities;
 using PGD.Domain.Entities.RH;
 using PGD.Domain.Entities.Usuario;
 using System;
+using PGD.Application.ViewModels.Filtros;
+using PGD.Application.ViewModels.Filtros.Base;
+using PGD.Domain.Filtros;
+using PGD.Domain.Filtros.Base;
 
 namespace PGD.Application.AutoMapper
 {
@@ -11,6 +15,10 @@ namespace PGD.Application.AutoMapper
     {
         public ViewModelToDomainMappingProfile()
         {
+            // trim todas strings
+            CreateMap<string, string>()
+                .ConvertUsing(x => (x ?? "").Trim());
+
             CreateMap<AtividadeViewModel, Atividade>();
             CreateMap<AtividadeViewModel, OS_Atividade>();            
             CreateMap<TipoAtividadeViewModel, TipoAtividade>();
@@ -52,6 +60,10 @@ namespace PGD.Application.AutoMapper
             CreateMap<NivelAvaliacaoViewModel, NivelAvaliacao>();
             CreateMap<AvaliacaoDetalhadaProdutoViewModel, AvaliacaoDetalhadaProduto>();
             CreateMap<OS_ItemAvaliacaoViewModel, OS_ItemAvaliacao>();
+
+            // Filtros
+            CreateMap<UsuarioFiltroViewModel, UsuarioFiltro>();
+            CreateMap<UnidadeFiltroViewModel, UnidadeFiltro>();
         }
 
 

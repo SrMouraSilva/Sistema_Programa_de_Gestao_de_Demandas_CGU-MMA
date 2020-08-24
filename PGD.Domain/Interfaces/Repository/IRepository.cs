@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using PGD.Domain.Filtros.Base;
 
 namespace PGD.Domain.Interfaces.Repository
 {

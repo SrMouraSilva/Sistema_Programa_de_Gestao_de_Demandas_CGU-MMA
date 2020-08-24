@@ -213,6 +213,7 @@
     <Compile Include="Repository\Unidade_TipoPactoRepository.cs" />
     <Compile Include="Repository\UsuarioRepository.cs" />
     <Compile Include="UoW\UnitOfWork.cs" />
+    <Compile Include="Util\Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -249,6 +250,7 @@
       <DependentUpon>202008210142234_Vinculo_Unidade_Superior.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

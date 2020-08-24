@@ -1,14 +1,11 @@
 ﻿using PGD.Domain.Entities.RH;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PGD.Domain.Filtros;
+using PGD.Domain.Paginacao;
 
 namespace PGD.Domain.Interfaces.Repository
 {
     public interface IUnidadeRepository : IRepository<Unidade>
     {
-
+        Paginacao<Unidade> Buscar(UnidadeFiltro filtro);
     }
 }

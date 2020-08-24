@@ -1,0 +1,16 @@
+﻿.fixed-table-pagination .pagination-detail, .fixed-table-pagination div.pagination {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.danger {
+    color: #b92c28 !important
+}
+
+.success {
+    color: #3e8f3e !important
+}
+
+.warn {
+    color: #e38d13 !important
+}

@@ -5,6 +5,8 @@ using PGD.Domain.Entities.Usuario;
 using System.Net;
 using PGD.Domain.Interfaces.Repository;
 using System.Linq;
+using PGD.Domain.Filtros;
+using PGD.Domain.Paginacao;
 
 namespace PGD.Domain.Services
 {
@@ -85,6 +87,11 @@ namespace PGD.Domain.Services
             var lista = _usuarioRepository.ObterTodos();
 
             return lista;
+        }
+
+        public Paginacao<Usuario> Buscar(UsuarioFiltro filtro)
+        {
+            return _usuarioRepository.Buscar(filtro);
         }
 
         public Usuario ObterPorEmail(string email)

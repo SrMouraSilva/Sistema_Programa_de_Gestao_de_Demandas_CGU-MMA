@@ -195,6 +195,9 @@
     <Compile Include="ViewModels\AdministradorViewModel.cs" />
     <Compile Include="ViewModels\ArquivoDadoBrutoViewModel.cs" />
     <Compile Include="ViewModels\AvaliacaoDetalhadaProdutoViewModel.cs" />
+    <Compile Include="ViewModels\Filtros\Base\BaseFiltroViewModel.cs" />
+    <Compile Include="ViewModels\Filtros\UnidadeFiltroViewModel.cs" />
+    <Compile Include="ViewModels\Filtros\UsuarioFiltroViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\OS_ItemAvaliacaoViewModel.cs" />
     <Compile Include="ViewModels\ItemAvaliadoViewModel.cs" />
@@ -206,7 +209,10 @@
     <Compile Include="ViewModels\CriterioAvaliacaoViewModel.cs" />
     <Compile Include="ViewModels\NotaAvaliacaoViewModel.cs" />
     <Compile Include="ViewModels\NivelAvaliacaoViewModel.cs" />
+    <Compile Include="ViewModels\Paginacao\PaginacaoViewModel.cs" />
+    <Compile Include="ViewModels\SearchUsuarioViewModel.cs" />
     <Compile Include="ViewModels\SelecionarUnidadeViewModel.cs" />
+    <Compile Include="ViewModels\UnidadeViewModel.cs" />
     <Compile Include="ViewModels\Unidade_TipoPactoViewModel.cs" />
     <Compile Include="ViewModels\IniciativaPlanoOperacionalProdutoViewModel.cs" />
     <Compile Include="ViewModels\IniciativaPlanoOperacionalViewModel.cs" />
@@ -267,6 +273,7 @@
   <ItemGroup>
     <Content Include="ConfiguracaoNLog.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

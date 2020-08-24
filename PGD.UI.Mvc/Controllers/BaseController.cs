@@ -300,5 +300,10 @@ namespace PGD.UI.Mvc.Controllers
             }
         }
 
+        public IEnumerable<string> RetornaErrosModelState()
+        {
+            return ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors).Select(modelError => modelError.ErrorMessage).ToList();
+        }
+
     }
 }
