@@ -1,6 +1,9 @@
 ﻿using PGD.Domain.Entities.Usuario;
+using PGD.Domain.Filtros;
 using PGD.Domain.Interfaces.Repository;
+using PGD.Domain.Paginacao;
 using PGD.Infra.Data.Context;
+using PGD.Infra.Data.Util;
 using System;
 using System.Data.Entity;
 using System.Diagnostics.CodeAnalysis;
@@ -61,5 +64,44 @@ namespace PGD.Infra.Data.Repository
             throw new NotImplementedException();
         }
 
+        public Usuario Teste(string email)
+        {
+            var usuario = DbSet.AsQueryable();
+            
+            if (!string.IsNullOrWhiteSpace(email))
+                usuario = usuario.Where(x => x.Email.ToUpper() == email.ToUpper());
+
+            return new Usuario();
+        }
+
+        public Paginacao<Usuario> Buscar(UsuarioFiltro filtro)
+        {
+            var retorno = new Paginacao<Usuario>();
+            var query = DbSet.AsQueryable();
+
+            if (filtro.IncludeUnidadesPerfis)
+                query
+                    .Include("UsuariosPerfisUnidades")
+                    .Include("UsuariosPerfisUnidades.Perfil")
+                    .Include("UsuariosPerfisUnidades.Unidade");
+
+            query = !string.IsNullOrWhiteSpace(filtro.Nome) ? query.Where(x => x.Nome.ToLower().Contains(filtro.Nome.ToLower())) : query;
+            query = !string.IsNullOrWhiteSpace(filtro.Matricula) ? query.Where(x => x.Matricula.ToLower().Contains(filtro.Matricula.ToLower())) : query;
+            query = filtro.IdUnidade.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == filtro.IdUnidade)) : query;
+
+            if (filtro.Skip.HasValue && filtro.Take.HasValue)
+            {
+                retorno.QtRegistros = query.Count();
+                retorno.Lista = filtro.OrdenarDescendente 
+                    ? query.OrderByDescending(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList()
+                    : query.OrderBy(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList();
+            }
+            else
+            {
+                retorno.Lista = query.ToList();
+            }
+
+            return retorno;
+        }
     }
 }

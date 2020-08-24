@@ -5,16 +5,18 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using CGU.Util.ListsWebServices;
+using PGD.Domain.Filtros.Base;
 
 namespace PGD.Infra.Data.Repository
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected PGDDbContext Db;
         protected DbSet<TEntity> DbSet;
         private bool _disposed;
 
-        public Repository(PGDDbContext context)
+        protected Repository(PGDDbContext context)
         {
             Db = context;
             DbSet = Db.Set<TEntity>();

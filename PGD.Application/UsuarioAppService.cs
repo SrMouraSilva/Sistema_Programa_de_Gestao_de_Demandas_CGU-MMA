@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using PGD.Application.Interfaces;
 using PGD.Application.ViewModels;
+using PGD.Application.ViewModels.Filtros;
+using PGD.Application.ViewModels.Paginacao;
 using PGD.Domain.Entities;
 using PGD.Domain.Entities.Usuario;
+using PGD.Domain.Filtros;
 using PGD.Domain.Interfaces.Service;
 using PGD.Infra.Data.Interfaces;
 using System;
@@ -17,14 +20,22 @@ namespace PGD.Application
         private readonly ILogService _logService;
         private readonly IAdministradorService _admService;
         private readonly IPerfilService _perfilService;
+        private readonly IUnidadeService _unidadeService;
 
-        public UsuarioAppService(IUsuarioService usuarioService, IUnitOfWork uow, ILogService logService, IPerfilService perfilService, IAdministradorService admService)
+        public UsuarioAppService(
+            IUsuarioService usuarioService, 
+            IUnitOfWork uow, 
+            ILogService logService, 
+            IPerfilService perfilService, 
+            IAdministradorService admService, 
+            IUnidadeService unidadeService)
             : base(uow)
         {
             _usuarioService = usuarioService;
             _logService = logService;
             _perfilService = perfilService;
             _admService = admService;
+            _unidadeService = unidadeService;
         }
 
         public UsuarioViewModel Adicionar(UsuarioViewModel usuarioViewModel)
@@ -64,18 +75,43 @@ namespace PGD.Application
             cpf = cpf.Replace(".", "").Replace("-", "");
             var usuario = _usuarioService.ObterPorCPF(cpf);
             var usuarioViewModel = Mapper.Map<Usuario, UsuarioViewModel>(usuario);
-            usuarioViewModel.PerfisUnidades = usuario.UsuariosPerfisUnidades.Where(x => !x.Excluido).Select(x => new UsuarioPerfilUnidadeViewModel
-            {
-                Id = x.Id,
-                IdPerfil = x.IdPerfil,
-                IdUnidade = x.IdUnidade,
-                NomePerfil = x.Perfil.Nome,
-                NomeUnidade = x.Unidade.Nome,
-                SiglaUnidade = x.Unidade.Sigla,
-                IdUsuario = x.IdUsuario
-            }).ToList();
+            //usuarioViewModel.PerfisUnidades = usuario.UsuariosPerfisUnidades.Where(x => !x.Excluido).Select(x => new UsuarioPerfilUnidadeViewModel
+            //{
+            //    Id = x.Id,
+            //    IdPerfil = x.IdPerfil,
+            //    IdUnidade = x.IdUnidade,
+            //    NomePerfil = x.Perfil.Nome,
+            //    NomeUnidade = x.Unidade.Nome,
+            //    SiglaUnidade = x.Unidade.Sigla,
+            //    IdUsuario = x.IdUsuario
+            //}).ToList();
 
             return usuarioViewModel;
+        }
+
+        public PaginacaoViewModel<UsuarioViewModel> Buscar(UsuarioFiltroViewModel model)
+        {
+            var retorno = Mapper.Map<PaginacaoViewModel<UsuarioViewModel>>(_usuarioService.Buscar(Mapper.Map<UsuarioFiltro>(model)));
+            return retorno;
+        }
+
+        public PaginacaoViewModel<UnidadeViewModel> BuscarUnidades(UnidadeFiltroViewModel filtro)
+        {
+            var retorno = _unidadeService.Buscar(Mapper.Map<UnidadeFiltro>(filtro));
+            return new PaginacaoViewModel<UnidadeViewModel>
+            {
+                QtRegistros = retorno.QtRegistros,
+                Lista = retorno.Lista.Select(x => new UnidadeViewModel
+                {
+                    IdUnidade = x.IdUnidade,
+                    Nome = x.Nome,
+                    Codigo = x.Codigo,
+                    Hierarquia = x.Hierarquia,
+                    Sigla = x.Sigla,
+                    Excluido = x.Excluido,
+                    IdUnidadeSuperior = x.IdUnidadeSuperior
+                })
+            };
         }
 
         public UsuarioViewModel ObterPorId(int id)

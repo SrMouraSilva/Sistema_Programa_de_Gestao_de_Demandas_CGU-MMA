@@ -1,6 +1,8 @@
 ﻿using PGD.Domain.Entities.RH;
+using PGD.Domain.Filtros;
 using PGD.Domain.Interfaces.Repository;
 using PGD.Domain.Interfaces.Service;
+using PGD.Domain.Paginacao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +49,11 @@ namespace PGD.Domain.Services
         {
             var listaTodasUnidades = ObterUnidades();
             return listaTodasUnidades.SingleOrDefault(i => i.IdUnidade == idUnidade);
+        }
+
+        public Paginacao<Unidade> Buscar(UnidadeFiltro filtro)
+        {
+            return _unidadeRepository.Buscar(filtro);
         }
 
         public Unidade Adicionar(Unidade obj)

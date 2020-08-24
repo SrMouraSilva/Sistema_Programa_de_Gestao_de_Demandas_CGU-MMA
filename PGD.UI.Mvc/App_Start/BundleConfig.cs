@@ -28,6 +28,7 @@ namespace PGD.UI.Mvc
                     "~/Scripts/html2canvas.js",
                     "~/Scripts/jquery.validate.globalize.js", 
                     "~/Scripts/selectize.js",
+                    "~/Scripts/select2/select2.min.js",
                     "~/Scripts/jquery.unobtrusive-ajax.min.js",
                     "~/Scripts/jquery-ui.js",
                     "~/Scripts/jquery.maskedinput.js",
@@ -45,6 +46,15 @@ namespace PGD.UI.Mvc
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Content/Bootstrap/js/bootstrap.js",
+                      "~/Content/Bootstrap/js/bootstrap.js",
+                      "~/Scripts/bootstrap-table/bootstrap-table.min.js",
+                      "~/Scripts/bootstrap-table/Locale/bootstrap-table-pt-BR.js",
+                      "~/Scripts/bootstrap-table/extensions/filter-control/bootstrap-table-filter-control.js",
+                      "~/Scripts/bootstrap-table/extensions/editable/bootstrap-table-editable.js",
+                      "~/Scripts/bootstrap-table/extensions/mobile/bootstrap-table-mobile.js",
+                      "~/Scripts/bootstrap-table/extensions/export/tableExport.min.js",
+                      "~/Scripts/bootstrap-table/extensions/export/bootstrap-table-export.min.js",
+                      "~/Scripts/bootstrap-table/extensions/js-xlsx/xlsx.core.min.js",
                       "~/Scripts/respond.js"));
 
 
@@ -55,10 +65,14 @@ namespace PGD.UI.Mvc
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
                       "~/Content/bootstrap/css/bootstrap.css",
+                      "~/Content/bootstrap-table/bootstrap-table.min.css",
                       "~/Content/bootstrap/css/bootstrap-theme.min.css",
                       "~/Content/site.css",
+                      "~/Content/css/Site.css",
                       "~/Content/css/datatables.min.css",
                       "~/Content/css/datepicker2.css",
+                      "~/Content/select2/select2.min.css",
+                      "~/Content/fontawesome5.14.0/css/all.min.css",
                       "~/Content/css/selectize.bootstrap3.css"
                       ));
 
