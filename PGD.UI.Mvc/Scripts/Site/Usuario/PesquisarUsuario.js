@@ -68,6 +68,9 @@ function ajaxTableUsuarios(params) {
             if (data.camposNaoPreenchidos)
                 ShowWarningMessage(data.camposNaoPreenchidos[0]);
 
+            if ((!data.Lista || !data.Lista.length) && !data.camposNaoPreenchidos)
+                ShowErrorMessage("Nenhum registro encontrado");
+
             params.success({
                 "rows": data.camposNaoPreenchidos ? [] : data.Lista,
                 "total": data.camposNaoPreenchidos ? 0 : data.QtRegistros
