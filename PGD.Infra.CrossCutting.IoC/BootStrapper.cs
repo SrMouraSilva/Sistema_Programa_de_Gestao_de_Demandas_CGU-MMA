@@ -81,6 +81,7 @@ namespace PGD.Infra.CrossCutting.IoC
             kernel.Bind(typeof(IUnidadeService)).To(typeof(UnidadeService)).InRequestScope();
             kernel.Bind(typeof(IFeriadoService)).To(typeof(FeriadoService)).InRequestScope();
             kernel.Bind(typeof(IPerfilService)).To(typeof(PerfilService)).InRequestScope();
+            kernel.Bind(typeof(IPermissaoService)).To(typeof(PermissaoService)).InRequestScope();
             kernel.Bind(typeof(IUsuarioPerfilUnidadeService)).To(typeof(UsuarioPerfilUnidadeService)).InRequestScope();
 
             // Infra Dados
@@ -114,6 +115,7 @@ namespace PGD.Infra.CrossCutting.IoC
             kernel.Bind(typeof(IUnidadeRepository)).To(typeof(UnidadeRepository)).InRequestScope();
             kernel.Bind(typeof(IFeriadoRepository)).To(typeof(FeriadoRepository)).InRequestScope();
             kernel.Bind(typeof(IPerfilRepository)).To(typeof(PerfilRepository)).InRequestScope();
+            kernel.Bind(typeof(IPermissaoRepository)).To(typeof(PermissaoRepository)).InRequestScope();
             kernel.Bind(typeof(IUsuarioPerfilUnidadeRepository)).To(typeof(UsuarioPerfilUnidadeRepository)).InRequestScope();
 
             kernel.Bind(typeof(IUnitOfWork)).To(typeof(UnitOfWork)).InRequestScope();

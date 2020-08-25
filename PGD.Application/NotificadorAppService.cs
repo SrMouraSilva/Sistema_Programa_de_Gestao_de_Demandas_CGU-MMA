@@ -102,7 +102,7 @@ namespace PGD.Application
             }
             catch (Exception ex)
             {
-                LogManagerComum.LogarErro(ex, null, " Erro ao enviar notificação da ação de " + oper + " de pacto aos interessados.");
+                //LogManagerComum.LogarErro(ex, null, " Erro ao enviar notificação da ação de " + oper + " de pacto aos interessados.");
                 return false;
             }
         }
@@ -153,7 +153,7 @@ namespace PGD.Application
                 }
                 catch (Exception ex)
                 {
-                    LogManagerComum.LogarErro(ex, null, " Erro ao montar email de inclusão do pacto = " + numeroPacto);
+                    //LogManagerComum.LogarErro(ex, null, " Erro ao montar email de inclusão do pacto = " + numeroPacto);
                     montouMensagem = false;
                 }
 
@@ -213,7 +213,7 @@ namespace PGD.Application
                 }
                 catch (Exception ex)
                 {
-                    LogManagerComum.LogarErro(ex, null, "Erro ao montar email de inclusão por chefia do pacto = " + numeroPacto);
+                    //LogManagerComum.LogarErro(ex, null, "Erro ao montar email de inclusão por chefia do pacto = " + numeroPacto);
                     montouMensagem = false;
                 }
 
@@ -268,7 +268,7 @@ namespace PGD.Application
                 }
                 catch (Exception ex)
                 {
-                    LogManagerComum.LogarErro(ex, null, "Erro ao montar email de alteração do pacto = " + numeroPacto);
+                    //LogManagerComum.LogarErro(ex, null, "Erro ao montar email de alteração do pacto = " + numeroPacto);
                     montouMensagem = false;
                 }
 
@@ -324,7 +324,7 @@ namespace PGD.Application
                 }
                 catch (Exception ex)
                 {
-                    LogManagerComum.LogarErro(ex, null, "Erro ao montar email de alteração do pacto = " + numeroPacto);
+                    //LogManagerComum.LogarErro(ex, null, "Erro ao montar email de alteração do pacto = " + numeroPacto);
                     montouMensagem = false;
                 }
 
@@ -386,7 +386,7 @@ namespace PGD.Application
                 }
                 catch (Exception ex)
                 {
-                    LogManagerComum.LogarErro(ex, null, "Erro ao montar email de suspensão do pacto = " + numeroPacto);
+                    //LogManagerComum.LogarErro(ex, null, "Erro ao montar email de suspensão do pacto = " + numeroPacto);
                     throw;
 
                 }
@@ -445,7 +445,7 @@ namespace PGD.Application
             }
             catch (Exception ex)
             {
-                LogManagerComum.LogarErro(ex, null, "Erro ao montar email de suspensão do pacto = " + numeroPacto);
+                //LogManagerComum.LogarErro(ex, null, "Erro ao montar email de suspensão do pacto = " + numeroPacto);
                 throw;
 
             }
@@ -498,7 +498,7 @@ namespace PGD.Application
             }
             catch (Exception ex)
             {
-                LogManagerComum.LogarErro(ex, null, "Erro ao montar email de suspensão do pacto = " + numeroPacto);
+                //LogManagerComum.LogarErro(ex, null, "Erro ao montar email de suspensão do pacto = " + numeroPacto);
                 throw;
 
             }
@@ -559,7 +559,7 @@ namespace PGD.Application
             }
             catch (Exception ex)
             {
-                LogManagerComum.LogarErro(ex, null, "Email ao montar email de interrupção do pacto = " + numeroPacto);
+                //LogManagerComum.LogarErro(ex, null, "Email ao montar email de interrupção do pacto = " + numeroPacto);
                 throw;
 
             }
@@ -612,7 +612,7 @@ namespace PGD.Application
             }
             catch (Exception ex)
             {
-                LogManagerComum.LogarErro(ex, null, "Erro ao montar email de interrupção do pacto = " + numeroPacto);
+                //LogManagerComum.LogarErro(ex, null, "Erro ao montar email de interrupção do pacto = " + numeroPacto);
                 throw;
 
             }
@@ -672,7 +672,7 @@ namespace PGD.Application
             }
             catch (Exception ex)
             {
-                LogManagerComum.LogarErro(ex, null, "Erro ao montar email de reinício após suspensão do pacto = " + numeroPacto);
+                //LogManagerComum.LogarErro(ex, null, "Erro ao montar email de reinício após suspensão do pacto = " + numeroPacto);
                 throw;
 
             }
@@ -737,7 +737,7 @@ namespace PGD.Application
                 }
                 catch (Exception ex)
                 {
-                    LogManagerComum.LogarErro(ex, null, " Email não enviado. Detalhe: Para: " + destinatario + "\n Assunto: " + assunto + "\n Mensagem: " + mensagem);
+                    // LogManagerComum.LogarErro(ex, null, " Email não enviado. Detalhe: Para: " + destinatario + "\n Assunto: " + assunto + "\n Mensagem: " + mensagem);
                 }
 
             });
@@ -785,12 +785,12 @@ namespace PGD.Application
                 catch (Exception ex)
                 {
                     // Nada a fazer, apenas loga. Futuramente podem-se armazenar os emails que falharam e tentar reenviar
-                    LogManagerComum.LogarErro(ex, null, " Email não enviado. Detalhe: Para: " + destinatario + "\n Assunto: " + assunto + "\n Mensagem: " + mensagem);
+                    // LogManagerComum.LogarErro(ex, null, " Email não enviado. Detalhe: Para: " + destinatario + "\n Assunto: " + assunto + "\n Mensagem: " + mensagem);
                 }
             }
             catch (Exception ex)
             {
-                LogManagerComum.LogarErro(ex, null, " Email ao montar email de reativação automática do pacto = " + numeroPacto);
+                // LogManagerComum.LogarErro(ex, null, " Email ao montar email de reativação automática do pacto = " + numeroPacto);
             }
 
 
@@ -808,7 +808,7 @@ namespace PGD.Application
             catch (Exception ex)
             {
                 // Nada a fazer, apenas loga. Futuramente podem-se armazenar os emails que falharam e tentar reenviar
-               LogManagerComum.LogarErro(ex, null, " Email não enviado. Detalhe: Para: " + destinatario + "\n Assunto: " + assunto + "\n Mensagem: " + mensagem);
+                // LogManagerComum.LogarErro(ex, null, " Email não enviado. Detalhe: Para: " + destinatario + "\n Assunto: " + assunto + "\n Mensagem: " + mensagem);
                 throw;
             }
         }
@@ -912,7 +912,7 @@ namespace PGD.Application
             }
             catch (Exception ex)
             {
-                LogManagerComum.LogarErro(ex);
+                // LogManagerComum.LogarErro(ex);
                 throw new InvalidOperationException("Não foi possível montar a tabela com os produtos"); ;
             }
         }

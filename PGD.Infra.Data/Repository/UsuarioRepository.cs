@@ -80,19 +80,20 @@ namespace PGD.Infra.Data.Repository
             var query = DbSet.AsQueryable();
 
             if (filtro.IncludeUnidadesPerfis)
-                query
-                    .Include("UsuariosPerfisUnidades")
+                query.Include("UsuariosPerfisUnidades")
                     .Include("UsuariosPerfisUnidades.Perfil")
                     .Include("UsuariosPerfisUnidades.Unidade");
 
             query = !string.IsNullOrWhiteSpace(filtro.Nome) ? query.Where(x => x.Nome.ToLower().Contains(filtro.Nome.ToLower())) : query;
+            query = !string.IsNullOrWhiteSpace(filtro.Cpf) ? query.Where(x => x.Cpf == filtro.Cpf) : query;
             query = !string.IsNullOrWhiteSpace(filtro.Matricula) ? query.Where(x => x.Matricula.ToLower().Contains(filtro.Matricula.ToLower())) : query;
             query = filtro.IdUnidade.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == filtro.IdUnidade)) : query;
             query = filtro.Id.HasValue ? query.Where(x => x.IdUsuario == filtro.Id) : query;
 
+            retorno.QtRegistros = query.Count();
+
             if (filtro.Skip.HasValue && filtro.Take.HasValue)
             {
-                retorno.QtRegistros = query.Count();
                 retorno.Lista = filtro.OrdenarDescendente 
                     ? query.OrderByDescending(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList()
                     : query.OrderBy(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList();
@@ -101,6 +102,7 @@ namespace PGD.Infra.Data.Repository
             {
                 retorno.Lista = query.ToList();
             }
+
 
             return retorno;
         }

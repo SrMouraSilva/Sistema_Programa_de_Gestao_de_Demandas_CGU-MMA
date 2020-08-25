@@ -1,11 +1,5 @@
 ﻿using PGD.Application.Interfaces;
 using PGD.Application.ViewModels;
-using PGD.Domain.Enums;
-using PGD.UI.Mvc.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PGD.UI.Mvc.Controllers

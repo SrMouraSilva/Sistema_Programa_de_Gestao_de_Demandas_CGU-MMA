@@ -24,12 +24,11 @@ namespace PGD.Application.Interfaces
 
         bool PodeSelecionarPerfil(UsuarioViewModel usuario);
         bool PodeSelecionarUnidade(UsuarioViewModel usuario);
-
-        UsuarioViewModel ObterUsuarioComPerfilPorCPF(string cpf);
         PaginacaoViewModel<UsuarioViewModel> Buscar(UsuarioFiltroViewModel model);
         PaginacaoViewModel<UnidadeViewModel> BuscarUnidades(UnidadeFiltroViewModel filtro);
         PaginacaoViewModel<UsuarioPerfilUnidadeViewModel> BuscarPerfilUnidade(UsuarioPerfilUnidadeFiltroViewModel filtro);
         VincularPerfilUsuarioViewModel VincularUnidadePerfil(VincularPerfilUsuarioViewModel model, string cpfUsuarioLogado);
         VincularPerfilUsuarioViewModel RemoverVinculoUnidadePerfil(long idUsuarioPerfilUnidade, string cpfUsuarioLogado);
+        ICollection<PermissaoViewModel> BuscarPermissoes(int? idPerfil);
     }
 }

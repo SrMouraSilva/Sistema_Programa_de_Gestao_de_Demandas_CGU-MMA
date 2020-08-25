@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using CsQuery.ExtensionMethods;
 using PGD.Application.Interfaces;
+using PGD.Application.Util;
+using PGD.Application.ViewModels;
 using PGD.Application.ViewModels.Filtros;
 using System.Web.Mvc;
 using CsQuery.ExtensionMethods;

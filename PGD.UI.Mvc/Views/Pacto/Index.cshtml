@@ -10,10 +10,11 @@
     if (controller != null)
     {
         user = controller.getUserLogado();
-        if (user?.Perfis != null && user.Perfis.Count == 1)
-        {
-            perfil = user.Perfis.FirstOrDefault();
-        }
+        perfil = user.PerfilSelecionado ?? perfil;
+        // if (user?.Perfis != null && user.Perfis.Count == 1)
+        // {
+        //     perfil = user.Perfis.FirstOrDefault();
+        // }
     }
 }
 
