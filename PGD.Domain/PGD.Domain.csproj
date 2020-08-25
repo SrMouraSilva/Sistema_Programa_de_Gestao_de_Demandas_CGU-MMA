@@ -298,7 +298,6 @@
     <Compile Include="Services\NivelAvaliacaoService.cs" />
     <Compile Include="Services\PerfilRepository.cs" />
     <Compile Include="Services\PerfilService.cs" />
-    <Compile Include="Services\UnidadeRepository.cs" />
     <Compile Include="Services\PermissaoService.cs" />
     <Compile Include="Services\UnidadeService.cs" />
     <Compile Include="Services\Unidade_TipoPactoService.cs" />

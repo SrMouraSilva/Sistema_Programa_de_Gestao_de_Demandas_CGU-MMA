@@ -3,12 +3,11 @@ using PGD.Application.Interfaces;
 using PGD.Application.Util;
 using PGD.Application.ViewModels;
 using PGD.Application.ViewModels.Filtros;
-using System.Web.Mvc;
-using CsQuery.ExtensionMethods;
-using PGD.Application.Util;
-using PGD.Application.ViewModels;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using PGD.Domain.Enums;
+using PGD.Domain.Entities;
 
 namespace PGD.UI.Mvc.Controllers
 {
@@ -96,8 +95,8 @@ namespace PGD.UI.Mvc.Controllers
         {
             var lista = new List<PerfilViewModel>
             {
-                new PerfilViewModel { Nome = Perfil.Administrador.ToString(), IdPerfil = Perfil.Administrador.GetHashCode() },
-                new PerfilViewModel { Nome = Perfil.Dirigente.ToString(), IdPerfil = Perfil.Dirigente.GetHashCode() }
+                new PerfilViewModel { Nome = Domain.Enums.Perfil.Administrador.ToString(), IdPerfil = Domain.Enums.Perfil.Administrador.GetHashCode() },
+                new PerfilViewModel { Nome = Domain.Enums.Perfil.Dirigente.ToString(), IdPerfil = Domain.Enums.Perfil.Dirigente.GetHashCode() }
             };
             TempData["lstPerfil"] = lista;
         }

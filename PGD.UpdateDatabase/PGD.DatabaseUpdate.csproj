@@ -128,12 +128,6 @@
     <None Include="PGD.DatabaseUpdate.ruleset" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PGD.Infra.Data\PGD.Infra.Data.csproj">
-      <Project>{02ebaee6-a2e6-4e34-9983-a93cb23f35a4}</Project>
-      <Name>PGD.Infra.Data</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="ConfiguracaoNLog.txt" />
     <Content Include="ControleMigrations.txt" />
   </ItemGroup>
@@ -141,6 +135,12 @@
     <EmbeddedResource Include="Migrations\202006301923291_criacao_banco.resx">
       <DependentUpon>202006301923291_criacao_banco.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PGD.Infra.Data\PGD.Infra.Data.csproj">
+      <Project>{02ebaee6-a2e6-4e34-9983-a93cb23f35a4}</Project>
+      <Name>PGD.Infra.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll" />
