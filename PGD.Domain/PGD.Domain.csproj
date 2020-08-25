@@ -190,6 +190,8 @@
     <Compile Include="Entities\OS_CriterioAvaliacao.cs" />
     <Compile Include="Entities\NivelAvaliacao.cs" />
     <Compile Include="Entities\Perfil.cs" />
+    <Compile Include="Entities\Permissao.cs" />
+    <Compile Include="Entities\PermissaoPerfil.cs" />
     <Compile Include="Entities\Unidade_TipoPacto.cs" />
     <Compile Include="Entities\ParametroSistema.cs" />
     <Compile Include="Entities\SituacaoPacto.cs" />
@@ -210,6 +212,7 @@
     <Compile Include="Entities\Usuario\Usuario.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Filtros\Base\BaseFiltro.cs" />
+    <Compile Include="Filtros\PermissaoFiltro.cs" />
     <Compile Include="Filtros\UnidadeFiltro.cs" />
     <Compile Include="Filtros\UsuarioFiltro.cs" />
     <Compile Include="Interfaces\Repository\IAvaliacaoDetalhadaProdutoRepository.cs" />
@@ -224,6 +227,7 @@
     <Compile Include="Interfaces\Repository\IOS_CriterioAvaliacaoRepository.cs" />
     <Compile Include="Interfaces\Repository\INivelAvaliacaoRepository.cs" />
     <Compile Include="Interfaces\Repository\IPerfilRepository.cs" />
+    <Compile Include="Interfaces\Repository\IPermissaoRepository.cs" />
     <Compile Include="Interfaces\Repository\IUnidadeRepository.cs" />
     <Compile Include="Interfaces\Repository\IUnidade_TipoPactoRepository.cs" />
     <Compile Include="Interfaces\Repository\IIniciativaPlanoOperacionalRepository.cs" />
@@ -255,6 +259,7 @@
     <Compile Include="Interfaces\Service\IOS_CriterioAvaliacaoService.cs" />
     <Compile Include="Interfaces\Service\INivelAvaliacaoService.cs" />
     <Compile Include="Interfaces\Service\IPerfilService.cs" />
+    <Compile Include="Interfaces\Service\IPermissaoService.cs" />
     <Compile Include="Interfaces\Service\IUnidadeService.cs" />
     <Compile Include="Interfaces\Service\IUnidade_TipoPactoService.cs" />
     <Compile Include="Interfaces\Service\IGrupoAtividadeService.cs" />
@@ -291,6 +296,7 @@
     <Compile Include="Services\PerfilRepository.cs" />
     <Compile Include="Services\PerfilService.cs" />
     <Compile Include="Services\UnidadeRepository.cs" />
+    <Compile Include="Services\PermissaoService.cs" />
     <Compile Include="Services\UnidadeService.cs" />
     <Compile Include="Services\Unidade_TipoPactoService.cs" />
     <Compile Include="Services\GrupoAtividadeService.cs" />

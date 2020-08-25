@@ -59,6 +59,7 @@ namespace PGD.Application.ViewModels
 
 
         public Perfil? PerfilSelecionado { get; private set; }
+        public IEnumerable<PermissaoViewModel> Permissoes { get; private set; }
         public int? IdPerfilSelecionado => PerfilSelecionado?.GetHashCode();
         public int? IdUnidadeSelecionada { get; private set; }
         public string NomeUnidadeSelecionada { get; private set; }
@@ -67,6 +68,11 @@ namespace PGD.Application.ViewModels
         public void AlterarPerfilSelecionado(Perfil perfil)
         {
             PerfilSelecionado = perfil;
+        }
+
+        public void AlterarListaPermissoes(ICollection<PermissaoViewModel> permissoes)
+        {
+            Permissoes = permissoes;
         }
 
         public void AlterarUnidadeSelecionada(int idUnidade)

@@ -1,11 +1,7 @@
 ﻿using PGD.Application.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PGD.Application.ViewModels.Filtros;
 using PGD.Application.ViewModels.Paginacao;
+using System.Collections.Generic;
 
 namespace PGD.Application.Interfaces
 {
@@ -28,9 +24,8 @@ namespace PGD.Application.Interfaces
 
         bool PodeSelecionarPerfil(UsuarioViewModel usuario);
         bool PodeSelecionarUnidade(UsuarioViewModel usuario);
-
-        UsuarioViewModel ObterUsuarioComPerfilPorCPF(string cpf);
         PaginacaoViewModel<UsuarioViewModel> Buscar(UsuarioFiltroViewModel model);
         PaginacaoViewModel<UnidadeViewModel> BuscarUnidades(UnidadeFiltroViewModel filtro);
+        ICollection<PermissaoViewModel> BuscarPermissoes(int? idPerfil);
     }
 }

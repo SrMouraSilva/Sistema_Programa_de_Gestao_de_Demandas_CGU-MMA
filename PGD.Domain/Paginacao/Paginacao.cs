@@ -4,6 +4,10 @@ namespace PGD.Domain.Paginacao
 {
     public class Paginacao<T>
     {
+        public Paginacao()
+        {
+            Lista = new List<T>();
+        }
         public int QtRegistros { get; set; }
         public IEnumerable<T> Lista { get; set; }
     }

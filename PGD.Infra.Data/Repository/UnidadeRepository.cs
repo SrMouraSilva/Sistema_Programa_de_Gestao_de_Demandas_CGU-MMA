@@ -54,10 +54,10 @@ namespace PGD.Infra.Data.Repository
             if (!filtro.BuscarExcluidos)
                 query = query.Where(x => !x.Excluido);    
 
+            retorno.QtRegistros = query.Count();
 
             if (filtro.Skip.HasValue && filtro.Take.HasValue)
             {
-                retorno.QtRegistros = query.Count();
                 retorno.Lista = filtro.OrdenarDescendente
                     ? query.OrderByDescending(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList()
                     : query.OrderBy(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList();

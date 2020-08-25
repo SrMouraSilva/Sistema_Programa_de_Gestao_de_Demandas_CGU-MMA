@@ -79,10 +79,19 @@ namespace PGD.UI.Mvc.Controllers
                 }
             }
 
+            ValidarPermissoes(filterContext);
 
             base.OnActionExecuting(filterContext);
 
             getMessages();
+        }
+
+        // TODO: Verificar se vai ter validação de permissões e aplicar validação por controller e action
+        private void ValidarPermissoes(ActionExecutingContext filterContext)
+        {
+            var user = getUserLogado();
+            if (user == null) return;
+            var perfilAtual = user.IdPerfilSelecionado;
         }
 
         protected override void OnException(ExceptionContext filterContext)

@@ -1,4 +1,5 @@
-﻿using PGD.Application.Interfaces;
+﻿using System;
+using PGD.Application.Interfaces;
 using PGD.Application.ViewModels;
 using PGD.Domain.Entities.RH;
 using PGD.Domain.Enums;
@@ -9,6 +10,9 @@ using System.DirectoryServices.Protocols;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using CsQuery.ExtensionMethods.Internal;
+using PGD.Application.Util;
+using PGD.Application.ViewModels.Filtros;
 
 namespace PGD.UI.Mvc.Controllers
 {
@@ -79,7 +83,7 @@ namespace PGD.UI.Mvc.Controllers
                 setUserLogado(usuario);
                 return usuario;
             }
-            catch
+            catch(Exception e)
             {
                 ModelState.AddModelError("", "Usuário ou senha incorretos.");
                 return null;
@@ -121,6 +125,9 @@ namespace PGD.UI.Mvc.Controllers
 
             var usuario = getUserLogado();
             usuario.AlterarPerfilSelecionado(perfil.Value);
+
+            // usuario.AlterarListaPermissoes(_usuarioAppService.BuscarPermissoes(usuario.IdPerfilSelecionado));
+
 
             setUserLogado(usuario);
 
@@ -219,7 +226,8 @@ namespace PGD.UI.Mvc.Controllers
 
         private UsuarioViewModel BuscarUsuario(LoginViewModel loginViewModel)
         {
-            return _usuarioAppService.ObterUsuarioComPerfilPorCPF(loginViewModel.Cpf);
+            var retorno = _usuarioAppService.Buscar(new UsuarioFiltroViewModel{ Cpf = loginViewModel.Cpf.RemoverMaskCpfCnpj(), IncludeUnidadesPerfis = true});
+            return retorno.Lista.FirstOrDefault();
         }
     }
 }
