@@ -2205,6 +2205,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\select2\select2.min.js" />
     <Content Include="Scripts\selectize.js" />
+    <Content Include="Scripts\Site\Usuario\VincularPerfil.js" />
     <Content Include="Scripts\Site\Usuario\PesquisarUsuario.js" />
     <Content Include="Scripts\tableExport.js" />
     <Content Include="Scripts\tableExport.min.js" />
@@ -2285,6 +2286,7 @@
     <Content Include="Views\Login\SelecionarUnidade.cshtml" />
     <Content Include="Views\Shared\_UsuarioPartial.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Usuario\VincularPerfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

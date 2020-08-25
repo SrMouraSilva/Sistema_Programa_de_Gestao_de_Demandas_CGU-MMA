@@ -5,6 +5,8 @@ using System.Web.Mvc;
 using CsQuery.ExtensionMethods;
 using PGD.Application.Util;
 using PGD.Application.ViewModels;
+using System.Linq;
+using PGD.Domain.Enums;
 
 namespace PGD.UI.Mvc.Controllers
 {
@@ -33,10 +35,69 @@ namespace PGD.UI.Mvc.Controllers
             return Json(usuarios);
         }
 
+        [HttpGet]
+        public ActionResult VincularPerfil(int id)
+        {
+            var usuario = _usuarioAppService.Buscar(new UsuarioFiltroViewModel
+            {
+                Id = id
+            }).Lista.FirstOrDefault();
+
+            PrepararTempDataPerfis();
+
+            return View(new VincularPerfilUsuarioViewModel { 
+                Cpf = usuario.CPF.MaskCpfCpnj(),
+                Matricula = usuario.Matricula,
+                Nome = usuario.Nome,
+                IdUsuario = usuario.IdUsuario
+            });
+        }
+
+        [HttpPost]
+        public ActionResult VincularPerfil(VincularPerfilUsuarioViewModel model)
+        {
+            if (!ModelState.IsValid) return Json(new { camposNaoPreenchidos = RetornaErrosModelState() });
+
+            var usuarioLogado = getUserLogado();
+            var retorno = _usuarioAppService.VincularUnidadePerfil(model, usuarioLogado.CPF);
+
+            return Json(retorno);
+        }
+
+        [HttpPost]
+        public ActionResult ExcluirVinculo(long idUsuarioPerfilUnidade)
+        {
+            var usuarioLogado = getUserLogado();
+            var retorno = _usuarioAppService.RemoverVinculoUnidadePerfil(idUsuarioPerfilUnidade, usuarioLogado.CPF);
+            return Json(retorno, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult BuscarUnidadesPerfisUsuario(int idUsuario, int take, int skip)
+        {
+            var retorno = _usuarioAppService.BuscarPerfilUnidade(new UsuarioPerfilUnidadeFiltroViewModel
+            {
+                IdUsuario = idUsuario,
+                Skip = skip,
+                Take = take
+            });
+            return Json(retorno, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult BuscarUnidadesPorNomeOuSigla(string query)
         {
             var retorno = _usuarioAppService.BuscarUnidades(new UnidadeFiltroViewModel {NomeOuSigla = query});
             return Json(retorno, JsonRequestBehavior.AllowGet);
+        }
+
+        private void PrepararTempDataPerfis()
+        {
+            var lista = new List<PerfilViewModel>
+            {
+                new PerfilViewModel { Nome = Perfil.Administrador.ToString(), IdPerfil = Perfil.Administrador.GetHashCode() },
+                new PerfilViewModel { Nome = Perfil.Dirigente.ToString(), IdPerfil = Perfil.Dirigente.GetHashCode() }
+            };
+            TempData["lstPerfil"] = lista;
         }
     }
 }

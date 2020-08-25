@@ -27,6 +27,8 @@ namespace PGD.Infra.Data.EntityConfig
             HasRequired(x => x.Unidade)
                 .WithMany(x => x.UsuariosPerfisUnidades)
                 .HasForeignKey(x => x.IdUnidade);
+
+            Ignore(c => c.ValidationResult);
         }
     }
 }

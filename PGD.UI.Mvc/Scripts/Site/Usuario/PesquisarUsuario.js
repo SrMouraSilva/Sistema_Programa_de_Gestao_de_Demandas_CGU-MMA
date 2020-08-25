@@ -83,7 +83,7 @@ function ajaxTableUsuarios(params) {
 } 
 
 function redirecionarEditarUsuario(idUsuario) {
-    console.log('redirecionar', idUsuario);
+    window.location.href = `Usuario/VincularPerfil/${idUsuario}`;
 }
 
 function formatterAcoes(value, row) {

@@ -212,6 +212,7 @@
     <Compile Include="Filtros\Base\BaseFiltro.cs" />
     <Compile Include="Filtros\UnidadeFiltro.cs" />
     <Compile Include="Filtros\UsuarioFiltro.cs" />
+    <Compile Include="Filtros\UsuarioPerfilUnidadeFiltro.cs" />
     <Compile Include="Interfaces\Repository\IAvaliacaoDetalhadaProdutoRepository.cs" />
     <Compile Include="Interfaces\Repository\IFeriadoRepository.cs" />
     <Compile Include="Interfaces\Repository\IItemAvaliacaoRepository.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Interfaces\Repository\IOS_CriterioAvaliacaoRepository.cs" />
     <Compile Include="Interfaces\Repository\INivelAvaliacaoRepository.cs" />
     <Compile Include="Interfaces\Repository\IPerfilRepository.cs" />
+    <Compile Include="Interfaces\Repository\IUsuarioPerfilUnidadeRepository.cs" />
     <Compile Include="Interfaces\Repository\IUnidadeRepository.cs" />
     <Compile Include="Interfaces\Repository\IUnidade_TipoPactoRepository.cs" />
     <Compile Include="Interfaces\Repository\IIniciativaPlanoOperacionalRepository.cs" />
@@ -255,6 +257,7 @@
     <Compile Include="Interfaces\Service\IOS_CriterioAvaliacaoService.cs" />
     <Compile Include="Interfaces\Service\INivelAvaliacaoService.cs" />
     <Compile Include="Interfaces\Service\IPerfilService.cs" />
+    <Compile Include="Interfaces\Service\IUsuarioPerfilUnidadeService.cs" />
     <Compile Include="Interfaces\Service\IUnidadeService.cs" />
     <Compile Include="Interfaces\Service\IUnidade_TipoPactoService.cs" />
     <Compile Include="Interfaces\Service\IGrupoAtividadeService.cs" />
@@ -290,7 +293,6 @@
     <Compile Include="Services\NivelAvaliacaoService.cs" />
     <Compile Include="Services\PerfilRepository.cs" />
     <Compile Include="Services\PerfilService.cs" />
-    <Compile Include="Services\UnidadeRepository.cs" />
     <Compile Include="Services\UnidadeService.cs" />
     <Compile Include="Services\Unidade_TipoPactoService.cs" />
     <Compile Include="Services\GrupoAtividadeService.cs" />
@@ -309,6 +311,7 @@
     <Compile Include="Services\CronogramaService.cs" />
     <Compile Include="Services\JustificativaService.cs" />
     <Compile Include="Services\TipoAtividadeService.cs" />
+    <Compile Include="Services\UsuarioPerfilUnidadeService.cs" />
     <Compile Include="Services\UsuarioService.cs" />
     <Compile Include="Specifications\Atividade\PercentualZeroACemSpecification.cs" />
     <Compile Include="Specifications\Atividade\PercentualInteiroSpecification.cs" />
@@ -353,6 +356,7 @@
     <Compile Include="Validations\Pactos\SuspenderPactoValidation.cs" />
     <Compile Include="Validations\Produtos\ProdutoValidation.cs" />
     <Compile Include="Validations\TiposAtividade\TipoAtividadeValidation.cs" />
+    <Compile Include="Validations\UsuarioPerfilUnidade\UsuarioPerfilUnidadeValidation.cs" />
     <Compile Include="Validations\Usuarios\UsuarioValidation.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -209,6 +209,7 @@
     <Compile Include="Repository\CronogramaRepository.cs" />
     <Compile Include="Repository\JustificativaRepository.cs" />
     <Compile Include="Repository\TipoAtividadeRepository.cs" />
+    <Compile Include="Repository\UsuarioPerfilUnidadeRepository.cs" />
     <Compile Include="Repository\UnidadeRepository.cs" />
     <Compile Include="Repository\Unidade_TipoPactoRepository.cs" />
     <Compile Include="Repository\UsuarioRepository.cs" />

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PGD.Application.Interfaces;
+using PGD.Application.Util;
 using PGD.Application.ViewModels;
 using PGD.Application.ViewModels.Filtros;
 using PGD.Application.ViewModels.Paginacao;
@@ -21,14 +22,16 @@ namespace PGD.Application
         private readonly IAdministradorService _admService;
         private readonly IPerfilService _perfilService;
         private readonly IUnidadeService _unidadeService;
+        private readonly IUsuarioPerfilUnidadeService _usuarioPerfilUnidadeService;
 
         public UsuarioAppService(
-            IUsuarioService usuarioService, 
-            IUnitOfWork uow, 
-            ILogService logService, 
-            IPerfilService perfilService, 
-            IAdministradorService admService, 
-            IUnidadeService unidadeService)
+            IUsuarioService usuarioService,
+            IUnitOfWork uow,
+            ILogService logService,
+            IPerfilService perfilService,
+            IAdministradorService admService,
+            IUnidadeService unidadeService,
+            IUsuarioPerfilUnidadeService usuarioPerfilUnidadeService)
             : base(uow)
         {
             _usuarioService = usuarioService;
@@ -36,6 +39,7 @@ namespace PGD.Application
             _perfilService = perfilService;
             _admService = admService;
             _unidadeService = unidadeService;
+            _usuarioPerfilUnidadeService = usuarioPerfilUnidadeService;
         }
 
         public UsuarioViewModel Adicionar(UsuarioViewModel usuarioViewModel)
@@ -188,6 +192,84 @@ namespace PGD.Application
         List<Domain.Enums.Perfil> IUsuarioAppService.ObterPerfis(UsuarioViewModel usuario)
         {
             throw new NotImplementedException();
+        }
+
+        public PaginacaoViewModel<UsuarioPerfilUnidadeViewModel> BuscarPerfilUnidade(UsuarioPerfilUnidadeFiltroViewModel filtro)
+        {
+            var retorno = _usuarioPerfilUnidadeService.Buscar(Mapper.Map<UsuarioPerfilUnidadeFiltro>(filtro));
+            return new PaginacaoViewModel<UsuarioPerfilUnidadeViewModel>
+            {
+                QtRegistros = retorno.QtRegistros,
+                Lista = retorno.Lista.Select(x => new UsuarioPerfilUnidadeViewModel
+                {
+                    Id = x.Id,
+                    IdUnidade = x.IdUnidade,
+                    CpfUsuario = x.Usuario.Cpf.MaskCpfCpnj(),
+                    IdPerfil = x.IdPerfil,
+                    IdUsuario = x.IdUsuario,
+                    MatriculaUsuario = x.Usuario.Matricula,
+                    NomePerfil = x.Perfil.Nome,
+                    NomeUnidade = x.Unidade.Nome,
+                    NomeUsuario = x.Usuario.Nome,
+                    SiglaUnidade = x.Unidade.Sigla
+                })
+            };
+            throw new NotImplementedException();
+        }
+
+        public VincularPerfilUsuarioViewModel VincularUnidadePerfil(VincularPerfilUsuarioViewModel model, string cpfUsuarioLogado)
+        {
+            var usuarioPerfilUnidade = GetNovoUsuarioPerfilUnidade(model);
+
+            using (var tran = BeginDbTransaction())
+            {
+                try
+                {
+                    var retorno = _usuarioPerfilUnidadeService.Adicionar(usuarioPerfilUnidade);
+                    model.ValidationResult = retorno.ValidationResult;
+
+                    if (!retorno.ValidationResult.IsValid)
+                        return model;
+
+                    _logService.Logar(retorno, cpfUsuarioLogado, Domain.Enums.Operacao.Inclusão.ToString());
+                    Commit(tran);
+                }
+                catch (Exception ex)
+                {
+                    model.ValidationResult.Add(new DomainValidation.Validation.ValidationError(ex.Message));
+                    Rollback(tran);
+                }
+            }
+
+            return model;
+        }
+
+        public VincularPerfilUsuarioViewModel RemoverVinculoUnidadePerfil(long idUsuarioPerfilUnidade, string cpfUsuarioLogado)
+        {
+            var retorno = new VincularPerfilUsuarioViewModel();
+            if (idUsuarioPerfilUnidade == 0)
+                return retorno;
+
+            BeginTransaction();
+            var retornoUsuarioPerfilUnidade = _usuarioPerfilUnidadeService.Remover(idUsuarioPerfilUnidade);
+            if (retorno.ValidationResult.IsValid)
+            {
+                _logService.Logar(retornoUsuarioPerfilUnidade, cpfUsuarioLogado, Domain.Enums.Operacao.Exclusão.ToString());
+                Commit();
+            }
+
+            retorno.ValidationResult = retornoUsuarioPerfilUnidade.ValidationResult;
+            return retorno;
+        }
+
+        private UsuarioPerfilUnidade GetNovoUsuarioPerfilUnidade(VincularPerfilUsuarioViewModel model)
+        {
+            return new UsuarioPerfilUnidade
+            {
+                IdPerfil = model.IdPerfil.GetValueOrDefault(0),
+                IdUsuario = model.IdUsuario,
+                IdUnidade = model.IdUnidade.GetValueOrDefault(0)
+            };
         }
     }
 }

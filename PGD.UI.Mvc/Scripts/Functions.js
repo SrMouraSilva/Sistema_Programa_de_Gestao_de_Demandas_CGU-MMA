@@ -10,7 +10,13 @@ function ShowWarningMessage(pMessage) {
 function ShowErrorMessage(pMessage) {
     MostraMensagem(4, pMessage, 'Base', 'Alerta', $('#Messages'));
 }
- 
+
+function ShowValidationResultMessages(validationResult) {
+    var hasErrors = validationResult.Erros && validationResult.Erros.length;
+    var message = hasErrors ? validationResult.Erros.map(x => x.Message).join("|||") : validationResult.Message;
+    validationResult.IsValid = hasErrors ? false : validationResult.IsValid;
+    validationResult.IsValid ? MostraMensagem(1, message, 'Base', 'Alerta', $('#Messages')) : MostraMensagem(4, message, 'Base', 'Alerta', $('#Messages'));
+}
 
 function MostraMensagem(pTipoMensagem, pMessage, controller, action, div) {
     RenderPartial(controller, action, { tipo: pTipoMensagem, mensagem: pMessage }).done(function (success) {

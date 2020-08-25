@@ -3,6 +3,7 @@ using PGD.Application.ViewModels;
 using PGD.Domain.Entities.RH;
 using PGD.Domain.Enums;
 using PGD.Domain.Interfaces.Service;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.DirectoryServices.Protocols;
@@ -79,7 +80,7 @@ namespace PGD.UI.Mvc.Controllers
                 setUserLogado(usuario);
                 return usuario;
             }
-            catch
+            catch (Exception ex)
             {
                 ModelState.AddModelError("", "Usuário ou senha incorretos.");
                 return null;
