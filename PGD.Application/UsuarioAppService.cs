@@ -11,6 +11,8 @@ using PGD.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using PGD.Application.Util;
+using PGD.Domain.Paginacao;
 
 namespace PGD.Application
 {
@@ -21,6 +23,7 @@ namespace PGD.Application
         private readonly IAdministradorService _admService;
         private readonly IPerfilService _perfilService;
         private readonly IUnidadeService _unidadeService;
+        private readonly IPermissaoService _permissaoService;
 
         public UsuarioAppService(
             IUsuarioService usuarioService, 
@@ -28,7 +31,7 @@ namespace PGD.Application
             ILogService logService, 
             IPerfilService perfilService, 
             IAdministradorService admService, 
-            IUnidadeService unidadeService)
+            IUnidadeService unidadeService, IPermissaoService permissaoService)
             : base(uow)
         {
             _usuarioService = usuarioService;
@@ -36,6 +39,7 @@ namespace PGD.Application
             _perfilService = perfilService;
             _admService = admService;
             _unidadeService = unidadeService;
+            _permissaoService = permissaoService;
         }
 
         public UsuarioViewModel Adicionar(UsuarioViewModel usuarioViewModel)
@@ -67,28 +71,6 @@ namespace PGD.Application
             return user;
         }
 
-        public UsuarioViewModel ObterUsuarioComPerfilPorCPF(string cpf)
-        {
-            if (string.IsNullOrEmpty(cpf))
-                return null;
-
-            cpf = cpf.Replace(".", "").Replace("-", "");
-            var usuario = _usuarioService.ObterPorCPF(cpf);
-            var usuarioViewModel = Mapper.Map<Usuario, UsuarioViewModel>(usuario);
-            //usuarioViewModel.PerfisUnidades = usuario.UsuariosPerfisUnidades.Where(x => !x.Excluido).Select(x => new UsuarioPerfilUnidadeViewModel
-            //{
-            //    Id = x.Id,
-            //    IdPerfil = x.IdPerfil,
-            //    IdUnidade = x.IdUnidade,
-            //    NomePerfil = x.Perfil.Nome,
-            //    NomeUnidade = x.Unidade.Nome,
-            //    SiglaUnidade = x.Unidade.Sigla,
-            //    IdUsuario = x.IdUsuario
-            //}).ToList();
-
-            return usuarioViewModel;
-        }
-
         public PaginacaoViewModel<UsuarioViewModel> Buscar(UsuarioFiltroViewModel model)
         {
             var retorno = Mapper.Map<PaginacaoViewModel<UsuarioViewModel>>(_usuarioService.Buscar(Mapper.Map<UsuarioFiltro>(model)));
@@ -112,6 +94,21 @@ namespace PGD.Application
                     IdUnidadeSuperior = x.IdUnidadeSuperior
                 })
             };
+        }
+
+        public ICollection<PermissaoViewModel> BuscarPermissoes(int? idPerfil)
+        {
+            if (!idPerfil.HasValue || idPerfil == 0) return new List<PermissaoViewModel>();
+
+            var permissoes = _permissaoService.Buscar(new PermissaoFiltro { IdPerfil = idPerfil });
+            return permissoes.Lista.Select(x => new PermissaoViewModel
+            {
+                Action = x.Action,
+                Controller = x.Controller,
+                Descricao = x.Descricao,
+                IdPermissao = x.IdPermissao,
+                IdPerfil = idPerfil.Value
+            }).ToList();
         }
 
         public UsuarioViewModel ObterPorId(int id)
@@ -179,7 +176,7 @@ namespace PGD.Application
             if (usuario.PerfilSelecionado == Domain.Enums.Perfil.Administrador || usuario.PerfilSelecionado == Domain.Enums.Perfil.Dirigente)
             {
                 var idPerfilSelecionado = usuario.IdPerfilSelecionado;
-                return usuario.PerfisUnidades.Where(x => x.IdPerfil == idPerfilSelecionado).Count() > 1;
+                return usuario.PerfisUnidades.Count(x => x.IdPerfil == idPerfilSelecionado) > 1;
             }
 
             return false;

@@ -125,7 +125,7 @@
     }
 
     function atualizaCargaHorariaTotalDoPacto() {
-        var cargaHorariaProduto = Number(formAddProduto.find("#CargaHorariaProduto").val() || 0);
+        var cargaHorariaProduto = Number((formAddProduto.find("#CargaHorariaProduto").val() || '0').replace(",", "."));
         var qtdProduto = Number(formAddProduto.find("#QuantidadeProduto").val() || 0);
         var hdnCargaTotalPacto = $("#frmPacto").find("#CargaHorariaTotal");
         var hdnHorasTotaisCronograma = $("#frmExibirCronograma").find("#HorasTotais");
@@ -135,8 +135,8 @@
         var cargaTotalAnterior = Number(hdnCargaTotalPacto.val());
         var cargaTotalNova = (cargaTotalAnterior - hrsAntigaProduto) + (cargaHorariaProduto * qtdProduto);
 
-        hdnCargaTotalPacto.val(cargaTotalNova);
-        hdnHorasTotaisCronograma.val(cargaTotalNova);
+        hdnCargaTotalPacto.val(`${cargaTotalNova}`.replace('.', ','));
+        hdnHorasTotaisCronograma.val(`${cargaTotalNova}`.replace('.', ','));
         $("#divCargaHorariaTotal").find("#lblCargaTotal").val(hourTohhmm(cargaTotalNova));
         hrsAntigaProduto = 0;
     }

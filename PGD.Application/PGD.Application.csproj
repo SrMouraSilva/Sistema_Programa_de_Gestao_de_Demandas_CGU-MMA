@@ -210,6 +210,8 @@
     <Compile Include="ViewModels\NotaAvaliacaoViewModel.cs" />
     <Compile Include="ViewModels\NivelAvaliacaoViewModel.cs" />
     <Compile Include="ViewModels\Paginacao\PaginacaoViewModel.cs" />
+    <Compile Include="ViewModels\PermissaoPerfilViewModel.cs" />
+    <Compile Include="ViewModels\PermissaoViewModel.cs" />
     <Compile Include="ViewModels\SearchUsuarioViewModel.cs" />
     <Compile Include="ViewModels\SelecionarUnidadeViewModel.cs" />
     <Compile Include="ViewModels\UnidadeViewModel.cs" />

@@ -40,9 +40,9 @@
         <div class="col-md-6 col-sm-6 vbottom">
             <label for="periodoDatas" class="control-label">Período</label>
             <div class="input-group" id="periodoDatas">
-                @Html.TextBoxFor(x => x.DataInicial, new { @class = "form-control datepicker", @placeholder = "" })
+                @Html.TextBoxFor(x => x.DataInicial, new { @class = "form-control datepicker", @placeholder = "", autocomplete = "off" })
                 <span class="input-group-addon" id="basic-addon1">&nbsp;a&nbsp;</span>
-                @Html.TextBoxFor(x => x.DataFinal, new { @class = "form-control datepicker", @placeholder = "" })
+                @Html.TextBoxFor(x => x.DataFinal, new { @class = "form-control datepicker", @placeholder = "", autocomplete = "off" })
             </div>
         </div><!--
         --><div class="col-md-6 col-sm-6 vbottom">

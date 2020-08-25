@@ -144,6 +144,7 @@
     <Compile Include="EntityConfig\OS_ItemAvaliacaoConfig.cs" />
     <Compile Include="EntityConfig\OS_CriterioAvaliacaoConfig.cs" />
     <Compile Include="EntityConfig\NivelAvaliacaoConfig.cs" />
+    <Compile Include="EntityConfig\PermissaoPerfilConfig.cs" />
     <Compile Include="EntityConfig\UnidadeConfig.cs" />
     <Compile Include="EntityConfig\Unidade_TipoPactoConfig.cs" />
     <Compile Include="EntityConfig\ParametroSistemaConfig.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="EntityConfig\CronogramaConfig.cs" />
     <Compile Include="EntityConfig\TipoAtividadeConfig.cs" />
     <Compile Include="EntityConfig\PerfilConfig.cs" />
+    <Compile Include="EntityConfig\PermissaoConfig.cs" />
     <Compile Include="EntityConfig\UsuarioPerfilUnidadeConfig.cs" />
     <Compile Include="EntityConfig\UsuarioConfig.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
@@ -209,6 +211,7 @@
     <Compile Include="Repository\CronogramaRepository.cs" />
     <Compile Include="Repository\JustificativaRepository.cs" />
     <Compile Include="Repository\TipoAtividadeRepository.cs" />
+    <Compile Include="Repository\PermissaoRepository.cs" />
     <Compile Include="Repository\UnidadeRepository.cs" />
     <Compile Include="Repository\Unidade_TipoPactoRepository.cs" />
     <Compile Include="Repository\UsuarioRepository.cs" />

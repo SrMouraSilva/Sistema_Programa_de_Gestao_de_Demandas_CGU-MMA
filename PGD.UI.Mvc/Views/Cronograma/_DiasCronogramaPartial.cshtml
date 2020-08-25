@@ -10,7 +10,7 @@
     <p>
         Carga horária total:
         <strong>
-            <label id="lblCargaTotalCronograma">@Html.DisplayFor(m => m.HorasTotais)</label>h
+            <label id="lblCargaTotalCronograma">@TimeSpan.FromHours(Model.HorasTotais).ToString(@"hh\:mm")</label>h
             @Html.HiddenFor(m => m.DataInicial)
             @Html.HiddenFor(m => m.DataInicioSuspensao)
             @Html.HiddenFor(m => m.DataFimSuspensao)
@@ -84,11 +84,11 @@
                         {
                             if (cronograma.HorasUsadasPorOutroPacto < Model.HorasDiarias)
                             {
-                                <span class="glyphicon glyphicon-exclamation-sign" title="Existe(m) @(cronograma.HorasUsadasPorOutroPacto.ToString("hh\\:mm"))h neste dia comprometida(s) por outro(s) pacto(s) PGD"></span>
+                                <span class="glyphicon glyphicon-exclamation-sign" title="Existe(m) @(cronograma.HorasUsadasPorOutroPacto.ToString("hh\\:mm"))h neste dia comprometida(s) por outro(s) plano(s) PGD"></span>
                             }
                             else
                             {
-                                <span class="glyphicon glyphicon-exclamation-sign" title="Carga horária diária já preenchida por outro(s) pacto(s) PGD"></span>
+                                <span class="glyphicon glyphicon-exclamation-sign" title="Carga horária diária já preenchida por outro(s) plano(s) PGD"></span>
                             }
 
                         }
@@ -97,17 +97,17 @@
                         {
                             if (cronograma.DataCronograma.Date == Model.DataInicioSuspensao.Value.Date)
                             {
-                                <span class="glyphicon glyphicon-pause" title="Início Suspensão Pacto"></span>
+                                <span class="glyphicon glyphicon-pause" title="Início Suspensão Plano"></span>
                             }
 
                             if (cronograma.DataCronograma.Date == Model.DataFimSuspensao?.Date)
                             {
-                                <span class="glyphicon glyphicon-play" title="Fim Suspensão Pacto"></span>
+                                <span class="glyphicon glyphicon-play" title="Fim Suspensão Plano"></span>
                             }
 
                             if (cronograma.DataCronograma.Date != Model.DataInicioSuspensao.Value.Date && cronograma.DataCronograma.Date != Model.DataFimSuspensao?.Date)
                             {
-                                <span class="glyphicon glyphicon-pause" title="Pacto Suspenso"></span>
+                                <span class="glyphicon glyphicon-pause" title="Plano Suspenso"></span>
                             }
                         }
 
