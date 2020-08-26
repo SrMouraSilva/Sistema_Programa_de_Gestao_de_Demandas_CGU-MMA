@@ -56,7 +56,8 @@ namespace PGD.Application.ViewModels
         public string DescricaoPerfil => $"{PerfilSelecionado.ToString()}{(Administrador ? " / Administrador" : "")}";
 
         public bool IsDirigente => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.Dirigente;
-
+        public bool IsAdmin => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.Administrador;
+        public bool IsSolicitante => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.Solicitante;
 
         public Perfil? PerfilSelecionado { get; private set; }
         public IEnumerable<PermissaoViewModel> Permissoes { get; private set; }

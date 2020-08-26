@@ -4,6 +4,7 @@ using PGD.Infra.Data.Context;
 using PGD.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
 
 namespace PGD.Infra.Data.UoW
@@ -21,6 +22,23 @@ namespace PGD.Infra.Data.UoW
         public void BeginTransaction()
         {
             _disposed = false;
+        }
+
+        public DbContextTransaction BeginDbTransaction()
+        {
+            return _context.Database.BeginTransaction();
+        }
+
+        public void Rollback(DbContextTransaction transaction)
+        {
+            transaction.Rollback();
+        }
+
+        public int Commit(DbContextTransaction transaction)
+        {
+            var retorno = _context.SaveChanges();
+            transaction.Commit();
+            return retorno;
         }
 
         public List<ValidationError> Commit()

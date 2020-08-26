@@ -2,6 +2,7 @@
 using PGD.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,19 @@ namespace PGD.Application
             return results;
         }
 
+        public DbContextTransaction BeginDbTransaction()
+        {
+            return _uow.BeginDbTransaction();
+        }
         
+        public void Rollback(DbContextTransaction transaction)
+        {
+            _uow.Rollback(transaction);
+        }
+
+        public int Commit(DbContextTransaction transaction)
+        {
+            return _uow.Commit(transaction);
+        }
     }
 }

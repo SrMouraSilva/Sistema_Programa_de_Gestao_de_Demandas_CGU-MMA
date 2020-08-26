@@ -88,7 +88,8 @@ namespace PGD.Infra.Data.Repository
             query = !string.IsNullOrWhiteSpace(filtro.Cpf) ? query.Where(x => x.Cpf == filtro.Cpf) : query;
             query = !string.IsNullOrWhiteSpace(filtro.Matricula) ? query.Where(x => x.Matricula.ToLower().Contains(filtro.Matricula.ToLower())) : query;
             query = filtro.IdUnidade.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == filtro.IdUnidade)) : query;
-                
+            query = filtro.Id.HasValue ? query.Where(x => x.IdUsuario == filtro.Id) : query;
+
             retorno.QtRegistros = query.Count();
 
             if (filtro.Skip.HasValue && filtro.Take.HasValue)

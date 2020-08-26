@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PGD.Domain.Constantes
+﻿namespace PGD.Domain.Constantes
 {
     public static class Mensagens
     {
@@ -18,6 +12,7 @@ namespace PGD.Domain.Constantes
         public static readonly string MS_008 = "Pacto excluído com sucesso!";
         public static readonly string MS_009 = "Produto excluído com sucesso!";
         public static readonly string MS_010 = "Erro ao completar a operação. Entre com contato com a administração do sistema.";
+        public static readonly string MS_011 = "Operação realizada com sucesso.";
 
         public static readonly string ME_001 = "Login ou senha invalidos.";
         public static readonly string ME_002 = "O campo {0} é de preenchimento obrigatório!";

@@ -79,6 +79,8 @@ namespace PGD.UI.Mvc.Controllers
                 }
             }
 
+            ValidarExigeAdmin(filterContext);
+
             ValidarPermissoes(filterContext);
 
             base.OnActionExecuting(filterContext);
@@ -314,5 +316,13 @@ namespace PGD.UI.Mvc.Controllers
             return ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors).Select(modelError => modelError.ErrorMessage).ToList();
         }
 
+        private void ValidarExigeAdmin(ActionExecutingContext filterContext)
+        {
+            var controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
+
+            var userLogado = getUserLogado();
+            if (controller == "Usuario" && !userLogado.IsAdmin)
+                filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace PGD.UI.Mvc
  
             var valBundle = new ScriptBundle("~/bundles/jqueryval").Include(
                     "~/Scripts/jquery.validate.js",
+                    "~/Scripts/jquery.validate.unobtrusive.js",
                     "~/Scripts/jspdf.debug.js",
                     "~/Scripts/globalize/globalize.js",
                     "~/Scripts/globalize/cultures/globalize.culture.pt-BR.js",
@@ -60,7 +61,9 @@ namespace PGD.UI.Mvc
 
             bundles.Add(new ScriptBundle("~/bundles/CGUUtil").Include(
                 "~/Scripts/cgu.util.js",
-                "~/Scripts/Functions.js"));
+                "~/Scripts/Functions.js",
+                "~/Scripts/Site/Enums.js",
+                "~/Scripts/Site/Constants.js"));
 
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
