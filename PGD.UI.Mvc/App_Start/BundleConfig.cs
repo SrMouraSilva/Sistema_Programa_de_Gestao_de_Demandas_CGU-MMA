@@ -16,11 +16,19 @@ namespace PGD.UI.Mvc
  
  
             var valBundle = new ScriptBundle("~/bundles/jqueryval").Include(
+                    "~/Scripts/cldr.js",
+                    "~/Scripts/cldr/event.js",
+                    "~/Scripts/cldr/supplemental.js",
                     "~/Scripts/jquery.validate.js",
                     "~/Scripts/jquery.validate.unobtrusive.js",
                     "~/Scripts/jspdf.debug.js",
-                    "~/Scripts/globalize/globalize.js",
-                    "~/Scripts/globalize/cultures/globalize.culture.pt-BR.js",
+                    "~/Scripts/globalize/globalize-1.1.0/globalize.js",
+                    "~/Scripts/globalize/globalize-1.1.0/globalize/message.js",
+                    "~/Scripts/globalize/globalize-1.1.0/globalize/number.js",
+                    "~/Scripts/globalize/globalize-1.1.0/globalize/plural.js",
+                    "~/Scripts/globalize/globalize-1.1.0/globalize/date.js",
+                    "~/Scripts/globalize/globalize-1.1.0/globalize/currency.js",
+                    "~/Scripts/globalize/globalize-1.1.0/globalize/relative-time.js",
                     "~/Scripts/jspdf.plugin.autotable.js",
                     "~/Scripts/FileSaver.js",
                     "~/Scripts/tableExport.js",

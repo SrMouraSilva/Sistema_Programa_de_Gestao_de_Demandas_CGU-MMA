@@ -17164,7 +17164,7 @@ $.widget( "ui.spinner", {
 	_parse: function( val ) {
 		if ( typeof val === "string" && val !== "" ) {
 			val = window.Globalize && this.options.numberFormat ?
-				Globalize.parseFloat( val, 10, this.options.culture ) : +val;
+				Globalize.parseNumber( val, 10, this.options.culture ) : +val;
 		}
 		return val === "" || isNaN( val ) ? null : val;
 	},
