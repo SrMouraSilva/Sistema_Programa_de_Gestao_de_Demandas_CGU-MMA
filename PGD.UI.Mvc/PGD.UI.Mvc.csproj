@@ -2205,6 +2205,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\select2\select2.min.js" />
     <Content Include="Scripts\selectize.js" />
+    <Content Include="Scripts\Site\Usuario\VincularPerfil.js" />
     <Content Include="Scripts\Site\Usuario\PesquisarUsuario.js" />
     <Content Include="Scripts\tableExport.js" />
     <Content Include="Scripts\tableExport.min.js" />
@@ -2285,6 +2286,7 @@
     <Content Include="Views\Login\SelecionarUnidade.cshtml" />
     <Content Include="Views\Shared\_UsuarioPartial.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Usuario\VincularPerfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2307,7 +2309,7 @@
       <Name>PGD.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\PGD.Domain\PGD.Domain.csproj">
-      <Project>{3F7DB9DC-6635-4C81-AEFA-0B20A17CCE0E}</Project>
+      <Project>{3f7db9dc-6635-4c81-aefa-0b20a17cce0e}</Project>
       <Name>PGD.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\PGD.Infra.CrossCutting.IoC\PGD.Infra.CrossCutting.IoC.csproj">

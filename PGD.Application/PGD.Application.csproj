@@ -195,6 +195,9 @@
     <Compile Include="ViewModels\AdministradorViewModel.cs" />
     <Compile Include="ViewModels\ArquivoDadoBrutoViewModel.cs" />
     <Compile Include="ViewModels\AvaliacaoDetalhadaProdutoViewModel.cs" />
+    <Compile Include="ViewModels\Filtros\UsuarioPerfilUnidadeFiltroViewModel.cs" />
+    <Compile Include="ViewModels\PerfilViewModel.cs" />
+    <Compile Include="ViewModels\VincularPerfilUsuarioViewModel.cs" />
     <Compile Include="ViewModels\Filtros\Base\BaseFiltroViewModel.cs" />
     <Compile Include="ViewModels\Filtros\UnidadeFiltroViewModel.cs" />
     <Compile Include="ViewModels\Filtros\UsuarioFiltroViewModel.cs" />
@@ -250,7 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PGD.Domain\PGD.Domain.csproj">
-      <Project>{3F7DB9DC-6635-4C81-AEFA-0B20A17CCE0E}</Project>
+      <Project>{3f7db9dc-6635-4c81-aefa-0b20a17cce0e}</Project>
       <Name>PGD.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\PGD.Infra.CrossCutting.Util\PGD.Infra.CrossCutting.Util.csproj">
@@ -258,7 +261,7 @@
       <Name>PGD.Infra.CrossCutting.Util</Name>
     </ProjectReference>
     <ProjectReference Include="..\PGD.Infra.Data\PGD.Infra.Data.csproj">
-      <Project>{02EBAEE6-A2E6-4E34-9983-A93CB23F35A4}</Project>
+      <Project>{02ebaee6-a2e6-4e34-9983-a93cb23f35a4}</Project>
       <Name>PGD.Infra.Data</Name>
     </ProjectReference>
   </ItemGroup>

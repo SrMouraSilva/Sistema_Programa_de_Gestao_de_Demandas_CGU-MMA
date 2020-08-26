@@ -73,12 +73,19 @@ namespace PGD.Domain.Services
                 var propid = obj.GetType().GetProperties()
                     .Where(p => p.Name == "Id" + userType.Name)
                     .FirstOrDefault();
+                if (propid == null)
+                {
+                    propid = obj.GetType().GetProperties()
+                    .Where(p => p.Name == "Id")
+                    .FirstOrDefault();
+                }
+
                 var id = propid.GetValue(obj, null).ToString();
                 string valores = "|";
 
                 foreach (var prop in obj.GetType().GetProperties())
                 {
-                    if (!prop.PropertyType.Name.StartsWith("ICollection") && !prop.Name.Contains("Validation"))
+                    if (!prop.PropertyType.Name.StartsWith("ICollection") && !prop.Name.Contains("Validation") && !prop.GetGetMethod().IsVirtual)
                         valores += string.Format("{0}={1}|", prop.Name, prop.GetValue(obj, null));
                 }
 

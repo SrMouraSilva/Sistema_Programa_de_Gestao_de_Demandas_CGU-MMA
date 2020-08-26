@@ -4,6 +4,7 @@ using PGD.Application.ViewModels;
 using PGD.Domain.Entities.RH;
 using PGD.Domain.Enums;
 using PGD.Domain.Interfaces.Service;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.DirectoryServices.Protocols;
