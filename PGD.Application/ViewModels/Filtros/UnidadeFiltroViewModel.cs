@@ -4,6 +4,11 @@ namespace PGD.Application.ViewModels.Filtros
 {
     public class UnidadeFiltroViewModel : BaseFiltroViewModel
     {
+        public UnidadeFiltroViewModel()
+        {
+            OrdenarPor = "Nome";
+        }
+
         public string Nome { get; set; }
         public string Sigla { get; set; }
         public string NomeOuSigla { get; set; }

@@ -61,7 +61,9 @@ namespace PGD.UI.Mvc
 
             bundles.Add(new ScriptBundle("~/bundles/CGUUtil").Include(
                 "~/Scripts/cgu.util.js",
-                "~/Scripts/Functions.js"));
+                "~/Scripts/Functions.js",
+                "~/Scripts/Site/Enums.js",
+                "~/Scripts/Site/Constants.js"));
 
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(

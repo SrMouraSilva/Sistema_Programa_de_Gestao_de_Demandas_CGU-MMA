@@ -4,11 +4,6 @@ namespace PGD.Domain.Filtros
 {
     public class UnidadeFiltro : BaseFiltro
     {
-        public UnidadeFiltro()
-        {
-            OrdenarPor = "Nome";
-        }
-
         public string Nome { get; set; }
         public string Sigla { get; set; }
         public string NomeOuSigla { get; set; }

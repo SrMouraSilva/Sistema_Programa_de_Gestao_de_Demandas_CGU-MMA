@@ -4,11 +4,6 @@ namespace PGD.Domain.Filtros
 {
     public class UsuarioPerfilUnidadeFiltro : BaseFiltro
     {
-        public UsuarioPerfilUnidadeFiltro()
-        {
-            OrdenarPor = "Id";
-        }
-
         public long? IdUsuarioPerfilUnidade { get; set; }
         public int? IdUsuario { get; set; }
         public bool IncludeUnidade { get; set; }

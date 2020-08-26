@@ -1,0 +1,1 @@
+﻿const ID_UNIDADE_SEM_EXERCICIO = 1;

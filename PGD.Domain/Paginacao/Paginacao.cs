@@ -9,6 +9,6 @@ namespace PGD.Domain.Paginacao
             Lista = new List<T>();
         }
         public int QtRegistros { get; set; }
-        public IEnumerable<T> Lista { get; set; }
+        public List<T> Lista { get; set; }
     }
 }

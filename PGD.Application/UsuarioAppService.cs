@@ -178,7 +178,7 @@ namespace PGD.Application
         public bool PodeSelecionarUnidade(UsuarioViewModel usuario)
         {
             // RNG007 se o perfil for Dirigente ou Administrador e possuir mais de uma unidade, selecionar unidade
-            if (usuario.PerfilSelecionado == Domain.Enums.Perfil.Administrador || usuario.PerfilSelecionado == Domain.Enums.Perfil.Dirigente)
+            if (usuario.PerfilSelecionado == Domain.Enums.Perfil.Dirigente)
             {
                 var idPerfilSelecionado = usuario.IdPerfilSelecionado;
                 return usuario.PerfisUnidades.Count(x => x.IdPerfil == idPerfilSelecionado) > 1;

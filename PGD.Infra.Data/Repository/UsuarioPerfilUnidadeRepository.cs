@@ -44,9 +44,15 @@ namespace PGD.Infra.Data.Repository
 
             if (filtro.Skip.HasValue && filtro.Take.HasValue)
             {
-                retorno.Lista = filtro.OrdenarDescendente
-                    ? query.OrderByDescending(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList()
-                    : query.OrderBy(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList();
+                var primeiraPagina = filtro.Skip.Value == 0;
+
+                if (primeiraPagina)
+                    retorno.Lista.Add(query.FirstOrDefault(x => x.IdPerfil == (int)Domain.Enums.Perfil.Solicitante));
+                    
+                query = query.Where(x => x.IdPerfil != (int)Domain.Enums.Perfil.Solicitante);
+                retorno.Lista.AddRange(filtro.OrdenarDescendente
+                    ? query.OrderByDescending(filtro.OrdenarPor).Skip(!primeiraPagina ? filtro.Skip.Value - 1 : filtro.Skip.Value).Take(primeiraPagina ? filtro.Take.Value - 1 : filtro.Take.Value).ToList()
+                    : query.OrderBy(filtro.OrdenarPor).Skip(!primeiraPagina ? filtro.Skip.Value - 1 : filtro.Skip.Value).Take(primeiraPagina ? filtro.Take.Value - 1 : filtro.Take.Value).ToList());
             }
             else
                 retorno.Lista = query.ToList();

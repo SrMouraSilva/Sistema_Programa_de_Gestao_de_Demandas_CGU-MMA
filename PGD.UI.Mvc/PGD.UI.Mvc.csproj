@@ -2081,8 +2081,10 @@
     <Content Include="Scripts\bootstrap-table\extensions\tree-column\bootstrap-table-tree-column.min.js" />
     <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-pt-BR.js" />
     <Content Include="Scripts\bootstrap-table\locale\bootstrap-table-pt-BR.min.js" />
+    <Content Include="Scripts\Site\Constants.js" />
     <Content Include="Scripts\CriterioAvaliacao.js" />
     <Content Include="Scripts\cgu.util.js" />
+    <Content Include="Scripts\Site\Enums.js" />
     <Content Include="Scripts\FileSaver.js" />
     <Content Include="Scripts\FileSaver.min.js" />
     <Content Include="Scripts\footable.min.js" />

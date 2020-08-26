@@ -1,10 +1,14 @@
 ﻿const form = $('#frm-vincular');
 const tblPerfilUnidade = $('#tbl-perfil-unidade');
+const divSelectUnidade = $('#div-slt-unidade');
 const sltUnidade = $('#slt-unidade');
+const sltPerfil = $('#slt-perfil');
+const hiddenUnidade = $('#hdn-id-unidade');
 var temUmUltimaPagina = false;
 var veioDeExclusao = false;
 var pageNumber = 0;
 var qtdRegistrosPagina = 0;
+var qtdRegistrosTotal = 0;
 var veioDeInclusao = false;
 
 $(() => {
@@ -43,8 +47,22 @@ $(() => {
         width: '100%'
     });
 
-    sltUnidade.on("select2:close", () => sltUnidade.valid());
+    registerChangeDropDowns();
 });
+
+function registerChangeDropDowns() {
+    sltUnidade.change(() => selecionarUnidade(sltUnidade.val()));
+    sltUnidade.on("select2:close", () => { sltUnidade.valid() });
+    sltPerfil.change(() => {
+        if (sltPerfil.val() === Enum.Perfil.Administrador.toString()) {
+            divSelectUnidade.hide();
+            selecionarUnidade(ID_UNIDADE_SEM_EXERCICIO);
+        } else {
+            divSelectUnidade.show();
+            sltUnidade.val(null).trigger("change");
+        }
+    });
+}
 
 function refreshTabelaPerfisVinculados() {
     tblPerfilUnidade.bootstrapTable('refresh');
@@ -83,8 +101,21 @@ function vincular() {
 }
 
 function limparCamposVincular() {
-    form.trigger('reset');
     sltUnidade.val(null).trigger("change");
+    resetForm();
+    divSelectUnidade.show();
+}
+
+function selecionarUnidade(valor) {
+    hiddenUnidade.val(valor);
+}
+
+function resetForm() {
+    var validator = form.validate();
+    var errors = form.find(".field-validation-error span");
+    errors.each(function () { validator.settings.success($(this)); })
+    validator.resetForm();
+    form.trigger('reset');
 }
 
 function ajaxTablePerfilUnidade(params) {
@@ -92,9 +123,15 @@ function ajaxTablePerfilUnidade(params) {
     var idUsuario = $('#hdn-id-usuario').val();
     var take = params.data.limit;
     var skip = qtdRegistrosPagina === 1 && veioDeExclusao ? ((pageNumber - 2) * take) : params.data.offset;
-    //skip = qtdRegistrosPagina === take && veioDeInclusao ? (pageNumber * take) : skip;
+    if (veioDeInclusao) {
+        veioDeInclusao = false;
+        setTimeout(() => {
+            tblPerfilUnidade.bootstrapTable('selectPage', 1);
+        }, 10);
+        return;
+    }
+
     veioDeExclusao = false;
-    veioDeInclusao = false;
 
     $.ajax({
         type: 'POST',
@@ -103,6 +140,7 @@ function ajaxTablePerfilUnidade(params) {
         dataType: 'json',
         success: (data) => {
             qtdRegistrosPagina = data.Lista.length;
+            qtdRegistrosTotal = data.QtRegistros;
             params.success({
                 "rows": data.Lista,
                 "total": data.QtRegistros

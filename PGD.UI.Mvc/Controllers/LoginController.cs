@@ -1,6 +1,7 @@
-﻿using System;
-using PGD.Application.Interfaces;
+﻿using PGD.Application.Interfaces;
+using PGD.Application.Util;
 using PGD.Application.ViewModels;
+using PGD.Application.ViewModels.Filtros;
 using PGD.Domain.Entities.RH;
 using PGD.Domain.Enums;
 using PGD.Domain.Interfaces.Service;
@@ -11,9 +12,6 @@ using System.DirectoryServices.Protocols;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using CsQuery.ExtensionMethods.Internal;
-using PGD.Application.Util;
-using PGD.Application.ViewModels.Filtros;
 
 namespace PGD.UI.Mvc.Controllers
 {
@@ -206,7 +204,7 @@ namespace PGD.UI.Mvc.Controllers
                 IdUnidade = x.IdUnidade,
                 Nome = x.NomeUnidade,
                 Sigla = x.SiglaUnidade
-            }).ToList();
+            }).Distinct().ToList();
         }
 
         private List<Perfil> GetPerfisUsuario()

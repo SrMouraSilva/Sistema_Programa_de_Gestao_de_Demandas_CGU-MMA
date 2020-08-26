@@ -80,7 +80,8 @@ namespace PGD.UI.Mvc.Controllers
             {
                 IdUsuario = idUsuario,
                 Skip = skip,
-                Take = take
+                Take = take,
+                OrdenarDescendente = true
             });
             return Json(retorno, JsonRequestBehavior.AllowGet);
         }

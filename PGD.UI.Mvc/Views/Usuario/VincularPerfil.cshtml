@@ -13,6 +13,7 @@
         @Html.AntiForgeryToken()
 
         @Html.HiddenFor(x => x.IdUsuario, new { id = "hdn-id-usuario" })
+        @Html.HiddenFor(x => x.IdUnidade, new { id = "hdn-id-unidade" })
 
         <div class="row">
             <div class="form-group col-md-12">
@@ -38,7 +39,7 @@
                 @Html.ValidationMessageFor(c => c.IdPerfil)
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="div-slt-unidade">
             <div class="form-group col-md-6">
                 <label for="">Unidade*:</label>
                 @Html.DropDownListFor(m => m.IdUnidade, new SelectList(new List<Unidade>(), "IdUnidade", "Nome"),
