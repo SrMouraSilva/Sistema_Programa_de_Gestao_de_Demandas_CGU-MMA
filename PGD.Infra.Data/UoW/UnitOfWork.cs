@@ -56,7 +56,7 @@ namespace PGD.Infra.Data.UoW
                     foreach (var validationError in entityValidationErrors.ValidationErrors)
                     {
                       var mensagem = "Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage;
-                      LogManagerComum.LogarDebug(null, null, mensagem);
+                      // LogManagerComum.LogarDebug(null, null, mensagem);
                       validacoes.Add(new ValidationError(validationError.ErrorMessage));
                     }
                 }

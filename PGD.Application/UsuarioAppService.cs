@@ -97,7 +97,7 @@ namespace PGD.Application
                     Sigla = x.Sigla,
                     Excluido = x.Excluido,
                     IdUnidadeSuperior = x.IdUnidadeSuperior
-                })
+                }).ToList()
             };
         }
 
@@ -210,7 +210,7 @@ namespace PGD.Application
                     NomeUnidade = x.Unidade.Nome,
                     NomeUsuario = x.Usuario.Nome,
                     SiglaUnidade = x.Unidade.Sigla
-                })
+                }).ToList()
             };
             throw new NotImplementedException();
         }

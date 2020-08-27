@@ -8,6 +8,8 @@ namespace PGD.Domain.Filtros
         public string Sigla { get; set; }
         public string NomeOuSigla { get; set; }
         public int? IdUnidadeSuperior { get; set; }
+        public int? IdUsuario { get; set; }
+        public int? IdTipoPacto { get; set; }
         public bool BuscarExcluidos { get; set; }
         public bool IncludeUnidadeSuperior { get; set; }
         public bool IncludeUnidadesFilhas { get; set; }

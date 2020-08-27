@@ -10,11 +10,11 @@ namespace PGD.UI.Mvc.Helpers
     {
         public static void LogErro(Exception ex, string infoAdicional = "")
         {
-            LogManagerComum.LogarErro(ex, null, infoAdicional);
+            // LogManagerComum.LogarErro(ex, null, infoAdicional);
         }
         public static void LogErro(string infoAdicional = "")
         {
-            LogManagerComum.LogarErro(null, null, infoAdicional);
+            // LogManagerComum.LogarErro(null, null, infoAdicional);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace PGD.UI.Mvc.Controllers
         // GET: ErroNaoMapeado
         public ActionResult Index()
         {
-            LogManager.LogErro(Server.GetLastError());
+            // LogManager.LogErro(Server.GetLastError());
             Session["UserLogado"] = null;
             return View("Error");
         }

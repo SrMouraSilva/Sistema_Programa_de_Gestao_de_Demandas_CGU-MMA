@@ -150,8 +150,9 @@ namespace PGD.Infra.Data.Context
 
         public void AtivarLog(bool logAtivo = true)
         {
-            if (logAtivo) (this as DbContext).Database.Log = message => LogManagerComum.LogarDebug(mensagem: message);
-            else (this as DbContext).Database.Log = null;
+            // if (logAtivo) (this as DbContext).Database.Log = message => LogManagerComum.LogarDebug(mensagem: message);
+            // else 
+                (this as DbContext).Database.Log = null;
         }
     }
 

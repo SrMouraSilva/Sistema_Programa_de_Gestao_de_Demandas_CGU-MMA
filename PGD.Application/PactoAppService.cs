@@ -473,7 +473,7 @@ namespace PGD.Application
                 {
                     lstErros.ForEach (e =>
                     {
-                        LogManagerComum.LogarErro(null, null, " Erro ao salvar a ação. " + e.Message);
+                        // LogManagerComum.LogarErro(null, null, " Erro ao salvar a ação. " + e.Message);
                         pacto.ValidationResult.Add(e);
                     });
 
@@ -597,7 +597,7 @@ namespace PGD.Application
                 }
                 catch (Exception ex)
                 {
-                    LogManagerComum.LogarErro(ex, null, "  => O pacto " + p.IdPacto + " teve o status alterado para PENDENTE PARA AVALIAÇÃO mas não foi possível notificar os interessados.");
+                    // LogManagerComum.LogarErro(ex, null, "  => O pacto " + p.IdPacto + " teve o status alterado para PENDENTE PARA AVALIAÇÃO mas não foi possível notificar os interessados.");
                 }
             });
             Commit();
@@ -715,10 +715,10 @@ namespace PGD.Application
                     }
                     catch (Exception ex)
                     {
-                        LogManagerComum.LogarErro(ex, null, "  => O pacto " + p.IdPacto + " teve o status alterado para PENDENTE PARA AVALIAÇÃO mas não foi possível notificar os interessados.");
+                        // LogManagerComum.LogarErro(ex, null, "  => O pacto " + p.IdPacto + " teve o status alterado para PENDENTE PARA AVALIAÇÃO mas não foi possível notificar os interessados.");
                     }
                 } else {
-                    LogManagerComum.LogarErro(null, null, "  => O pacto " + p.IdPacto + " não teve o status alterado para Em execução. Erro: " + p.ValidationResult.Erros?.FirstOrDefault()?.Message);
+                    // LogManagerComum.LogarErro(null, null, "  => O pacto " + p.IdPacto + " não teve o status alterado para Em execução. Erro: " + p.ValidationResult.Erros?.FirstOrDefault()?.Message);
                 }
             });
             Commit();

@@ -3,6 +3,8 @@ using PGD.Domain.Interfaces.Repository;
 using PGD.Domain.Interfaces.Service;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Globalization;
 using System.Linq;
 
@@ -31,7 +33,8 @@ namespace PGD.Domain.Services
 
         public Feriado ObterFeriado(DateTime data)
         {
-            return ObterFeriados(data).FirstOrDefault(a => a.data_feriado == data.Date);
+            return _feriadoRepository
+                .Buscar(x => DbFunctions.TruncateTime(x.data_feriado) == DbFunctions.TruncateTime(data)).FirstOrDefault();
         }
 
         public Feriado Adicionar(Feriado obj)

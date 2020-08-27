@@ -52,7 +52,7 @@ namespace PGD.DatabaseUpdate
             }
             catch (SqlException ex)
             {
-                LogManagerComum.LogarErro(ex, mensagem: "DEPLOY PGD -> UPDATE DATABASE");
+                // LogManagerComum.LogarErro(ex, mensagem: "DEPLOY PGD -> UPDATE DATABASE");
                 Console.WriteLine("Erro ao executar Update Database: " + ex.Message );
 
                 try
@@ -63,7 +63,7 @@ namespace PGD.DatabaseUpdate
                 }
                 catch (SqlException ex2)
                 {
-                    LogManagerComum.LogarErro(ex2, mensagem: "DEPLOY PGD -> UPDATE DATABASE -> *** ATENCAO *** PROBLEMAS NO ROLLBACK!!!!!");
+                    // LogManagerComum.LogarErro(ex2, mensagem: "DEPLOY PGD -> UPDATE DATABASE -> *** ATENCAO *** PROBLEMAS NO ROLLBACK!!!!!");
                 }
 
                 Environment.ExitCode = -1;
@@ -78,19 +78,19 @@ namespace PGD.DatabaseUpdate
                 {
                     var last = File.ReadAllText(NOME_ARQUIVO_LAST_MIGRATION_VALIDA);
 
-                    LogManagerComum.LogarInfo(mensagem: $"DEPLOY PGD -> UPDATE DATABASE - EXECUTANDO ROLLBACK PARA -> {last}");
+                    // LogManagerComum.LogarInfo(mensagem: $"DEPLOY PGD -> UPDATE DATABASE - EXECUTANDO ROLLBACK PARA -> {last}");
 
                     logger.Configuration.AutomaticMigrationDataLossAllowed = true;
                     logger.Update(last);
                     logger.Configuration.AutomaticMigrationDataLossAllowed = false;
 
                     File.Delete(NOME_ARQUIVO_LAST_MIGRATION_VALIDA);
-                    LogManagerComum.LogarInfo(mensagem: "DEPLOY PGD -> UPDATE DATABASE - ROLLBACK EXECUTADO COM SUCESSO");
+                    // LogManagerComum.LogarInfo(mensagem: "DEPLOY PGD -> UPDATE DATABASE - ROLLBACK EXECUTADO COM SUCESSO");
                 }
             }
             catch (SqlException ex)
             {
-                LogManagerComum.LogarErro(ex, mensagem: "DEPLOY PGD -> UPDATE DATABASE -> *** ATENCAO *** PROBLEMAS NO ROLLBACK!!!!!");
+                // LogManagerComum.LogarErro(ex, mensagem: "DEPLOY PGD -> UPDATE DATABASE -> *** ATENCAO *** PROBLEMAS NO ROLLBACK!!!!!");
                 Environment.ExitCode = -1;
             }
         }
