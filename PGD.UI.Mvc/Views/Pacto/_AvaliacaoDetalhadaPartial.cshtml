@@ -37,7 +37,7 @@
 
                                 @Html.DropDownListCGUFor(m => m.ItensAvaliados, 
                                                               new SelectList((List<ItemAvaliacaoViewModel>)@Model.CriteriosAvaliacao[i].ItensAvaliacao, "IdCriterioAvaliacaoIdItemAvaliacao", "DescItemAvaliacao", itemSelecionado), 
-                                                              new { @class = "form-control selectize itensAvaliados" }).SetReadonly(!Model.HabilitarCampos)                             
+                                                              new { @class = "form-control selectize itensAvaliados" }).SetDisabled(!Model.HabilitarCampos)                             
                             </td>
                         </tr>
                     }

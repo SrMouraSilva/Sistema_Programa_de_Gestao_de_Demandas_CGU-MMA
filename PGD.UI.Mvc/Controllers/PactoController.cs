@@ -15,6 +15,8 @@ using System.Web.Routing;
 using System.Web.Script.Serialization;
 using System.Web.UI.WebControls;
 using PGD.Application.Util;
+using PGD.Application.ViewModels.Filtros;
+using PGD.Domain.Filtros;
 using Perfil = PGD.Domain.Enums.Perfil;
 
 namespace PGD.UI.Mvc.Controllers
@@ -314,9 +316,9 @@ namespace PGD.UI.Mvc.Controllers
                     return setMessageAndRedirect("Pacto PGD marcado como reservado", "Index");
                 }
 
-                var unidades = _unidadeService.ObterUnidades().ToList();
-                var retornoSituacao = unidades.FirstOrDefault(x => x.IdUnidade == _pactoVM.UnidadeExercicio);
-                _pactoVM.UnidadeDescricao = retornoSituacao.Nome;
+                // var unidades = _unidadeService.ObterUnidades().ToList();
+                // var retornoSituacao = unidades.FirstOrDefault(x => x.IdUnidade == _pactoVM.UnidadeExercicio);
+                _pactoVM.UnidadeDescricao = _unidadeService.Buscar(new UnidadeFiltro {Id = _pactoVM.UnidadeExercicio}).Lista.FirstOrDefault()?.Nome;
                 _pactoVM.StatusAssinatura = _Pactoservice.BuscaStatusAssinatura(_pactoVM);
 
                 if (_pactoVM.IdPacto == 0)
@@ -328,7 +330,7 @@ namespace PGD.UI.Mvc.Controllers
                     _pactoVM.UnidadeUsuarioPermitePactoExecucaoNoExterior = _pactoVM.PactoExecutadoNoExterior;
                 }
 
-                ConfigurarNomesServidoresUnidadesSolicitacao(ViewBag.isDirigente, _pactoVM.Nome, id.GetValueOrDefault(), idTipoPacto.GetValueOrDefault());
+                ConfigurarNomesServidoresUnidadesSolicitacao(ViewBag.isDirigente, _pactoVM.CpfUsuario, id.GetValueOrDefault(), idTipoPacto.GetValueOrDefault());
 
                 AtualizaOrdemServico(_pactoVM.OrdemServico.IdOrdemServico);
                 ConfigurarGruposAtividades(OrdemServico, _pactoVM.IdTipoPacto);
@@ -386,7 +388,7 @@ namespace PGD.UI.Mvc.Controllers
                 _pactoVM.IdTipoPacto = idTipoPacto.HasValue ? idTipoPacto.Value : 0;
                 _pactoVM.TipoPacto = idTipoPacto.HasValue ? _tipoPactoAppService.ObterTodos().Where(s => s.IdTipoPacto == idTipoPacto.Value).SingleOrDefault() : null;
                 podePermissoes(_pactoVM, user, ViewBag.isDirigente);
-                ConfigurarNomesServidoresUnidadesSolicitacao(ViewBag.isDirigente, getUserLogado().Nome, id.GetValueOrDefault(), _pactoVM.IdTipoPacto);
+                ConfigurarNomesServidoresUnidadesSolicitacao(ViewBag.isDirigente, getUserLogado().CPF, id.GetValueOrDefault(), _pactoVM.IdTipoPacto);
 
                 #region Dropdown
                 AtualizaOrdemServico(id);
@@ -449,33 +451,54 @@ namespace PGD.UI.Mvc.Controllers
             avaliacaoProdutoVM.NomeAvaliador = _usuarioAppService.ObterPorCPF(avaliacaoProduto.CPFAvaliador).Nome;
         }
 
-        private void ConfigurarNomesServidoresUnidadesSolicitacao(bool isDirigente, string nomeUsuario, int idPacto, int idTipoPacto)
+        private void ConfigurarNomesServidoresUnidadesSolicitacao(bool isDirigente, string cpfUsuario, int idPacto, int idTipoPacto)
         {
+
+            var userLogado = getUserLogado();
+            
             if (isDirigente)
             {
-                var usuarios = _usuarioAppService.ObterTodos().ToList();
-
-                if (!string.IsNullOrEmpty(nomeUsuario) && !usuarios.Any(u => u.Nome.Equals(nomeUsuario)) && !getUserLogado().Nome.Equals(nomeUsuario))
+                var usuarios = _usuarioAppService.Buscar(new UsuarioFiltroViewModel
                 {
-                    usuarios.Add(_usuarioAppService.ObterPorNome(nomeUsuario));
+                    IdUnidade = userLogado.IdUnidadeSelecionada
+                })?.Lista ?? new List<UsuarioViewModel>();
+
+                usuarios = idPacto == 0 && usuarios.Any(x => x.CPF == userLogado.CPF)
+                    ? usuarios : usuarios.Where(x => x.CPF != userLogado.CPF).ToList();
+                
+                if (!string.IsNullOrEmpty(cpfUsuario) && !usuarios.Any(u => u.CPF == cpfUsuario && (userLogado.CPF != cpfUsuario || idPacto != 0)))
+                {
+                    var usuario = _usuarioAppService.Buscar(new UsuarioFiltroViewModel
+                    {
+                        Cpf = cpfUsuario
+                    })?.Lista.FirstOrDefault();
+                    
+                    if(usuario != null) usuarios.Add(usuario);
                 }
 
                 TempData["NomesSubordinados"] = usuarios;
             }
             else
             {
-                TempData["NomesSubordinados"] = new List<UsuarioViewModel>() { _usuarioAppService.ObterPorNome(nomeUsuario) };
+                TempData["NomesSubordinados"] = _usuarioAppService.Buscar(new UsuarioFiltroViewModel
+                {
+                    Cpf = cpfUsuario
+                })?.Lista ?? new List<UsuarioViewModel>();
             }
 
-            List<Unidade> unidadesHabilitadas = _unidadeService.ObterUnidades(idTipoPacto).ToList();
+            List<Unidade> unidadesHabilitadas = _unidadeService.Buscar(new UnidadeFiltro
+            {
+                IdTipoPacto = idTipoPacto,
+                IdUsuario = isDirigente ? userLogado.IdUnidadeSelecionada : null
+            }).Lista ?? new List<Unidade>();
 
             if (idPacto > 0)
             {
-                PactoViewModel pactoVM = _Pactoservice.BuscarPorId(idPacto);
+                var pactoVm = _Pactoservice.BuscarPorId(idPacto);
 
-                if (unidadesHabilitadas.FirstOrDefault(u => u.IdUnidade == pactoVM.UnidadeExercicio) == null)
+                if (unidadesHabilitadas.FirstOrDefault(u => u.IdUnidade == pactoVm.UnidadeExercicio) == null)
                 {
-                    Unidade unidadePacto = _unidadeService.ObterUnidade(pactoVM.UnidadeExercicio);
+                    var unidadePacto = _unidadeService.Buscar(new UnidadeFiltro { Id = pactoVm.UnidadeExercicio }).Lista.FirstOrDefault();
                     unidadesHabilitadas.Add(unidadePacto);
                 }
             }
@@ -875,10 +898,10 @@ namespace PGD.UI.Mvc.Controllers
             bool isDirigente = user.IsDirigente;
             podePermissoes(pactoViewModel, user, isDirigente);
             ConfigurarGruposAtividades(OrdemServico, pactoViewModel.IdTipoPacto);
-            ConfigurarNomesServidoresUnidadesSolicitacao(isDirigente, pactoViewModel.Nome, pactoViewModel.IdPacto, pactoViewModel.IdTipoPacto);
+            ConfigurarNomesServidoresUnidadesSolicitacao(isDirigente, pactoViewModel.CpfUsuario, pactoViewModel.IdPacto, pactoViewModel.IdTipoPacto);
             pactoViewModel.PossuiCargaHoraria = pactoViewModel.CargaHorariaDiaria != TimeSpan.FromHours(8);
             ConfigurarIniciativasPlanoOperacional();
-            pactoViewModel.TipoPacto = _tipoPactoAppService.ObterTodos().Where(t => t.IdTipoPacto == pactoViewModel.IdTipoPacto).SingleOrDefault();
+            pactoViewModel.TipoPacto = _tipoPactoAppService.ObterTodos().SingleOrDefault(t => t.IdTipoPacto == pactoViewModel.IdTipoPacto);
 
             Unidade_TipoPactoViewModel unidade_tipoPacto = _unidade_tipoPactoAppService.BuscarPorIdUnidadeTipoPacto(pactoViewModel.UnidadeExercicio, pactoViewModel.IdTipoPacto);
 
@@ -1223,6 +1246,7 @@ namespace PGD.UI.Mvc.Controllers
                     NotaAvaliacaoViewModel notaAvaliacaoViewModel = _avaliacaoProdutoAppService.CalcularNotaAvaliacaoDetalhada(lstItensAvaliados);
                     apvm.Avaliacao = _notaAvaliacaoAppService.ObterPorId(notaAvaliacaoViewModel.IdNotaAvaliacao).Conceito;
                     apvm.NotaFinalAvaliacaoDetalhada = notaAvaliacaoViewModel.ValorNotaFinal;
+                    apvm.Avaliacao = _avaliacaoProdutoAppService.RetornaQualidadeAvaliacaoDetalhada(notaAvaliacaoViewModel);
                 }
             }
 

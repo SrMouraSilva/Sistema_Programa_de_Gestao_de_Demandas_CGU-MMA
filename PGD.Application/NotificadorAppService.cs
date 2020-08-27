@@ -724,7 +724,7 @@ namespace PGD.Application
                 }
                 catch (Exception ex)
                 {
-                    LogManagerComum.LogarErro(ex, null, "Email ao montar email de finalização do pacto = " + numeroPacto);
+                    // LogManagerComum.LogarErro(ex, null, "Email ao montar email de finalização do pacto = " + numeroPacto);
                     montouMensagem = false;
                 }
 

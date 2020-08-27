@@ -56,7 +56,7 @@ namespace PGD.UI.Mvc.Controllers
             }
             catch(Exception ex)
             {
-                LogManager.LogErro(ex, $"Erro ao fazer download do arquivo: {fileName}" );
+                // LogManager.LogErro(ex, $"Erro ao fazer download do arquivo: {fileName}" );
                 throw;
             }            
         }
@@ -80,7 +80,7 @@ namespace PGD.UI.Mvc.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogErro(ex, $"Erro ao fazer download do arquivo: {fileName}");
+                // LogManager.LogErro(ex, $"Erro ao fazer download do arquivo: {fileName}");
                 throw;
             }
         }

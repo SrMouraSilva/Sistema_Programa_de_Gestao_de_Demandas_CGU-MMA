@@ -7,5 +7,6 @@ namespace PGD.Application.Interfaces
     { 
         AvaliacaoProdutoViewModel ObterPorId(int idAvaliacaoProduto);
         NotaAvaliacaoViewModel CalcularNotaAvaliacaoDetalhada(List<ItemAvaliadoViewModel> lstItensAvaliados);
+        int RetornaQualidadeAvaliacaoDetalhada(NotaAvaliacaoViewModel nota);
     }
 }

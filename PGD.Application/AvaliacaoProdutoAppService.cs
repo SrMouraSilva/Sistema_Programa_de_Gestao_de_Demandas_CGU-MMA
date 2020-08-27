@@ -6,6 +6,7 @@ using PGD.Domain.Interfaces.Service;
 using PGD.Infra.Data.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using PGD.Domain.Enums;
 
 namespace PGD.Application
 {
@@ -43,11 +44,11 @@ namespace PGD.Application
 
             if (nota < notaMaximaLimitada)
             {
-                notaFinal = _notaAvaliacaoService.ObterTodos().SingleOrDefault(n => n.LimiteSuperiorFaixa >= nota && n.LimiteInferiorFaixa <= nota);                
+                notaFinal = _notaAvaliacaoService.ObterTodos().FirstOrDefault(n => n.LimiteSuperiorFaixa >= nota && n.LimiteInferiorFaixa <= nota);                
             }
             else
             {
-                notaFinal = _notaAvaliacaoService.ObterTodos().SingleOrDefault(n => n.LimiteSuperiorFaixa >= notaMaximaLimitada && n.LimiteInferiorFaixa <= notaMaximaLimitada);
+                notaFinal = _notaAvaliacaoService.ObterTodos().FirstOrDefault(n => n.LimiteSuperiorFaixa >= notaMaximaLimitada && n.LimiteInferiorFaixa <= notaMaximaLimitada);
             }
 
             
@@ -60,6 +61,32 @@ namespace PGD.Application
         public AvaliacaoProdutoViewModel ObterPorId(int idAvaliacaoProduto)
         {
             return Mapper.Map<AvaliacaoProduto, AvaliacaoProdutoViewModel>(_avaliacaoProdutoService.ObterPorId(idAvaliacaoProduto));
+        }
+
+        public int RetornaQualidadeAvaliacaoDetalhada(NotaAvaliacaoViewModel nota)
+        {
+            var retorno = 1;
+
+            switch (nota.DescNotaAvaliacao.ToLower().Trim())
+            {
+                case "excelente":
+                    retorno = (int) eAvaliacao.Excelente;
+                    break;
+                case "muito bom":
+                    retorno = (int) eAvaliacao.MuitoBom;
+                    break;
+                case "bom":
+                    retorno = (int) eAvaliacao.Bom;
+                    break;
+                case "regular":
+                    retorno = (int) eAvaliacao.Regular;
+                    break;
+                case "insatisfatório":
+                    retorno = (int) eAvaliacao.Insatisfatorio;
+                    break;
+            }
+
+            return retorno;
         }
     }
 }

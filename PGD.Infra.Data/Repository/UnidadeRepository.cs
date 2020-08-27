@@ -50,6 +50,12 @@ namespace PGD.Infra.Data.Repository
 
             if (filtro.Id.HasValue)
                 query = query.Where(x => x.IdUnidade == filtro.Id);
+            
+            if(filtro.IdUsuario.HasValue)
+                query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => !y.Excluido && y.IdUsuario == filtro.IdUsuario));
+
+            if (filtro.IdTipoPacto.HasValue)
+                query = query.Where(x => x.UnidadesTiposPactos.Any(y => y.IdTipoPacto == filtro.IdTipoPacto));
 
             if (!filtro.BuscarExcluidos)
                 query = query.Where(x => !x.Excluido);    

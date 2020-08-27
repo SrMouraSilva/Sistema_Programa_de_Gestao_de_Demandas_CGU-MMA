@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-md-9">
                     @Html.DropDownListCGUFor(m => m.QuantidadeProdutosAvaliados, new SelectList((Dictionary<int, int>)TempData["QuantidadeProdutosAAvaliar"], "Key", "Value", Model.QuantidadeProdutosAvaliados),
-                             new { @class = "form-control", @onchange = "atualizarCargaHoraria();" }).SetReadonly(!Model.HabilitarCampos)
+                             new { @class = "form-control", @onchange = "atualizarCargaHoraria();" }).SetDisabled(!Model.HabilitarCampos)
                 </div>
             </div>
             <div class="row">
@@ -91,7 +91,7 @@
 
                         @(Html.DropDownListCGUFor(model => Model.IdJustificativa,
                                                             new SelectList((List<JustificativaViewModel>)TempData["Justificativas"], "IdJustificativa", "DescJustificativa"),
-                                                            new { @class = "form-control", @onchange = "atualizarQualidade(this);" }).SetReadonly(!Model.HabilitarCampos))
+                                                            new { @class = "form-control", @onchange = "atualizarQualidade(this);" }).SetDisabled(!Model.HabilitarCampos))
                     </div>
                 </div>
             </div>
@@ -107,7 +107,7 @@
                                                               @onchange = "alternaVisibilidadeNivelAvaliacao('D')", 
                                                               @Title=@Model.podeTerAvaliacaoDetalhada ? "" : "O pacto não está habilitado para avaliação detalhada." }, 
                                                         (int)eNivelAvaliacao.Detalhada).SetChecked(Model.ehAvaliacaoDetalhada
-                                                   ).SetDisabled(!Model.HabilitarCampos || !Model.podeTerAvaliacaoDetalhada || true) Detalhada</label>
+                                                   ).SetDisabled(!Model.HabilitarCampos || !Model.podeTerAvaliacaoDetalhada) Detalhada</label>
                 </div>
             </div>
 
@@ -120,7 +120,7 @@
                     </div>
                     <div class="col-md-9">
                         @Html.DropDownListCGUFor(m => m.Avaliacao, EnumHelper.GetSelectList(typeof(PGD.Domain.Enums.eAvaliacao)),
-                             new { @class = "form-control" }).SetReadonly(!Model.HabilitarCampos)
+                             new { @class = "form-control" }).SetDisabled(!Model.HabilitarCampos)
                     </div>
                 </div>
             </div>
