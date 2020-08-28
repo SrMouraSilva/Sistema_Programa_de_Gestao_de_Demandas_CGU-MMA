@@ -92,7 +92,7 @@
                             {
                                 <span>- @user.PerfilSelecionado.ToString() |</span>
                             }
-                            <a id="linkSignOut" href="@Url.Action("LogOut", "Login")"><span onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_001');">Sair</span></a>
+                            <a id="linkSignOut" href="javascript:void(0)"><span onclick="fazerLogOut()">Sair</span></a>
                         </p>
 
                     </div>
@@ -204,7 +204,13 @@
             </div>
         </div>
     </div>
-<script type="text/javascript">
+
+    <div id="loadingDiv" style="display: none">
+        <img class="loader" src="~/Content/img/loading-blue-pipe.gif" alt="Loading..." />
+    </div>
+
+    <div class="div-loader" id="div-loader"></div>
+    <script type="text/javascript">
 
     $.when(
         $.get("/Scripts/cldr-data/supplemental/likelySubtags.json"),
@@ -217,26 +223,30 @@
     ).then(function() {
 
         // Normalize $.get results, we only need the JSON, not the request statuses.
-        return [].slice.apply( arguments, [ 0 ] ).map(function( result ) {
-            return result[ 0 ];
+        return [].slice.apply(arguments, [0]).map(function(result) {
+            return result[0];
         });
 
-    }).then(Globalize.load).then(function () {
+    }).then(Globalize.load).then(function() {
         Globalize.locale("pt");
     });
 
     $('#CSSGlobalEscuro').prop("disabled", true);
 
     $("#Alertas").delay(8000).fadeOut();
-    $(document).ready(function () {
+    $(document).ready(function() {
+
+        $('#div-loader').hide();
 
         $(".datepicker").datepicker({
             changeMonth: true,
             dateFormat: 'dd/mm/yy',
             nextText: '&rarr;',
             prevText: '&larr;',
-            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
-                'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            monthNamesShort: [
+                'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+                'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+            ],
             dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
             currentText: 'Hoje',
             showOtherMonths: true,
@@ -250,7 +260,34 @@
     function openModalUsuario() {
         $("#modalUsuario").modal('show');
     }
-</script>
+
+    $('form').submit(function() {
+        if (!$(this).hasClass('prevent-loader'))
+            $('#div-loader').show();
+
+    });
+
+    function fazerLogOut() {
+
+        if (confirm('@PGD.Domain.Constantes.Mensagens.MD_001')) {
+            
+            $.ajax({
+                type: 'GET',
+                url: '/Login/LogOut',
+                beforeSend: () => showLoading(),
+                success: (data) => {
+                    if (data && data.ok) location.reload();
+                },
+                error: err => {
+                    console.log(err);
+                    hideLoading();
+                }
+            });
+        }
+    }
+
+
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

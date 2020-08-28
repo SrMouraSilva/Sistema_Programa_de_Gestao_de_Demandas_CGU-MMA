@@ -62,19 +62,26 @@
 <script type="text/javascript">
     function efetuarLogout() {
         if (confirm('Deseja sair?')) {
+            $('#modalUsuario').modal('hide');
             $('#frmLogout').submit();
         }
     }
 
     function trocarPerfil() {
         if (confirm('Deseja trocar de perfil?')) {
+            $('#modalUsuario').modal('hide');
+
             $.ajax({
                 type: 'GET',
                 url: '/Login/AlterarPerfil',
+                beforeSend: () => showLoading(),
                 success: (data) => {
                     if(data && data.ok) location.reload(); 
                 },
-                error: err => console.log(err)
+                error: err => {
+                    console.log(err);
+                    hideLoading();
+                }
             });
         }
     }

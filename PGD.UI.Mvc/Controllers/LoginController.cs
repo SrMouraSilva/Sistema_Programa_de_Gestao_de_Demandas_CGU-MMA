@@ -178,8 +178,7 @@ namespace PGD.UI.Mvc.Controllers
         public ActionResult LogOut()
         {
             LimparSessionUsuario();
-
-            return RedirectToAction("Index", "Login");
+            return Json(new {ok = true}, JsonRequestBehavior.AllowGet);
         }
 
         private void PrepararTempDataUnidade()

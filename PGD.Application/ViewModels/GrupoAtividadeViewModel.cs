@@ -27,7 +27,7 @@ namespace PGD.Application.ViewModels
         public DomainValidation.Validation.ValidationResult ValidationResult { get; set; }
 
         public UsuarioViewModel Usuario { get; set; }
-        [Required(ErrorMessage = "É necessário selecionar pelo menos um tipo de pacto para o grupo de atividades.")]
+        [Required(ErrorMessage = "É necessário selecionar pelo menos um tipo de plano para o grupo de atividades.")]
         public List<int> IdsTipoPacto { get; set; }
     }
 }

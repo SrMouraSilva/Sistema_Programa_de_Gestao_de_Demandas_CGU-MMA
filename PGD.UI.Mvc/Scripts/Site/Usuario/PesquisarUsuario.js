@@ -64,6 +64,8 @@ function ajaxTableUsuarios(params) {
         url: '/Usuario/Index',
         data: data,
         dataType: 'json',
+        beforeSend: () => showLoading(),
+        complete: () => hideLoading(),
         success: (data) => {
             if (data.camposNaoPreenchidos)
                 ShowWarningMessage(data.camposNaoPreenchidos[0]);
@@ -76,7 +78,10 @@ function ajaxTableUsuarios(params) {
                 "total": data.camposNaoPreenchidos ? 0 : data.QtRegistros
             });
         },
-        error: err => console.log(err)
+        error: err => {
+            console.log(err);
+            hideLoading();
+        }
     });
 
     return 0;

@@ -13,7 +13,7 @@ namespace PGD.Application.ViewModels
         public int IdUnidade_TipoPacto { get; set; }
         [Required(ErrorMessage ="A unidade deve ser selecionada")]
         public int IdUnidade { get; set; }
-        [Required(ErrorMessage = "O tipo de pacto deve ser selecionado")]
+        [Required(ErrorMessage = "O tipo de plano deve ser selecionado")]
         public int IdTipoPacto { get; set; }
         public bool IndPermitePactoExterior { get; set; }
 

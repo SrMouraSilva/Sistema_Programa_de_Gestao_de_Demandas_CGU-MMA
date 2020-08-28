@@ -1,4 +1,6 @@
-﻿function ShowSuccessMessage(pMessage) {
+﻿var listaRequestLoading = [];
+
+function ShowSuccessMessage(pMessage) {
     MostraMensagem(1, pMessage, 'Base', 'Alerta', $('#Messages'));
 }
 function ShowInfoMessage(pMessage) {
@@ -156,3 +158,15 @@ function defaultFailureHandler(response) {
         ShowErrorMessage("Ocorreu um erro interno no servidor. Por favor, tente novamente mais tarde");
     }
 }
+
+function showLoading() {
+    listaRequestLoading.push('');
+    $('#div-loader').show();
+}
+
+function hideLoading() {
+    listaRequestLoading.pop();
+    if(!listaRequestLoading.length)
+        $('#div-loader').hide();
+}
+

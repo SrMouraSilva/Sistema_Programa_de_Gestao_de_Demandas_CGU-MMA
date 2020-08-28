@@ -27,7 +27,7 @@ namespace PGD.Domain.Validations.Pactos
             base.Add("CargaHoraria", new Rule<Pacto>(CargaPacto, "Caso possuir 'Redução da carga horaria' o valor permitido deverá ser menor que 8 horas e diferente de 0."));
 
             var TAPPacto = new TAPPacto();
-            base.Add("TAP", new Rule<Pacto>(TAPPacto, "O TAP é obrigatório para esse tipo de pacto."));
+            base.Add("TAP", new Rule<Pacto>(TAPPacto, "O TAP é obrigatório para esse tipo de plano."));
 
             var PactoNoExterior = new PactoNoExterior();
             base.Add("Pacto no Exterior", new Rule<Pacto>(PactoNoExterior, "O número do processo SEI é obrigatório para pactos executados no exterior."));
