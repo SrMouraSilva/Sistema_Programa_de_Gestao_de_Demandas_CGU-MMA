@@ -20,6 +20,10 @@ function ShowValidationResultMessages(validationResult) {
     validationResult.IsValid ? MostraMensagem(1, message, 'Base', 'Alerta', $('#Messages')) : MostraMensagem(4, message, 'Base', 'Alerta', $('#Messages'));
 }
 
+function ShowOperationSucessMessage() {
+    MostraMensagem(1, Mensagens.OPERACAO_REALIZADA, 'Base', 'Alerta', $('#Messages'));
+}
+
 function MostraMensagem(pTipoMensagem, pMessage, controller, action, div) {
     RenderPartial(controller, action, { tipo: pTipoMensagem, mensagem: pMessage }).done(function (success) {
         var successm = success.split('|||').join("<br/>");
