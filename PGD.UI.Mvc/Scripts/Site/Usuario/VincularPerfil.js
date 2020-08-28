@@ -162,7 +162,7 @@ function ajaxTablePerfilUnidade(params) {
 } 
 
 function excluirPerfilUnidadeClick(idUsuarioPerfilUnidade) {
-    if (confirm('Deseja excluir esse registro?')) {
+    if (confirm(Mensagens.EXCLUIR_REGISTRO)) {
         excluirPerfilUnidade(idUsuarioPerfilUnidade);
     }
 }

@@ -76,19 +76,15 @@ namespace PGD.UI.Mvc.Controllers
             
         }
 
-        public ActionResult Delete(int id)
+        [HttpPost]
+        public ActionResult Delete(int idUnidadeTipoPacto)
         {
+            if (idUnidadeTipoPacto == 0)
+                return Json(false, JsonRequestBehavior.AllowGet);
+
             var user = getUserLogado();
-
-            if (ModelState.IsValid)
-            {
-                if(id > 0)
-                    unidadeTipoPactoAppService.Remover(id, user);
-            }
-
-            PrepararTempDataDropdowns();
-
-            return View("Index", unidadeTipoPactoAppService.ObterTodos());
+            unidadeTipoPactoAppService.Remover(idUnidadeTipoPacto, user);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         public void PrepararTempDataDropdowns()
