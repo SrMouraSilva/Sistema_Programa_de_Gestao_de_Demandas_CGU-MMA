@@ -106,16 +106,42 @@ function formatterUnidade(value, row) {
     
     if (!row.PerfisUnidades || !row.PerfisUnidades.length) return retorno;
 
-    var unidadesInformadas = [];
+    var unidadesInformadas = {};
 
     row.PerfisUnidades.forEach(x => {
-        if (!unidadesInformadas.some(y => y === x.NomeUnidade))
-            unidadesInformadas.push(x.NomeUnidade);
+
+        var unidade = unidadesInformadas[x.NomeUnidade] || [];
+
+        if (!unidade.some(y => y === retornarInicialPerfil(x.NomePerfil))) {
+            unidade.push(retornarInicialPerfil(x.NomePerfil));
+            unidadesInformadas[x.NomeUnidade] = unidade;
+        }
     });
 
-    unidadesInformadas.forEach((x, i) => {
-        retorno += i === unidadesInformadas.length - 1 ? x : `${x}, `;
+    Object.keys(unidadesInformadas).forEach((x, i) => {
+        var tamanhoKeys = Object.keys(unidadesInformadas).length;
+        var listaPerfis = unidadesInformadas[x];
+
+        retorno += `${x}(`;
+        listaPerfis.forEach((y, j) => {
+            retorno += `${y}${(j === listaPerfis.length - 1 ? ')' : ', ' )}`;
+        });
+
+        retorno += tamanhoKeys - 1 === i ? '' : '<br/>';
     });
 
     return retorno;
+}
+
+function retornarInicialPerfil(nomePerfil) {
+    switch (nomePerfil.toLowerCase()) {
+        case 'solicitante':
+            return 'S';
+        case 'dirigente':
+            return 'D';
+        case 'administrador':
+            return 'A';
+        default:
+            return '';
+    }
 }

@@ -64,7 +64,13 @@ namespace PGD.UI.Mvc.Controllers
             if (controller != "Login" || (action != "LogOut" && action != "AlterarPerfil"))
             {
                 if (user == null && (controller != "Login" || action != "Index"))
-                    filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Login", action = "Index" }));
+                    if (Request.IsAjaxRequest())
+                    {
+                        filterContext.Result = new ContentResult();
+                        filterContext.HttpContext.Response.StatusCode = 401;
+                    }
+                    else
+                        filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Login", action = "Index" }));
 
                 if (user != null)
                 {
@@ -321,8 +327,13 @@ namespace PGD.UI.Mvc.Controllers
             var controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
 
             var userLogado = getUserLogado();
-            if (controller == "Usuario" && !userLogado.IsAdmin)
+            if (controller == "Usuario" && (userLogado == null || !userLogado.IsAdmin))
                 filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+        }
+
+        public ActionResult ErroGenerico()
+        {
+            return View("~/Erro/Error.cshtml");
         }
     }
 }
