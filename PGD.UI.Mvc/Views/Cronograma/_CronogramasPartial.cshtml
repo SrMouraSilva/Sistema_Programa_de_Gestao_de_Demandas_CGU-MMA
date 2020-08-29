@@ -3,6 +3,7 @@
 <script type="text/javascript">
 
     function SubmeterCronograma(action) {
+        showLoading();
         $('#formConteudoCronograma').attr('action', action);
         $('#formConteudoCronograma').submit();
         hideLoading();
@@ -42,7 +43,7 @@
 
         }
 
-
+        hideLoading();
 
     }
 
@@ -55,7 +56,8 @@
     HttpMethod = "Post",
     UpdateTargetId = "divConteudoCronograma",
     OnSuccess = "acoesCronogramaSuccess",
-    OnFailure = "defaultFailureHandler"
+    OnFailure = "defaultFailureHandler",
+    OnBegin = "showLoading"
 }, new { @id = "formConteudoCronograma" }))
 {
     @Html.HiddenFor(m => m.ValidarHorasADistribuir)

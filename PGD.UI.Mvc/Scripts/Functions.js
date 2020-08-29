@@ -61,7 +61,10 @@ function ExecutaJson(controller, action, data, tipo) {
         dataType: "json",
         url: url,
         data: data,
+        beforeSend: () => showLoading(),
+        complete: () => hideLoading(),
         error: function (status) {
+            hideLoading();
             try {
                 var errorData = $.parseJSON(status.responseText);
                 MostraMensagem(2, errorData[0]);

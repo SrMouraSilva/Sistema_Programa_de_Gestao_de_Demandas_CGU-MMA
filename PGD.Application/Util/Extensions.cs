@@ -159,5 +159,18 @@ namespace PGD.Application.Util
              ? ""
              : cpfCnpj.Replace(".", "").Replace("-", "").Replace("/", "");
         }
+
+        public static string ConverterParaHora(this double value)
+        {
+            var timeSpan = TimeSpan.FromHours(value);
+
+            var horas = timeSpan.Hours;
+            var minutos = timeSpan.Minutes.ToString("D2");
+
+            if (timeSpan.Days > 0)
+                horas += timeSpan.Days * 24;
+
+            return $"{horas}:{minutos}";
+        }
     }
 }

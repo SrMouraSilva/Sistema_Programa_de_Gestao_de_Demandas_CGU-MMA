@@ -425,14 +425,17 @@
             }
 
             function exibirPopupCronograma(response) {
+                hideLoading();
                 $('#modalCronograma').modal('show');
             }
 
             function exibirPopupObservacoes(response) {
+                hideLoading();
                 $('#modalGenerica').modal('show');
             }
 
             function exibirPopupObservacaoProduto(response) {
+                hideLoading();
                 $('#modalObservacoesProduto').modal('show');
             }
 
@@ -458,6 +461,7 @@
 
                 $(document).ready(function () {
                     atualizaCargaHorariaTotal();
+                    calcularCargaHorariaInicial();
                 });
 
                 $(document).ready(function () {
@@ -533,6 +537,15 @@
                         $('#@Html.IdFor(m => m.JustificativaVisualizacaoRestrita)').val('');
                         atualizaCargaHorariaDiaria();
                     }
+                }
+
+                function calcularCargaHorariaInicial() {
+                    var formProduto = $("#form-add-produto")
+                    var txtCargaHoraria = formProduto.find('#CargaHorariaTotalProdutoFormatada');
+                    var hiddenCargaHoraria = formProduto.find('#CargaHorariaProduto');
+                    var hora = hourTohhmm(0);
+                    hiddenCargaHoraria.val(0);
+                    txtCargaHoraria.val(hora);
                 }
 
         </script>

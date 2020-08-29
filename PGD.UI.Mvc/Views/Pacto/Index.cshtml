@@ -176,10 +176,12 @@
     <script type="text/javascript">
 
         function iniciarSuspensaoSuccess() {
+            hideLoading();
             $('#modalSuspender').modal('show');
         }
 
         function retornarSuspensaoSuccess() {
+            hideLoading();
             $('#modalRetornarSuspensao').modal('show');
         }
         function submeteConsulta(action) {

@@ -109,12 +109,11 @@
 }
 
 <script type="text/javascript">
-
     var habilitarEdicaoProdutos = '@(Model.PodeEditar || Model.PodeEditarAndamento)';
     $('#LinkAtividade').hide();
     var formAddProduto = $('#form-add-produto');
     var hrsAntigaProduto = 0;
-    
+
     function calcularCargaHoraria(resultado) {
         var txtCargaHoraria = $('#@Html.IdFor(m => m.CargaHorariaTotalProdutoFormatada)');
         var hiddenCargaHoraria = $('#@Html.IdFor(m => m.CargaHorariaProduto)');
@@ -148,7 +147,7 @@
         hideLoading();
         atualizaData();
     }
-    
+
     function excluirProdutoSucesso(retorno){
         var hdnCargaTotalPacto = $("#frmPacto").find("#CargaHorariaTotal");
         hdnCargaTotalPacto.val(hdnCargaTotalPacto.val() ? hdnCargaTotalPacto.val().replace(",", ".") : 0);
@@ -190,9 +189,9 @@
        var view = $.parseHTML(`<div>${data}</div>`);
        var cargaProduto = Number($(view).find('#form-add-produto').find("#CargaHorariaProduto").val() || 0);
        var qtdProduto = Number($(view).find('#form-add-produto').find("#QuantidadeProduto").val() || 0);
-       
+
        hrsAntigaProduto = cargaProduto * qtdProduto;
-        
+
         var cmdQtd = $('#@Html.IdFor(m => m.QuantidadeProduto)');
         var hddIdProduto = $('#@Html.IdFor(m => m.IdProduto)');
 
@@ -200,12 +199,10 @@
         {
             cmdQtd.attr("min", cmdQtd.val());
         }
-        
+
 
         $('#@Html.IdFor(m => m.IdGrupoAtividade)').trigger("change");
-        $('#@Html.IdFor(m => m.IdGrupoAtividade)').focus();    
-
-        hideLoading();
+        $('#@Html.IdFor(m => m.IdGrupoAtividade)').focus();
     }
 
     function preparaAlteracaoObservacaoProdutoSuccess(response) {
@@ -215,7 +212,6 @@
 
     function alterarObservacaoProdutoSuccess(response) {
         location.href = location.href;
-        hideLoading();
     }
 
     function atualizaLinkAtividade(response) {
@@ -225,7 +221,7 @@
         } else {
             $('#LinkAtividade').hide();
         }
-        
+
     }
 
 </script>

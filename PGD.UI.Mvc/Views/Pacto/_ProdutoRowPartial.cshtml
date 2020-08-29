@@ -58,7 +58,7 @@
                             OnSuccess = "excluirProdutoSucesso(data)"
                         }))
                     {
-                        <button type="submit" class="btn btn-xs btn-primary remPdt" @((!Model.PodeEditar && !Model.PodeEditarAndamento) ? "disabled" : "")><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        <button type="submit" class="btn btn-xs btn-danger remPdt" @((!Model.PodeEditar && !Model.PodeEditarAndamento) ? "disabled" : "")><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                     }
                 </div>
 
