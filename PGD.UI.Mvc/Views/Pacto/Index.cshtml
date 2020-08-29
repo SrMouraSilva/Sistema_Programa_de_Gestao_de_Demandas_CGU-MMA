@@ -67,7 +67,7 @@
                         }
                         if (pacto.podeDeletar)
                         {
-                            <a href="@Url.Action("Deletar", "Pacto", new { pactoid = pacto.IdPacto })" id=@("Deletar" + index) class="btn btn-xs btn-primary"><span title="Deletar" class="glyphicon glyphicon-remove" aria-hidden="true" onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_002');"></span></a>
+                            <a href="@Url.Action("Deletar", "Pacto", new { pactoid = pacto.IdPacto })" id=@("Deletar" + index) class="btn btn-xs btn-danger"><span title="Deletar" class="glyphicon glyphicon-remove" aria-hidden="true" onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_002');"></span></a>
                         }
 
                         if (pacto.podeAssinar)
@@ -97,7 +97,7 @@
 
                         if (pacto.podeDeletar)
                         {
-                            <a href="@Url.Action("Deletar", "Pacto", new { pactoid = pacto.IdPacto })" class="btn btn-xs btn-primary"><span title="Deletar" class="glyphicon glyphicon-remove" aria-hidden="true" onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_002');"></span></a>
+                            <a href="@Url.Action("Deletar", "Pacto", new { pactoid = pacto.IdPacto })" class="btn btn-xs btn-danger"><span title="Deletar" class="glyphicon glyphicon-remove" aria-hidden="true" onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_002');"></span></a>
                         }
 
                         if (pacto.podeAssinar)

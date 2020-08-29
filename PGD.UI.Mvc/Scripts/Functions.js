@@ -161,6 +161,8 @@ function defaultFailureHandler(response) {
     } else {
         ShowErrorMessage("Ocorreu um erro interno no servidor. Por favor, tente novamente mais tarde");
     }
+
+    hideLoading();
 }
 
 function showLoading() {

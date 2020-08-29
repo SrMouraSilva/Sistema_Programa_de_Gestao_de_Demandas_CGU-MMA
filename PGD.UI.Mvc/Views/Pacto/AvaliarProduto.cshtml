@@ -96,10 +96,12 @@
 
         function preparaAvaliacaoProdutoSuccess() {
             $('#containerRealizarAvaliacao').show();
+            hideLoading();
         }
 
         function preparaExibicaoAvaliacaoProdutoSuccess() {
             $('#containerExibirAvaliacao').show();
+            hideLoading();
         }
 
         function avaliarProdutoSuccess(retorno) {

@@ -464,9 +464,9 @@ namespace PGD.UI.Mvc.Controllers
                 })?.Lista ?? new List<UsuarioViewModel>();
 
                 usuarios = idPacto == 0 && usuarios.Any(x => x.CPF == userLogado.CPF)
-                    ? usuarios : usuarios.Where(x => x.CPF != userLogado.CPF).ToList();
-                
-                if (!string.IsNullOrEmpty(cpfUsuario) && !usuarios.Any(u => u.CPF == cpfUsuario && (userLogado.CPF != cpfUsuario || idPacto != 0)))
+                    ? usuarios.Where(x => x.CPF != userLogado.CPF).ToList() : usuarios;
+
+                if (!string.IsNullOrEmpty(cpfUsuario) && (usuarios.All(u => u.CPF != cpfUsuario) && (userLogado.CPF != cpfUsuario || idPacto != 0)))
                 {
                     var usuario = _usuarioAppService.Buscar(new UsuarioFiltroViewModel
                     {
@@ -489,7 +489,7 @@ namespace PGD.UI.Mvc.Controllers
             List<Unidade> unidadesHabilitadas = _unidadeService.Buscar(new UnidadeFiltro
             {
                 IdTipoPacto = idTipoPacto,
-                IdUsuario = isDirigente ? userLogado.IdUnidadeSelecionada : null
+                IdUsuario = isDirigente ? userLogado?.IdUsuario : null
             }).Lista ?? new List<Unidade>();
 
             if (idPacto > 0)
