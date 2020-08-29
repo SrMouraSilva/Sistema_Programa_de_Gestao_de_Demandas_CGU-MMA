@@ -40,8 +40,6 @@ namespace PGD.Application.ViewModels
 
         public string nomeUnidade { get; set; }
 
-        public bool Administrador => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.Administrador;
-
         public bool Inativo { get; set; }
 
         [ScaffoldColumn(false)]
@@ -53,7 +51,7 @@ namespace PGD.Application.ViewModels
 
         public ICollection<UsuarioPerfilUnidadeViewModel> PerfisUnidades { get; set; }
 
-        public string DescricaoPerfil => $"{PerfilSelecionado.ToString()}{(Administrador ? " / Administrador" : "")}";
+        public string DescricaoPerfil => $"{PerfilSelecionado.ToString()}{(IsAdmin ? " / Administrador" : "")}";
 
         public bool IsDirigente => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.Dirigente;
         public bool IsAdmin => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.Administrador;

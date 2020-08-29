@@ -117,7 +117,7 @@
                         <li>
                             <a href="#" id="menuPactos">Plano de Trabalho</a>
                             <ul>
-                                @if (!User.IsInRole(PGD.Domain.Enums.Perfil.Consulta.ToString()))
+                                @if (user != null && !user.IsAdmin)
                                 {
                                     <li><a href="@Url.Action("Solicitar", "Pacto", new { id = "", idTipoPacto = (int) PGD.Domain.Enums.eTipoPacto.PGD_Pontual})" id="menuSolicitar">Solicitar PGD - Processo de Trabalho</a></li>
                                     <li><a href="@Url.Action("Solicitar", "Pacto", new { id = "", idTipoPacto = (int) PGD.Domain.Enums.eTipoPacto.PGD_Projeto})" id="menuSolicitar">Solicitar PGD - Projetos</a></li>
@@ -125,37 +125,38 @@
                                 }
 
                                 <li><a href="@Url.Action("Index", "Pacto")" id="menuConsultarPactos">Consultar</a></li>
-
                             </ul>
                         </li>
-                        <li>
 
-                            <a href="#">Gerencial</a>
-                            <ul>
-                                @*  <li><a id="relatorioConsolidado" href="@Url.Action("Index", "RelatorioConsolidado")">Relátorio Consolidado</a></li>*@
-                                <li><a id="relatorioFlPonto" href="@Url.Action("Index", "RelatorioApoioFolhaPonto")">Relatório de Auxilio à Folha de Ponto</a></li>
-                                @if (User.IsInRole(PGD.Domain.Enums.Perfil.Administrador.ToString()))
-                                {
+                        <li>
+                            @if (user != null && user.IsDirigente)
+                            {
+                                <a href="#">Gerencial</a>
+                                <ul>
+                                    @*  <li><a id="relatorioConsolidado" href="@Url.Action("Index", "RelatorioConsolidado")">Relátorio Consolidado</a></li>*@
+                                    <li><a id="relatorioFlPonto" href="@Url.Action("Index", "RelatorioApoioFolhaPonto")">Relatório de Auxilio à Folha de Ponto</a></li>
                                     <li><a id="relatorioDadosBrutos" href="@Url.Action("Index", "ArquivoDadoBruto")">Relatório de Dados Brutos</a></li>
-                                }
+                                </ul>
+                            }
+                        </li>
 
-                            </ul>
-                        </li>
+
                         <li>
-                            <a id="menuConfiguracoes" href="#">Configurações</a>
-                            <ul>
-                                <li><a id="menuOrdemServico" href="@Url.Action("Index", "OrdemServico")">Tabela de Atividades</a></li>
-                                <li><a id="menuGrupoAtividade" href="@Url.Action("Index", "GrupoAtividade")">Gerenciar Grupo de Atividades</a></li>
-                                <li><a id="menuAtividade" href="@Url.Action("Index", "Atividade")">Gerenciar Atividades</a></li>
-                                @if (user != null && user.Administrador)
-                                {
+                            @if (user != null && user.IsAdmin)
+                            {
+                                <a id="menuConfiguracoes" href="#">Configurações</a>
+                                <ul>
+                                    <li><a id="menuOrdemServico" href="@Url.Action("Index", "OrdemServico")">Tabela de Atividades</a></li>
+                                    <li><a id="menuGrupoAtividade" href="@Url.Action("Index", "GrupoAtividade")">Gerenciar Grupo de Atividades</a></li>
+                                    <li><a id="menuAtividade" href="@Url.Action("Index", "Atividade")">Gerenciar Atividades</a></li>
                                     <li><a id="menuPerfil" href="@Url.Action("Index", "Usuario")">Gerenciar Perfil</a></li>
-                                }
-                                <li><a id="menutiposPacto" href="@Url.Action("Index","UnidadeTipoPacto")">Gerenciar Tipos de Plano de Trabalho</a></li>
-                                <li><a id="menuAvaliacaoDetalhada" href="@Url.Action("Index","CriterioAvaliacao")">Gerenciar Avaliação Detalhada</a></li>
-                                @*<li><a id="trocaUser" href="@Url.Action("Index", "TrocaUsuario")">Trocar Usuário</a></li>*@
-                            </ul>
+                                    <li><a id="menutiposPacto" href="@Url.Action("Index","UnidadeTipoPacto")">Gerenciar Tipos de Plano de Trabalho</a></li>
+                                    <li><a id="menuAvaliacaoDetalhada" href="@Url.Action("Index","CriterioAvaliacao")">Gerenciar Avaliação Detalhada</a></li>
+                                    @*<li><a id="trocaUser" href="@Url.Action("Index", "TrocaUsuario")">Trocar Usuário</a></li>*@
+                                </ul>
+                            }
                         </li>
+
                     }
                 </ul>
             </div>
@@ -174,13 +175,13 @@
             <div class="footer-azul2"></div>
             <div class="footer-cinza">
                 @*<div class="center-block container" style="padding-bottom: 0">
-                    <div class="row" style="padding-left: 10px;">
-                        <div class="col-md-12 left">
-                            <p>Sistema Eletrônico do PGD @versaoSistema</p>
-                            Direitos reservados - CGU - 2017
+                        <div class="row" style="padding-left: 10px;">
+                            <div class="col-md-12 left">
+                                <p>Sistema Eletrônico do PGD @versaoSistema</p>
+                                Direitos reservados - CGU - 2017
+                            </div>
                         </div>
-                    </div>
-                </div>*@
+                    </div>*@
             </div>
         </div>
     </div>
@@ -270,7 +271,7 @@
     function fazerLogOut() {
 
         if (confirm('@PGD.Domain.Constantes.Mensagens.MD_001')) {
-            
+
             $.ajax({
                 type: 'GET',
                 url: '/Login/LogOut',

@@ -5,6 +5,7 @@
     function SubmeterCronograma(action) {
         $('#formConteudoCronograma').attr('action', action);
         $('#formConteudoCronograma').submit();
+        hideLoading();
     }
 
     function acoesCronogramaSuccess()

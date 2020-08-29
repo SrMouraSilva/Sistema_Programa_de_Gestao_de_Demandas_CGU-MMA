@@ -27,7 +27,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <p>CPF: @(user?.CPF.MaskCpfCpnj())</p>
-                                        <p>SIGLA - Unidade: @(user?.SiglaUnidadeSelecionada) - @(user?.NomeUnidadeSelecionada)</p>
+                                        <p>SIGLA - Unidade: @(!string.IsNullOrWhiteSpace(user?.SiglaUnidadeSelecionada) ? @user?.SiglaUnidadeSelecionada + " - " : "")@(user?.NomeUnidadeSelecionada)</p>
                                     </div>
                                 </div>
                                 <div class="row">
