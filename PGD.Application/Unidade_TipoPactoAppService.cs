@@ -5,6 +5,9 @@ using PGD.Domain.Entities;
 using PGD.Domain.Interfaces.Service;
 using PGD.Infra.Data.Interfaces;
 using System.Collections.Generic;
+using PGD.Application.ViewModels.Filtros;
+using PGD.Application.ViewModels.Paginacao;
+using PGD.Domain.Filtros;
 
 namespace PGD.Application
 {
@@ -69,6 +72,12 @@ namespace PGD.Application
         public IEnumerable<Unidade_TipoPactoViewModel> ObterTodos()
         {
             return Mapper.Map<IEnumerable<Unidade_TipoPacto>, IEnumerable<Unidade_TipoPactoViewModel>>(_unidade_TipoPactoService.ObterTodos());
+        }
+
+        public PaginacaoViewModel<Unidade_TipoPactoViewModel> Buscar(UnidadeTipoPactoFiltroViewModel filtro)
+        {
+            var retorno = Mapper.Map<PaginacaoViewModel<Unidade_TipoPactoViewModel>>(_unidade_TipoPactoService.Buscar(Mapper.Map<UnidadeTipoPactoFiltro>(filtro)));
+            return retorno;
         }
 
         public void Remover(int id, UsuarioViewModel user)

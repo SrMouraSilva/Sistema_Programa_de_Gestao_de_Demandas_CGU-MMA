@@ -4,6 +4,8 @@ using PGD.Domain.Interfaces.Service;
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using PGD.Application.ViewModels.Filtros;
+using PGD.Domain.Constantes;
 
 namespace PGD.UI.Mvc.Controllers
 {
@@ -29,19 +31,15 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string IdUnidade, string IdTipoPacto)
+        public ActionResult Index(SearchUnidadeTipoPactoViewModel model)
         {
-            var lista = unidadeTipoPactoAppService.ObterTodos();
+            var retorno = unidadeTipoPactoAppService.Buscar(new UnidadeTipoPactoFiltroViewModel
+            {
+                IncludeTipoPacto = true, IncludeUnidade = true, IdUnidade = model.IdUnidade, IdTipoPacto = model.IdTipoPacto
+                , Skip = model.Skip, Take = model.Take
+            });
 
-            if(!string.IsNullOrEmpty(IdUnidade))
-                lista = lista.Where(x => x.IdUnidade == Convert.ToInt32(IdUnidade));
-
-            if(!string.IsNullOrEmpty(IdTipoPacto))
-                lista = lista.Where(x => x.IdTipoPacto == Convert.ToInt32(IdTipoPacto));
-
-            PrepararTempDataDropdowns();
-
-            return View(lista);
+            return Json(retorno);
         }
 
         public ActionResult Create(int? id)
@@ -70,7 +68,7 @@ namespace PGD.UI.Mvc.Controllers
                     unidadeTipoPactoAppService.Adicionar(model, user);
                 else
                     unidadeTipoPactoAppService.Atualizar(model, user);
-                return View("Index", unidadeTipoPactoAppService.ObterTodos());
+                return setMessageAndRedirect(Mensagens.MS_003, "Index");
             }
             return View(model);
             

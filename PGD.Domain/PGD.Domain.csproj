@@ -213,6 +213,7 @@
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Filtros\Base\BaseFiltro.cs" />
     <Compile Include="Filtros\PermissaoFiltro.cs" />
+    <Compile Include="Filtros\UnidadeTipoPactoFiltro.cs" />
     <Compile Include="Filtros\UnidadeFiltro.cs" />
     <Compile Include="Filtros\UsuarioFiltro.cs" />
     <Compile Include="Filtros\UsuarioPerfilUnidadeFiltro.cs" />

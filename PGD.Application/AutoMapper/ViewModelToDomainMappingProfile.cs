@@ -65,6 +65,7 @@ namespace PGD.Application.AutoMapper
             CreateMap<UsuarioFiltroViewModel, UsuarioFiltro>();
             CreateMap<UnidadeFiltroViewModel, UnidadeFiltro>();
             CreateMap<UsuarioPerfilUnidadeFiltroViewModel, UsuarioPerfilUnidadeFiltro>();
+            CreateMap<UnidadeTipoPactoFiltroViewModel, UnidadeTipoPactoFiltro>();
         }
 
 

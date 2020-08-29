@@ -1,13 +1,11 @@
-﻿using System;
+﻿using PGD.Domain.Constantes;
+using PGD.Domain.Entities;
+using PGD.Domain.Filtros;
+using PGD.Domain.Interfaces.Repository;
+using PGD.Domain.Interfaces.Service;
+using PGD.Domain.Paginacao;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PGD.Domain.Entities;
-using PGD.Domain.Interfaces.Service;
-using PGD.Domain.Interfaces.Repository;
-using PGD.Domain.Constantes;
-using PGD.Domain.Validations.GruposAtividade;
 
 namespace PGD.Domain.Services
 {
@@ -75,6 +73,11 @@ namespace PGD.Domain.Services
             _classRepository.Remover(obj.IdUnidade_TipoPacto);
             obj.ValidationResult.Message = Mensagens.MS_005;
             return obj;
+        }
+
+        public Paginacao<Unidade_TipoPacto> Buscar(UnidadeTipoPactoFiltro filtro)
+        {
+            return _classRepository.Buscar(filtro);
         }
     }
 }

@@ -10,47 +10,39 @@
 
 <h1>Gerenciar tipos de plano de trabalho por unidade</h1>
 
-@Html.Partial("_SearchPartial", new Unidade_TipoPactoViewModel())
+@Html.Partial("_SearchPartial", new SearchUnidadeTipoPactoViewModel())
 
-@if (Model.Count() == 0)
-{
-    <h4 class="col-md-12 text-center">@PGD.Domain.Constantes.Mensagens.ME_003</h4>
-}
-else
-{
-    <div class="table-responsive">
-        <table class="table table-bordered tableFilter" id="tblUnidadeTipoPacto">
-            <thead>
-                <tr>
-                    <th class="text-center">Unidade</th>
-                    <th class="text-center">Plano de Trabalho</th>
-                    <th class="text-center">Permite plano de trabalho no exterior?</th>
-                    <th class="text-center">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var obj in Model)
-                {
-                    <tr id="tableRow_@obj.IdUnidade_TipoPacto">
-                        <td class="text-center">@(((List<Unidade>)TempData["lstUnidade"]).Where(a => a.IdUnidade == obj.IdUnidade).Select(a => a.Nome).First())</td>
-                        <td class="text-center">@(((List<TipoPacto>)TempData["lstTipos"]).Where(a => a.IdTipoPacto == obj.IdTipoPacto).Select(a => a.DescTipoPacto).First())</td>
-                        <td class="text-center">@(obj.IndPermitePactoExterior ? "Sim" : "Não")</td>
-                        <td class="text-center">
-                            <a href="@Url.Action("Create", new { id = obj.IdUnidade_TipoPacto })" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
-                            <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="excluirUnidadeTipoPactoClick('@obj.IdUnidade_TipoPacto')">
-                                <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
+
+<div id="div-table-unidades-tipo-pacto" class="table-responsive">
+
+    <table class="table table-bordered"
+           id="tblUnidadeTipoPacto"
+           data-side-pagination="server"
+           data-ajax="ajaxTableUnidadesTipoPacto"
+           data-pagination="true"
+           data-search="false">
+        <thead>
+            <tr>
+                <th data-field="NomeUnidade" data-align="center" class="text-center" data-width="55%">
+                    <div class="th-inner ">Unidade</div>
+                </th>
+                <th data-field="DescTipoPacto" data-sortable="true" class="text-center" data-width="30%">
+                    <div class="th-inner ">Plano de Trabalho</div>
+                </th>
+                <th data-field="IndPermitePactoExterior" class="text-center" data-align="center" data-width="5%" data-formatter="formatterPermitePactoExterior">
+                    <div class="th-inner ">Permite plano de trabalho <br/> no exterior?</div>
+                </th>
+                <th class="text-center" data-width="10%" data-formatter="formatterAcoes">
+                    <div class="th-inner ">Ações</div>
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
 
 @section Scripts{
-    <script src="~/Scripts/datatables.min.js"></script>
-    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
-    <script src="~/Scripts/datatables.globalization.js"></script>
+    @*<script src="~/Scripts/datatables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>*@
+    @*<script src="~/Scripts/datatables.globalization.js"></script>*@
     <script src="~/Scripts/Site/UnidadeTipoPacto/Index.js"></script>
 }

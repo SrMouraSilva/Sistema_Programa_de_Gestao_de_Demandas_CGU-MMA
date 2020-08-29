@@ -135,7 +135,7 @@ function ajaxTablePerfilUnidade(params) {
         setTimeout(() => {
             tblPerfilUnidade.bootstrapTable('selectPage', 1);
         }, 10);
-        return;
+        return 0;
     }
 
     veioDeInclusao = false;
@@ -146,6 +146,8 @@ function ajaxTablePerfilUnidade(params) {
         url: '/Usuario/BuscarUnidadesPerfisUsuario',
         data: { idUsuario, take, skip },
         dataType: 'json',
+        beforeSend: () => showLoading(),
+        complete: () => hideLoading(),
         success: (data) => {
             qtdRegistrosPagina = data.Lista.length;
             qtdRegistrosTotal = data.QtRegistros;
@@ -155,7 +157,10 @@ function ajaxTablePerfilUnidade(params) {
             });
             pageNumber = tblPerfilUnidade.bootstrapTable('getOptions').pageNumber;
         },
-        error: err => console.log(err)
+        error: err => {
+            console.log(err);
+            hideLoading();
+        }
     });
 
     return 0;
