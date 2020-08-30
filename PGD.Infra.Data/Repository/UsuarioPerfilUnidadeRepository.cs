@@ -47,7 +47,10 @@ namespace PGD.Infra.Data.Repository
                 var primeiraPagina = filtro.Skip.Value == 0;
 
                 if (primeiraPagina)
-                    retorno.Lista.Add(query.FirstOrDefault(x => x.IdPerfil == (int)Domain.Enums.Perfil.Solicitante));
+                {
+                    var perfilSolicitante = query.FirstOrDefault(x => x.IdPerfil == (int) Domain.Enums.Perfil.Solicitante);
+                    if(perfilSolicitante != null) retorno.Lista.Add(perfilSolicitante);
+                }
                     
                 query = query.Where(x => x.IdPerfil != (int)Domain.Enums.Perfil.Solicitante);
                 retorno.Lista.AddRange(filtro.OrdenarDescendente

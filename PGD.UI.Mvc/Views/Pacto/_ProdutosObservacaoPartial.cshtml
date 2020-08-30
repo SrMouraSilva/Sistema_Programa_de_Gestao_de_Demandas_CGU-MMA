@@ -1,5 +1,5 @@
 ﻿@model PGD.Application.ViewModels.ProdutoViewModel
-@using (Ajax.BeginForm("AtualizaObservacaoProduto", "Pacto", new AjaxOptions() { OnSuccess = "alterarObservacaoProdutoSuccess", OnFailure = "defaultFailureHandler" }))
+@using (Ajax.BeginForm("AtualizaObservacaoProduto", "Pacto", new AjaxOptions() { OnSuccess = "alterarObservacaoProdutoSuccess", OnFailure = "defaultFailureHandler", OnBegin = "showLoading" }))
 {
     @Html.HiddenFor(m => m.IdProduto)
     @Html.HiddenFor(m => m.IdPacto)

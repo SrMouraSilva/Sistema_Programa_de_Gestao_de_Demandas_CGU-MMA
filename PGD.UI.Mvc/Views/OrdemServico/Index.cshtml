@@ -21,7 +21,7 @@ else
                 <div class="panel-heading" role="tab" id="grup_@os.IdOrdemServico">
                     <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_@os.IdOrdemServico" aria-expanded="true" aria-controls="collapse_@os.IdOrdemServico">
-                            Tabele de Atividade nº @os.IdOrdemServico
+                            Tabele de Atividade nº @os.IdOrdemServico (@os.DatInicioSistema.ToString("dd/MM/yyyy"))
                             <div class="pull-right">
                                 @{var ov = ((OrdemServicoViewModel)ViewBag.OrdemVigente);}
                                 @*Desabilitado até decidir se pode editar ou não OS - Work Item 3819*@

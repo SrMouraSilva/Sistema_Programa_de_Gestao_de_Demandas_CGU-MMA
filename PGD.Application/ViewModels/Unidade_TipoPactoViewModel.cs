@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PGD.Application.ViewModels
 {
@@ -13,9 +8,11 @@ namespace PGD.Application.ViewModels
         public int IdUnidade_TipoPacto { get; set; }
         [Required(ErrorMessage ="A unidade deve ser selecionada")]
         public int IdUnidade { get; set; }
-        [Required(ErrorMessage = "O tipo de pacto deve ser selecionado")]
+        [Required(ErrorMessage = "O tipo de plano deve ser selecionado")]
         public int IdTipoPacto { get; set; }
         public bool IndPermitePactoExterior { get; set; }
+        public string DescTipoPacto { get; set; }
+        public string NomeUnidade { get; set; }
 
     }
 }

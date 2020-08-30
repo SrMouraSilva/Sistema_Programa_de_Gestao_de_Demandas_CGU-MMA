@@ -1988,6 +1988,7 @@
     <Content Include="Content\fontawesome5.14.0\webfonts\fa-brands-400.svg" />
     <Content Include="Content\fontawesome5.14.0\webfonts\fa-regular-400.svg" />
     <Content Include="Content\fontawesome5.14.0\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\img\loading-blue-pipe.gif" />
     <Content Include="Content\img\loading.gif" />
     <Content Include="Content\img\switch.png" />
     <Content Include="Content\select2\select2.min.css" />
@@ -3706,6 +3707,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\select2\select2.min.js" />
     <Content Include="Scripts\selectize.js" />
+    <Content Include="Scripts\Site\UnidadeTipoPacto\Index.js" />
     <Content Include="Scripts\Site\Usuario\VincularPerfil.js" />
     <Content Include="Scripts\Site\Usuario\PesquisarUsuario.js" />
     <Content Include="Scripts\tableExport.js" />
@@ -3794,6 +3796,7 @@
     <Folder Include="Areas\" />
     <Folder Include="Binders\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

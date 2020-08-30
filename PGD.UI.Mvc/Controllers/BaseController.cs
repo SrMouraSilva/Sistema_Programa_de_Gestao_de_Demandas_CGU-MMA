@@ -1,22 +1,18 @@
 ﻿using DomainValidation.Validation;
 using PGD.Application.Interfaces;
 using PGD.Application.ViewModels;
+using PGD.Domain.Interfaces.Service;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using PGD.Domain.Interfaces.Service;
-using System.Reflection;
-using PGD.Domain.Enums;
-using System;
-using PGD.UI.Mvc.Helpers;
-using System.Web;
-using System.Security.Claims;
-using System.Threading;
-using System.Globalization;
-using System.Data;
-using System.IO;
-using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -61,23 +57,33 @@ namespace PGD.UI.Mvc.Controllers
             var action = filterContext.ActionDescriptor.ActionName;
 
 
-            if (controller != "Login" || (action != "LogOut" && action != "AlterarPerfil"))
+            if (!ActionsNaoValidarRota().Contains(action))
             {
-                if (user == null && (controller != "Login" || action != "Index"))
-                    filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Login", action = "Index" }));
-
-                if (user != null)
+                if (controller != "Login" || (action != "LogOut" && action != "AlterarPerfil"))
                 {
-                    if (!user.PerfilSelecionado.HasValue && (controller != "Login" || action != "SelecionarPerfil"))
-                        filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Login", action = "SelecionarPerfil" }));
+                    if (user == null && (controller != "Login" || action != "Index"))
+                        if (Request.IsAjaxRequest())
+                        {
+                            filterContext.Result = new ContentResult();
+                            filterContext.HttpContext.Response.StatusCode = 401;
+                        }
+                        else
+                            filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Login", action = "Index" }));
 
-                    if (user.PerfilSelecionado.HasValue && !user.IdUnidadeSelecionada.HasValue && (controller != "Login" || action != "SelecionarUnidade"))
-                        filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Login", action = "SelecionarUnidade" }));
+                    if (user != null)
+                    {
+                        if (!user.PerfilSelecionado.HasValue && (controller != "Login" || action != "SelecionarPerfil"))
+                            filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Login", action = "SelecionarPerfil" }));
 
-                    if (user.PerfilSelecionado.HasValue && user.IdUnidadeSelecionada.HasValue && controller == "Login")
-                        filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+                        if (user.PerfilSelecionado.HasValue && !user.IdUnidadeSelecionada.HasValue && (controller != "Login" || action != "SelecionarUnidade"))
+                            filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Login", action = "SelecionarUnidade" }));
+
+                        if (user.PerfilSelecionado.HasValue && user.IdUnidadeSelecionada.HasValue && controller == "Login")
+                            filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+                    }
                 }
             }
+            
 
             ValidarExigeAdmin(filterContext);
 
@@ -321,8 +327,17 @@ namespace PGD.UI.Mvc.Controllers
             var controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
 
             var userLogado = getUserLogado();
-            if (controller == "Usuario" && !userLogado.IsAdmin)
+            if (controller == "Usuario" && (userLogado == null || !userLogado.IsAdmin))
                 filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+        }
+
+        private string[] ActionsNaoValidarRota() {
+            return new string[] { "ErroGenerico" };
+        }
+
+        public ActionResult ErroGenerico()
+        {
+            return View("~/Views/Erro/Error.cshtml");
         }
     }
 }

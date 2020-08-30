@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            @using (Ajax.BeginForm("FinalizarSuspensao", null, new AjaxOptions() { UpdateTargetId = "modalRetornarSuspensao", OnSuccess = "retornarSuspenderSuccess", OnFailure = "defaultFailureHandler", HttpMethod = "Post" }, new { @id = "frmRetornarSuspensao" }))
+            @using (Ajax.BeginForm("FinalizarSuspensao", null, new AjaxOptions() { UpdateTargetId = "modalRetornarSuspensao", OnSuccess = "retornarSuspenderSuccess", OnFailure = "defaultFailureHandler", HttpMethod = "Post", OnBegin = "showLoading" }, new { @id = "frmRetornarSuspensao" }))
             {
                 @Html.HiddenFor(m => m.IdPacto)
                 <div class="clearfix">
@@ -46,7 +46,8 @@
                         HttpMethod = "Post",
                         UpdateTargetId = "divConteudoCronograma",
                         OnSuccess = "exibirPopupCronogramaSuspensao",
-                        OnFailure = "defaultFailureHandler"
+                        OnFailure = "defaultFailureHandler",
+                        OnBegin = "showLoading"
                     }))
                     {
 
@@ -95,6 +96,7 @@
 <script type="text/javascript">
 
     function exibirPopupCronogramaSuspensao() {
+        hideLoading();
         $('#modalRetornarSuspensao').modal('hide');
         $('#modalCronograma').modal('show');
     }
@@ -124,6 +126,7 @@
             currentText: 'Hoje',
             showOtherMonths: true,
             numberOfMonths: 1,
+            changeYear: true,
             //maxDate: "0",
             defaultDate: new Date(),
             beforeShow: function (textbox, instance) {

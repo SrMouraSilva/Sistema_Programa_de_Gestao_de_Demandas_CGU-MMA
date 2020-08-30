@@ -1,10 +1,7 @@
 ﻿using PGD.Application.ViewModels;
-using PGD.Domain.Entities;
-using System;
+using PGD.Application.ViewModels.Filtros;
+using PGD.Application.ViewModels.Paginacao;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PGD.Application.Interfaces
 {
@@ -14,6 +11,7 @@ namespace PGD.Application.Interfaces
         IEnumerable<Unidade_TipoPactoViewModel> ObterTodos();
         Unidade_TipoPactoViewModel BuscarPorIdUnidadeTipoPacto(int idUnidade, int idTipoPacto);        
         Unidade_TipoPactoViewModel Atualizar(Unidade_TipoPactoViewModel unidade_tipoPactoViewModel, UsuarioViewModel user);
-        void Remover(int id, UsuarioViewModel user);        
+        void Remover(int id, UsuarioViewModel user);
+        PaginacaoViewModel<Unidade_TipoPactoViewModel> Buscar(UnidadeTipoPactoFiltroViewModel filtro);
     }
 }

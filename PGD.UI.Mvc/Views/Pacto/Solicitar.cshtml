@@ -139,10 +139,10 @@
 
                     <div class="row" id="dvPactoExterior" style="@(Model.PactoExecutadoNoExterior.GetValueOrDefault() || Model.UnidadeUsuarioPermitePactoExecucaoNoExterior.GetValueOrDefault() ? "" : "display:none")">
                         <div class="form-group col-md-6">
-                            <label class="text-vertical-line">Pacto executado no exterior? </label>
+                            <label class="text-vertical-line">Plano executado no exterior? </label>
                             <label>@Html.RadioButtonCGUFor(x => x.PactoExecutadoNoExterior, new { @required = "required", @onchange = "alternaVisibilidadeProcessoSEI(true)" }, true).SetDisabled(!Model.podeEditar).SetChecked(Model.PactoExecutadoNoExterior.GetValueOrDefault()) Sim</label>
                             <label>@Html.RadioButtonCGUFor(x => x.PactoExecutadoNoExterior, new { @required = "required", @onchange = "alternaVisibilidadeProcessoSEI(false)" }, false).SetDisabled(!Model.podeEditar).SetChecked(!Model.PactoExecutadoNoExterior.GetValueOrDefault()) Não</label>
-                            <p class="label label-info col-md-12" style="white-space: pre-wrap; text-align: justify">A execução de pacto PGD no exterior deve ser autorizada pelo Ministro. Para assinatura do pacto é necessário informar o documento SEI de autorização.</p>
+                            <p class="label label-info col-md-12" style="white-space: pre-wrap; text-align: justify">A execução de plano PGD no exterior deve ser autorizada pelo Ministro. Para assinatura do plano é necessário informar o documento SEI de autorização.</p>
                         </div>
                         <div class="form-group col-md-6">
                             <div id="divProcessoSEI" style="@(Model.PactoExecutadoNoExterior.GetValueOrDefault() ? "" : "display:none")">
@@ -258,7 +258,7 @@
 
                 <div class="panel panel-body" id="divMensagemPactosConcorrentes" style="display:none">
                     <div class="form-group col-md-12 alert alert-danger small">
-                        Existem pactos registrados para este mesmo período. Por favor, verifique a distribuição de horas no cronograma antes de submeter o pacto.
+                        Existem planos registrados para este mesmo período. Por favor, verifique a distribuição de horas no cronograma antes de submeter o plano.
                     </div>
 
                 </div>
@@ -275,15 +275,18 @@
             <div role="tabpanel" id="conteudoIdentificacao" style="margin-top:1px;">
                 <div class="panel-body ">
                     <div class="row">
-                        <div class="form-group col-md-12" style="font-weight:bold;line-height:1.5;white-space:pre-wrap; text-align:left;">
-                            Declaro não haver sido apenado em resultado de PAD nos dois anos anteriores à data de solicitação para participar do Programa; e
+                        <div class="form-group col-md-12" style="font-weight: bold; line-height: 1.5; white-space: pre-wrap; text-align: left;">
+
+
+                            Cada Órgão deve criar seu próprio termo de ciência.
+                            @*Declaro não haver sido apenado em resultado de PAD nos dois anos anteriores à data de solicitação para participar do Programa; e
 
                             Declaro, ainda:
                             I - dispor dos recursos tecnológicos e de comunicação necessários e das condições ambientais adequadas para a realização da(s) atividade(s) listada(s);
                             II - adotar as providências cabíveis para assegurar o cumprimento das normas e orientações afetas à segurança da informação e à salvaguarda de documentos durante a execução da(s) atividade(s) listada(s);
                             III - estar ciente do prazo estabelecido.
 
-                            Ao assinar este formulário, o servidor autoriza a CGU a contactá-lo.
+                            Ao assinar este formulário, o servidor autoriza a CGU a contactá-lo.*@
                         </div>
                     </div>
                 </div>
@@ -301,7 +304,7 @@
             </div>
             <div class="panel panel-body">
                 <div class="form-group col-md-2">
-                    <a href="@Url.Action("Index", "Pacto")" class="btn btn-primary btn-block">Voltar</a>
+                    <a href="@Url.Action("Index", "Pacto")" onclick="showLoading()" class="btn btn-primary btn-block">Voltar</a>
                 </div>
                 <div class="form-group col-md-6">
                 </div>
@@ -422,14 +425,17 @@
             }
 
             function exibirPopupCronograma(response) {
+                hideLoading();
                 $('#modalCronograma').modal('show');
             }
 
             function exibirPopupObservacoes(response) {
+                hideLoading();
                 $('#modalGenerica').modal('show');
             }
 
             function exibirPopupObservacaoProduto(response) {
+                hideLoading();
                 $('#modalObservacoesProduto').modal('show');
             }
 
@@ -455,6 +461,7 @@
 
                 $(document).ready(function () {
                     atualizaCargaHorariaTotal();
+                    calcularCargaHorariaInicial();
                 });
 
                 $(document).ready(function () {
@@ -530,6 +537,15 @@
                         $('#@Html.IdFor(m => m.JustificativaVisualizacaoRestrita)').val('');
                         atualizaCargaHorariaDiaria();
                     }
+                }
+
+                function calcularCargaHorariaInicial() {
+                    var formProduto = $("#form-add-produto")
+                    var txtCargaHoraria = formProduto.find('#CargaHorariaTotalProdutoFormatada');
+                    var hiddenCargaHoraria = formProduto.find('#CargaHorariaProduto');
+                    var hora = hourTohhmm(0);
+                    hiddenCargaHoraria.val(0);
+                    txtCargaHoraria.val(hora);
                 }
 
         </script>

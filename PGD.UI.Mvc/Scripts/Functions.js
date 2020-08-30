@@ -1,4 +1,6 @@
-﻿function ShowSuccessMessage(pMessage) {
+﻿var listaRequestLoading = [];
+
+function ShowSuccessMessage(pMessage) {
     MostraMensagem(1, pMessage, 'Base', 'Alerta', $('#Messages'));
 }
 function ShowInfoMessage(pMessage) {
@@ -16,6 +18,10 @@ function ShowValidationResultMessages(validationResult) {
     var message = hasErrors ? validationResult.Erros.map(x => x.Message).join("|||") : validationResult.Message;
     validationResult.IsValid = hasErrors ? false : validationResult.IsValid;
     validationResult.IsValid ? MostraMensagem(1, message, 'Base', 'Alerta', $('#Messages')) : MostraMensagem(4, message, 'Base', 'Alerta', $('#Messages'));
+}
+
+function ShowOperationSucessMessage() {
+    MostraMensagem(1, Mensagens.OPERACAO_REALIZADA, 'Base', 'Alerta', $('#Messages'));
 }
 
 function MostraMensagem(pTipoMensagem, pMessage, controller, action, div) {
@@ -55,7 +61,10 @@ function ExecutaJson(controller, action, data, tipo) {
         dataType: "json",
         url: url,
         data: data,
+        beforeSend: () => showLoading(),
+        complete: () => hideLoading(),
         error: function (status) {
+            hideLoading();
             try {
                 var errorData = $.parseJSON(status.responseText);
                 MostraMensagem(2, errorData[0]);
@@ -155,4 +164,18 @@ function defaultFailureHandler(response) {
     } else {
         ShowErrorMessage("Ocorreu um erro interno no servidor. Por favor, tente novamente mais tarde");
     }
+
+    hideLoading();
 }
+
+function showLoading() {
+    listaRequestLoading.push('');
+    $('#div-loader').show();
+}
+
+function hideLoading() {
+    listaRequestLoading.pop();
+    if(!listaRequestLoading.length)
+        $('#div-loader').hide();
+}
+

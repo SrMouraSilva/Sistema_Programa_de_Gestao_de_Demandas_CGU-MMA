@@ -83,6 +83,8 @@ function vincular() {
         url: '/Usuario/VincularPerfil',
         data: data,
         dataType: 'json',
+        beforeSend: () => showLoading(),
+        complete: () => hideLoading(),
         success: (data) => {
             if (data.camposNaoPreenchidos) {
                 ShowWarningMessage(data.camposNaoPreenchidos.join('|||'));
@@ -96,7 +98,10 @@ function vincular() {
                 refreshTabelaPerfisVinculados();
             }
         },
-        error: err => console.log(err)
+        error: err => {
+            console.log(err);
+            hideLoading();
+        }
     });
 }
 
@@ -122,15 +127,18 @@ function ajaxTablePerfilUnidade(params) {
 
     var idUsuario = $('#hdn-id-usuario').val();
     var take = params.data.limit;
-    var skip = qtdRegistrosPagina === 1 && veioDeExclusao ? ((pageNumber - 2) * take) : params.data.offset;
-    if (veioDeInclusao) {
+    var skip = qtdRegistrosPagina === 1 && veioDeExclusao && pageNumber !== 1 ? ((pageNumber - 2) * take) : params.data.offset;
+
+    if (veioDeInclusao && qtdRegistrosTotal > 0) {
         veioDeInclusao = false;
+
         setTimeout(() => {
             tblPerfilUnidade.bootstrapTable('selectPage', 1);
         }, 10);
-        return;
+        return 0;
     }
 
+    veioDeInclusao = false;
     veioDeExclusao = false;
 
     $.ajax({
@@ -138,6 +146,8 @@ function ajaxTablePerfilUnidade(params) {
         url: '/Usuario/BuscarUnidadesPerfisUsuario',
         data: { idUsuario, take, skip },
         dataType: 'json',
+        beforeSend: () => showLoading(),
+        complete: () => hideLoading(),
         success: (data) => {
             qtdRegistrosPagina = data.Lista.length;
             qtdRegistrosTotal = data.QtRegistros;
@@ -147,14 +157,17 @@ function ajaxTablePerfilUnidade(params) {
             });
             pageNumber = tblPerfilUnidade.bootstrapTable('getOptions').pageNumber;
         },
-        error: err => console.log(err)
+        error: err => {
+            console.log(err);
+            hideLoading();
+        }
     });
 
     return 0;
 } 
 
 function excluirPerfilUnidadeClick(idUsuarioPerfilUnidade) {
-    if (confirm('Deseja excluir esse registro?')) {
+    if (confirm(Mensagens.EXCLUIR_REGISTRO)) {
         excluirPerfilUnidade(idUsuarioPerfilUnidade);
     }
 }
@@ -165,6 +178,8 @@ function excluirPerfilUnidade(idUsuarioPerfilUnidade) {
         url: '/Usuario/ExcluirVinculo',
         data: { idUsuarioPerfilUnidade },
         dataType: 'json',
+        beforeSend: () => showLoading(),
+        complete: () => hideLoading(),
         success: (data) => {
             ShowValidationResultMessages(data.ValidationResult);
             if (data.ValidationResult.IsValid) {
@@ -172,7 +187,10 @@ function excluirPerfilUnidade(idUsuarioPerfilUnidade) {
                 tblPerfilUnidade.bootstrapTable('refresh');
             }
         },
-        error: err => console.log(err)
+        error: err => {
+            console.log(err);
+            hideLoading();
+        }
     });
 }
 

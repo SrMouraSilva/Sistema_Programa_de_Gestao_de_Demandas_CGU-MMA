@@ -195,8 +195,10 @@
     <Compile Include="ViewModels\AdministradorViewModel.cs" />
     <Compile Include="ViewModels\ArquivoDadoBrutoViewModel.cs" />
     <Compile Include="ViewModels\AvaliacaoDetalhadaProdutoViewModel.cs" />
+    <Compile Include="ViewModels\Filtros\UnidadeTipoPactoFiltroViewModel.cs" />
     <Compile Include="ViewModels\Filtros\UsuarioPerfilUnidadeFiltroViewModel.cs" />
     <Compile Include="ViewModels\PerfilViewModel.cs" />
+    <Compile Include="ViewModels\SearchUnidadeTipoPactoViewModel.cs" />
     <Compile Include="ViewModels\VincularPerfilUsuarioViewModel.cs" />
     <Compile Include="ViewModels\Filtros\Base\BaseFiltroViewModel.cs" />
     <Compile Include="ViewModels\Filtros\UnidadeFiltroViewModel.cs" />

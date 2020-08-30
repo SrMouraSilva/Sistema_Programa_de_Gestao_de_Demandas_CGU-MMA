@@ -16,7 +16,7 @@
         <div class="modal-body">
 
             @using (Ajax.BeginForm("Suspender", "Pacto",
-                new AjaxOptions() { UpdateTargetId = "divSuspensaoPartial", OnSuccess = "suspenderSuccess", OnFailure = "defaultFailureHandler" }, new { @id = "frmSuspenderPacto" }))
+                new AjaxOptions() { UpdateTargetId = "divSuspensaoPartial", OnSuccess = "suspenderSuccess", OnFailure = "defaultFailureHandler", OnBegin="showLoading" }, new { @id = "frmSuspenderPacto" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(m => m.IdPacto)
@@ -58,7 +58,8 @@
                         HttpMethod = "Post",
                         UpdateTargetId = "divConteudoCronograma",
                         OnSuccess = "exibirPopupCronogramaSuspensao",
-                        OnFailure = "defaultFailureHandler"
+                        OnFailure = "defaultFailureHandler",
+                        OnBegin = "showLoading"
                     }))
                     {
 
@@ -117,12 +118,14 @@
             currentText: 'Hoje',
             showOtherMonths: true,
             numberOfMonths: 1,
+            changeYear: true,
             //maxDate: "0",
             defaultDate: new Date()
         });
     });
 
     function exibirPopupCronogramaSuspensao() {
+        hideLoading();
         $('#divSuspensaoPartial').modal('hide');
         $('#modalCronograma').modal('show');
     }
@@ -169,6 +172,7 @@
 
     function suspenderSuccess()
     {
+        hideLoading();
         //Executa novamente a consulta;
         if ('@ViewData.ModelState.IsValid.ToString().ToLower()' == 'true') {
             submeteConsulta();

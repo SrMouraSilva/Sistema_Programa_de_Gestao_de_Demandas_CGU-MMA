@@ -1,6 +1,16 @@
 ﻿@using PGD.Application.ViewModels;
 @using PGD.Domain.Enums;
 
+@{
+    var listaQualidade = new List<dynamic>
+    {
+        new {Id = 0}, new {Id = 1}, new {Id = 2}, new {Id = 3}, new {Id = 4}, new {Id = 5},
+        new {Id = 6}, new {Id = 7}, new {Id = 8}, new {Id = 9}, new {Id = 10},
+    };
+
+    var sltQualidade = new SelectList(listaQualidade, "Id", "Id");
+}
+
 @model PGD.Application.ViewModels.AvaliacaoProdutoViewModel
 
 @using (Ajax.BeginForm("AvaliarProduto", "Pacto", new AjaxOptions()
@@ -83,6 +93,7 @@
                         @Html.TextBoxCGUFor(x => x.DataTerminoReal, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", @placeholder = "" }).SetReadonly(!Model.HabilitarCampos)
                     </div>
                 </div>
+                <br />
                 <div class="row">
                     <div class="col-md-3">
                         @Html.LabelFor(m => m.IdJustificativa, "Justificativa")
@@ -90,11 +101,13 @@
                     <div class="col-md-9">
 
                         @(Html.DropDownListCGUFor(model => Model.IdJustificativa,
-                                                            new SelectList((List<JustificativaViewModel>)TempData["Justificativas"], "IdJustificativa", "DescJustificativa"),
-                                                            new { @class = "form-control", @onchange = "atualizarQualidade(this);" }).SetDisabled(!Model.HabilitarCampos))
+                            new SelectList((List<JustificativaViewModel>)TempData["Justificativas"], "IdJustificativa", "DescJustificativa"),
+                            new { @class = "form-control", @onchange = "atualizarQualidade(this);" }).SetDisabled(!Model.HabilitarCampos))
                     </div>
                 </div>
             </div>
+
+            <br />
 
             <div class="row">
                 <div class="col-md-3">
@@ -107,7 +120,7 @@
                                                               @onchange = "alternaVisibilidadeNivelAvaliacao('D')", 
                                                               @Title=@Model.podeTerAvaliacaoDetalhada ? "" : "O pacto não está habilitado para avaliação detalhada." }, 
                                                         (int)eNivelAvaliacao.Detalhada).SetChecked(Model.ehAvaliacaoDetalhada
-                                                   ).SetDisabled(!Model.HabilitarCampos || !Model.podeTerAvaliacaoDetalhada) Detalhada</label>
+                                                   ).SetDisabled(!Model.HabilitarCampos || !Model.podeTerAvaliacaoDetalhada || true) Detalhada</label>
                 </div>
             </div>
 
@@ -119,15 +132,18 @@
                         @Html.LabelFor(m => m.Avaliacao, "Qualidade:")
                     </div>
                     <div class="col-md-9">
-                        @Html.DropDownListCGUFor(m => m.Avaliacao, EnumHelper.GetSelectList(typeof(PGD.Domain.Enums.eAvaliacao)),
-                             new { @class = "form-control" }).SetDisabled(!Model.HabilitarCampos)
+                        @Html.DropDownListCGUFor(m => m.Avaliacao, sltQualidade,new { @class = "form-control" }).SetDisabled(!Model.HabilitarCampos)
                     </div>
                 </div>
             </div>
+            
+            <br />
 
             <div id="divAvaliacaoDetalhada" style="@(!Model.ehAvaliacaoDetalhada ? "display:none" : "")">
                 @Html.Partial("_AvaliacaoDetalhadaPartial")
             </div>
+            
+            <br />
 
             <div class="row">
                 <div class="col-md-3">
@@ -179,6 +195,7 @@
     function submeterAvaliacao(action) {
         $('#formAvaliacao').attr('action', action);
         $('#formAvaliacao').submit();
+        showLoading();
     }
 
     $(document).ready(function () {

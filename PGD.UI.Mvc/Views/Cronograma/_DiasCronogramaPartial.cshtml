@@ -1,5 +1,5 @@
 ﻿@model PGD.Application.ViewModels.CronogramaPactoViewModel
-
+@using PGD.Application.Util
 
 <div id="containerCronograma">
     <div id="page-content-wrapper" class="body-content">
@@ -10,7 +10,7 @@
     <p>
         Carga horária total:
         <strong>
-            <label id="lblCargaTotalCronograma">@TimeSpan.FromHours(Model.HorasTotais).ToString(@"hh\:mm")</label>h
+            <label id="lblCargaTotalCronograma">@Model.HorasTotais.ConverterParaHora()</label>h
             @Html.HiddenFor(m => m.DataInicial)
             @Html.HiddenFor(m => m.DataInicioSuspensao)
             @Html.HiddenFor(m => m.DataFimSuspensao)

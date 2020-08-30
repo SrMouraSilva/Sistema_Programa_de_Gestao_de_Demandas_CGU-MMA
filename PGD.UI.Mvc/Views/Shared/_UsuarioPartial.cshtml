@@ -27,7 +27,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <p>CPF: @(user?.CPF.MaskCpfCpnj())</p>
-                                        <p>SIGLA - Unidade: @(user?.SiglaUnidadeSelecionada) - @(user?.NomeUnidadeSelecionada)</p>
+                                        <p>SIGLA - Unidade: @(!string.IsNullOrWhiteSpace(user?.SiglaUnidadeSelecionada) ? @user?.SiglaUnidadeSelecionada + " - " : "")@(user?.NomeUnidadeSelecionada)</p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -62,19 +62,26 @@
 <script type="text/javascript">
     function efetuarLogout() {
         if (confirm('Deseja sair?')) {
+            $('#modalUsuario').modal('hide');
             $('#frmLogout').submit();
         }
     }
 
     function trocarPerfil() {
         if (confirm('Deseja trocar de perfil?')) {
+            $('#modalUsuario').modal('hide');
+
             $.ajax({
                 type: 'GET',
                 url: '/Login/AlterarPerfil',
+                beforeSend: () => showLoading(),
                 success: (data) => {
                     if(data && data.ok) location.reload(); 
                 },
-                error: err => console.log(err)
+                error: err => {
+                    console.log(err);
+                    hideLoading();
+                }
             });
         }
     }

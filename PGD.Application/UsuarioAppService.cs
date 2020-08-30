@@ -202,17 +202,16 @@ namespace PGD.Application
                 {
                     Id = x.Id,
                     IdUnidade = x.IdUnidade,
-                    CpfUsuario = x.Usuario.Cpf.MaskCpfCpnj(),
+                    CpfUsuario = x.Usuario?.Cpf.MaskCpfCpnj(),
                     IdPerfil = x.IdPerfil,
                     IdUsuario = x.IdUsuario,
-                    MatriculaUsuario = x.Usuario.Matricula,
-                    NomePerfil = x.Perfil.Nome,
-                    NomeUnidade = x.Unidade.Nome,
-                    NomeUsuario = x.Usuario.Nome,
-                    SiglaUnidade = x.Unidade.Sigla
+                    MatriculaUsuario = x.Usuario?.Matricula,
+                    NomePerfil = x.Perfil?.Nome,
+                    NomeUnidade = x.Unidade?.Nome,
+                    NomeUsuario = x.Usuario?.Nome,
+                    SiglaUnidade = x.Unidade?.Sigla
                 }).ToList()
             };
-            throw new NotImplementedException();
         }
 
         public VincularPerfilUsuarioViewModel VincularUnidadePerfil(VincularPerfilUsuarioViewModel model, string cpfUsuarioLogado)

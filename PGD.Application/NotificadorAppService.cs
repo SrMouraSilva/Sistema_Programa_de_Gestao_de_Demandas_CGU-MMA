@@ -485,7 +485,7 @@ namespace PGD.Application
                                                             dataAvaliacaoPacto,
                                                             horaAvaliacaoPacto,
                                                             apvm.QuantidadeProdutosAvaliados, apvm.Produto.Atividade.NomAtividade,
-                                                            apvm.CargaHorariaAvaliadaFormatada, apvm.DescricaoAvaliacao,
+                                                            apvm.CargaHorariaAvaliadaFormatada, apvm.Avaliacao,
                                                             "<a href='" + linkPacto + "'> aqui </a>"
                                                           );
 

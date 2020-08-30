@@ -73,7 +73,7 @@ namespace PGD.Application.ViewModels
         public List<IniciativaPlanoOperacionalProdutoViewModel> IniciativasPlanoOperacionalProduto { get; set; }
         public List<string> IniciativasPlanoOperacionalSelecionadas { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = "Ao menos uma iniciativa deve ser selecionada")]
+        //[Range(1, int.MaxValue, ErrorMessage = "Ao menos uma iniciativa deve ser selecionada")]
         public int TotIniciativas => IniciativasPlanoOperacionalSelecionadas?.Count() ?? 0;
         public string CargaHorariaProdutoFormatada => Utilitarios.FormatarParaHoras(CargaHorariaProduto);
 

@@ -464,9 +464,9 @@ namespace PGD.UI.Mvc.Controllers
                 })?.Lista ?? new List<UsuarioViewModel>();
 
                 usuarios = idPacto == 0 && usuarios.Any(x => x.CPF == userLogado.CPF)
-                    ? usuarios : usuarios.Where(x => x.CPF != userLogado.CPF).ToList();
-                
-                if (!string.IsNullOrEmpty(cpfUsuario) && !usuarios.Any(u => u.CPF == cpfUsuario && (userLogado.CPF != cpfUsuario || idPacto != 0)))
+                    ? usuarios.Where(x => x.CPF != userLogado.CPF).ToList() : usuarios;
+
+                if (!string.IsNullOrEmpty(cpfUsuario) && (usuarios.All(u => u.CPF != cpfUsuario) && (userLogado.CPF != cpfUsuario || idPacto != 0)))
                 {
                     var usuario = _usuarioAppService.Buscar(new UsuarioFiltroViewModel
                     {
@@ -489,7 +489,7 @@ namespace PGD.UI.Mvc.Controllers
             List<Unidade> unidadesHabilitadas = _unidadeService.Buscar(new UnidadeFiltro
             {
                 IdTipoPacto = idTipoPacto,
-                IdUsuario = isDirigente ? userLogado.IdUnidadeSelecionada : null
+                IdUsuario = isDirigente ? userLogado?.IdUsuario : null
             }).Lista ?? new List<Unidade>();
 
             if (idPacto > 0)
@@ -1496,6 +1496,9 @@ namespace PGD.UI.Mvc.Controllers
                 var cronogramas = (CronogramaPactoViewModel)TempData[GetNomeVariavelTempData("Cronogramas", suspenderVM.IdPacto)];
                 pacto.Cronogramas = cronogramas.Cronogramas;
 
+                pacto.DataPrevistaTermino = suspenderVM.SuspensoAte.HasValue && suspenderVM.SuspensoAte != DateTime.MinValue ?
+                    pacto.Cronogramas?.LastOrDefault()?.DataCronograma ?? pacto.DataPrevistaTermino : pacto.DataPrevistaTermino;
+
                 var pactoResultado = _Pactoservice.AtualizarStatus(pacto, user, eAcaoPacto.Suspendendo, false);
 
                 var oper = Domain.Enums.Operacao.Suspensão.ToString();
@@ -1506,15 +1509,11 @@ namespace PGD.UI.Mvc.Controllers
                     //Notificar a chefia pelo cadastro de pacto de subordinado que requer conferência e autorização, com cópia ao próprio solicitante.
                     if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, oper))
                     {
-                        suspenderVM.ClasseMensagem = "alert-danger";
-                        suspenderVM.Mensagem = "Pacto suspenso com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
+                        var mensagem = "Pacto suspenso com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
+                        setMessage(mensagem);
                     }
                     else
-                    {
-                        suspenderVM.ClasseMensagem = "alert-info";
-                        suspenderVM.Mensagem = pactoResultado.ValidationResult.Message;
-                    }
-
+                        setMessage(pactoResultado.ValidationResult.Message);
                 }
                 else
                 {
@@ -1665,7 +1664,7 @@ namespace PGD.UI.Mvc.Controllers
             return PartialView("_ObservacoesPartial", produtoVM);
         }
 
-        [AuthorizePerfil(Domain.Enums.Perfil.Dirigente, Domain.Enums.Perfil.Solicitante)]
+        //[AuthorizePerfil(Domain.Enums.Perfil.Dirigente, Domain.Enums.Perfil.Solicitante)]
         public PartialViewResult RetornarSuspensao(int idPactoRetornoSuspensao)
         {
             SuspenderPactoViewModel modelCronograma = InicializarSuspenderPactoViewModel(idPactoRetornoSuspensao, true);

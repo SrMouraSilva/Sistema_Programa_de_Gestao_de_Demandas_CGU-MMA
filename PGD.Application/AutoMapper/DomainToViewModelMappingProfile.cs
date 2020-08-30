@@ -60,7 +60,10 @@ namespace PGD.Application.AutoMapper
             CreateMap<IniciativaPlanoOperacional, IniciativaPlanoOperacionalViewModel>();
             CreateMap<IniciativaPlanoOperacionalProduto, IniciativaPlanoOperacionalProdutoViewModel>();
             CreateMap<AvaliacaoProduto, AvaliacaoProdutoViewModel>();
-            CreateMap<Unidade_TipoPacto, Unidade_TipoPactoViewModel>();
+            CreateMap<Unidade_TipoPacto, Unidade_TipoPactoViewModel>()
+                .ForMember(x => x.NomeUnidade, opt => opt.MapFrom(src => src.Unidade == null ? null : src.Unidade.Nome))
+                .ForMember(x => x.DescTipoPacto, opt => opt.MapFrom(src => src.TipoPacto == null ? null : src.TipoPacto.DescTipoPacto));
+
             CreateMap<NotaAvaliacao, NotaAvaliacaoViewModel>();
             
             CreateMap<CriterioAvaliacao, CriterioAvaliacaoViewModel>();
