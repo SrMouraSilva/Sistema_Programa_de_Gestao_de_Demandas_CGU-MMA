@@ -26,5 +26,6 @@
         public static readonly string MD_001 = "Deseja sair do sistema?";
         public static readonly string MD_002 = "Deseja excluir o registro?";
         public static readonly string MD_003 = "Deseja excluir o produto da lista?";
+        public static readonly string MD_004 = "Deseja trocar de perfil?";
     }
 }
