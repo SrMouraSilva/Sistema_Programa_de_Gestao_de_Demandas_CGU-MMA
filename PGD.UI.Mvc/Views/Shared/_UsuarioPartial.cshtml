@@ -61,14 +61,26 @@
 
 <script type="text/javascript">
     function efetuarLogout() {
-        if (confirm('Deseja sair?')) {
+
+        if (confirm('@PGD.Domain.Constantes.Mensagens.MD_001')) {
             $('#modalUsuario').modal('hide');
-            $('#frmLogout').submit();
+            $.ajax({
+                type: 'GET',
+                url: '/Login/LogOut',
+                beforeSend: () => showLoading(),
+                success: (data) => {
+                    if (data && data.ok) location.reload();
+                },
+                error: err => {
+                    console.log(err);
+                    hideLoading();
+                }
+            });
         }
     }
 
     function trocarPerfil() {
-        if (confirm('Deseja trocar de perfil?')) {
+        if (confirm('@PGD.Domain.Constantes.Mensagens.MD_004')) {
             $('#modalUsuario').modal('hide');
 
             $.ajax({
@@ -76,7 +88,7 @@
                 url: '/Login/AlterarPerfil',
                 beforeSend: () => showLoading(),
                 success: (data) => {
-                    if(data && data.ok) location.reload(); 
+                    if(data && data.ok) location.reload();
                 },
                 error: err => {
                     console.log(err);
