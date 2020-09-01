@@ -263,9 +263,8 @@
     }
 
     $('form').submit(function() {
-        if (!$(this).hasClass('prevent-loader'))
+        if ($(this).valid() && !$(this).hasClass('prevent-loader'))
             $('#div-loader').show();
-
     });
 
     function fazerLogOut() {
