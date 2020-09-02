@@ -263,7 +263,7 @@
     }
 
     $('form').submit(function() {
-        if ($(this).valid() && !$(this).hasClass('prevent-loader'))
+        if ($(this).validate().checkForm() && !$(this).hasClass('prevent-loader'))
             $('#div-loader').show();
     });
 

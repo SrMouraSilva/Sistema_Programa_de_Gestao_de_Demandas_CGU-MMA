@@ -19,7 +19,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -61,7 +61,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [PGD] O pacto PGD {0} do servidor {1} foi alterado e requer assinatura.
+        ///   Looks up a localized string similar to [PGD] O plano de trabalho PGD {0} do servidor {1} foi alterado e requer assinatura.
         /// </summary>
         public static string ASSUNTO_EMAIL_NOTIFICACAO_ALTERACAO_PACTO {
             get {
@@ -70,7 +70,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [PGD] O pacto PGD {0} do servidor {1} foi assinado pela chefia.
+        ///   Looks up a localized string similar to [PGD] O plano de trabalho PGD {0} do servidor {1} foi assinado pela chefia.
         /// </summary>
         public static string ASSUNTO_EMAIL_NOTIFICACAO_ASSINATURA_PACTO_PELA_CHEFIA {
             get {
@@ -79,7 +79,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [PGD] O pacto PGD {0} do servidor {1} foi avaliado por {2}..
+        ///   Looks up a localized string similar to [PGD] O plano de trabalho PGD {0} do servidor {1} foi avaliado por {2}..
         /// </summary>
         public static string ASSUNTO_EMAIL_NOTIFICACAO_AVALIACAO_PACTO_PELA_CHEFIA {
             get {
@@ -88,7 +88,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [PGD] O pacto PGD {0} do servidor {1} foi avaliado parcialmente por {2}..
+        ///   Looks up a localized string similar to [PGD] O plano de trabalho PGD {0} do servidor {1} foi avaliado parcialmente por {2}..
         /// </summary>
         public static string ASSUNTO_EMAIL_NOTIFICACAO_AVALIACAO_PARCIAL_PACTO_PELA_CHEFIA {
             get {
@@ -97,7 +97,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [PGD] O pacto PGD {0} do servidor {1} encerrou e requer avaliação.
+        ///   Looks up a localized string similar to [PGD] O plano de trabalho PGD {0} do servidor {1} encerrou e requer avaliação.
         /// </summary>
         public static string ASSUNTO_EMAIL_NOTIFICACAO_FIM_PACTO {
             get {
@@ -106,7 +106,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [PGD] O servidor {0} criou novo pacto PGD {1}.
+        ///   Looks up a localized string similar to [PGD] O servidor {0} criou novo plano de trabalho PGD {1}.
         /// </summary>
         public static string ASSUNTO_EMAIL_NOTIFICACAO_INCLUSAO_PACTO {
             get {
@@ -115,7 +115,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [PGD] O chefe {0} criou novo pacto PGD {1} para o servidor {2}.
+        ///   Looks up a localized string similar to [PGD] O chefe {0} criou novo plano de trabalho PGD {1} para o servidor {2}.
         /// </summary>
         public static string ASSUNTO_EMAIL_NOTIFICACAO_INCLUSAO_PACTO_PELA_CHEFIA {
             get {
@@ -124,7 +124,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [PGD] O pacto PGD {0} do servidor {1} foi interrompido por {2}..
+        ///   Looks up a localized string similar to [PGD] O plano de trabalho PGD {0} do servidor {1} foi interrompido por {2}..
         /// </summary>
         public static string ASSUNTO_EMAIL_NOTIFICACAO_INTERRUPCAO_PACTO {
             get {
@@ -133,7 +133,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [PGD] O pacto PGD {0} do servidor {1} foi reativado por {2}..
+        ///   Looks up a localized string similar to [PGD] O plano de trabalho PGD {0} do servidor {1} foi reativado por {2}..
         /// </summary>
         public static string ASSUNTO_EMAIL_NOTIFICACAO_PACTO_REINICIADO_APOS_SUSPENSAO {
             get {
@@ -142,7 +142,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [PGD] O pacto PGD {0} do servidor {1} foi reativado automaticamente pelo sistema..
+        ///   Looks up a localized string similar to [PGD] O plano de trabalho PGD {0} do servidor {1} foi reativado automaticamente pelo sistema..
         /// </summary>
         public static string ASSUNTO_EMAIL_NOTIFICACAO_PACTO_REINICIADO_AUTOMATICAMENTE {
             get {
@@ -151,7 +151,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [PGD] O pacto PGD {0} do servidor {1} foi suspenso por {2}..
+        ///   Looks up a localized string similar to [PGD] O plano de trabalho PGD {0} do servidor {1} foi suspenso por {2}..
         /// </summary>
         public static string ASSUNTO_EMAIL_NOTIFICACAO_SUSPENSAO_PACTO {
             get {
@@ -164,11 +164,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O pacto  PGD {0} do servidor {1} foi alterado e requer assinaturas.
+        ///O plano de trabalho PGD {0} do servidor {1} foi alterado e requer assinaturas.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Período do pacto: {2} a {3}
+        ///Período do plano de trabalho: {2} a {3}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -177,11 +177,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O pacto deve ser assinado pelo servidor e chefia antes de seu início.
+        ///O plano de trabalho deve ser assinado pelo servidor e chefia antes de seu início.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Para acessar o pacto clique {5}
+        ///Para acessar o plano de trabalho clique {5}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -202,11 +202,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O pacto  PGD {0} do servidor {1} foi alterado pela chefia, conforme dados abaixo:
+        ///O plano de trabalho PGD {0} do servidor {1} foi alterado pela chefia, conforme dados abaixo:
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Período do pacto: {2} a {3}
+        ///Período do plano de trabalho: {2} a {3}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -215,7 +215,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Para acessar o pacto clique {5}
+        ///Para acessar o plano de trabalho clique {5}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -236,11 +236,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O pacto PGD {0} do servidor {1} foi assinado pela chefia e está apto a ser executado.
+        ///O plano de trabalho PGD {0} do servidor {1} foi assinado pela chefia e está apto a ser executado.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Período do pacto: {2} a {3}
+        ///Período do plano de trabalho: {2} a {3}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -252,11 +252,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O pacto deve ser assinado também pelo servidor antes de seu início.
+        ///O plano de trabalho deve ser assinado também pelo servidor antes de seu início.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Para acessar o pacto clique {5}
+        ///Para acessar o plano de trabalho clique {5}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -275,11 +275,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O pacto  PGD {0} do servidor {1} foi avaliado por {2}.
+        ///O plano de trabalho PGD {0} do servidor {1} foi avaliado por {2}.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Período do pacto: {3} a {4}
+        ///Período do plano de trabalho: {3} a {4}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -296,9 +296,9 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Pacto {7} concluído. 
+        ///Plano de trabalho {7} concluído. 
         ///
-        ///Para acessar o pacto clique {8}
+        ///Para acessar o plano de trabalho clique {8}
         ///
         ///Obrigado!
         ///
@@ -314,15 +314,15 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///   Looks up a localized string similar to &lt;b&gt;NOTIFICAÇÃO DO SISTEMA PGD&lt;/b&gt;
         ///
         ///&lt;br&gt;&lt;br&gt;
-        ///O pacto PGD {0} do servidor {1} foi avaliado parcialmente por {2}.
+        ///O plano de trabalho PGD {0} do servidor {1} foi avaliado parcialmente por {2}.
         ///&lt;br&gt;&lt;br&gt;
         ///
-        ///Pacto avaliado parcialmente por {2}, Dirigente, na unidade {3} em {4}, às {5}, conforme horário oficial de Brasília. Foram avaliados os seguintes produtos:
+        ///Plano de trabalho avaliado parcialmente por {2}, Dirigente, na unidade {3} em {4}, às {5}, conforme horário oficial de Brasília. Foram avaliados os seguintes produtos:
         ///&lt;br&gt;&lt;br&gt;
         ///{6} da  atividade {7} totalizando {8} de carga horária na qualidade {9}
         ///&lt;br&gt;&lt;br&gt;
         ///
-        ///Para acessar o pacto clique {10}
+        ///Para acessar o plano de trabalho clique {10}
         ///&lt;br&gt;&lt;br&gt;
         ///
         ///Obrigado!
@@ -341,15 +341,15 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O pacto  PGD {0} do servidor {1} encerrou e requer avaliação da chefia.
+        ///O plano de trabalho PGD {0} do servidor {1} encerrou e requer avaliação da chefia.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///&lt;b&gt;A não avaliação do pacto e seus produtos impedirá a criação de novos pactos PGD para o usuário. &lt;b/&gt;
+        ///&lt;b&gt;A não avaliação do plano de trabalho e seus produtos impedirá a criação de novos planos de trabalhos PGD para o usuário. &lt;b/&gt;
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Período do pacto: {2} a {3}
+        ///Período do plano de trabalho: {2} a {3}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -360,19 +360,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Os produtos do pacto devem ser avaliados.
+        ///Os produtos do plano de trabalho devem ser avaliados.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Para acessar o pacto clique {5}.
-        ///
-        ///&lt;br/&gt;&lt;br/&gt;
-        ///
-        ///Obrigado!
-        ///
-        ///&lt;br/&gt;&lt;br/&gt;
-        ///
-        ///Sistema PGD.
+        ///Para acessar o plano de trabalho cliqu [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CORPO_EMAIL_NOTIFICACAO_FIM_PACTO {
             get {
@@ -385,11 +377,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O servidor {0} criou o pacto {1} que requer assinaturas para ser iniciado.
+        ///O servidor {0} criou o plano de trabalho {1} que requer assinaturas para ser iniciado.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Período do pacto: {2} a {3}
+        ///Período do plano de trabalho: {2} a {3}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -398,11 +390,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O pacto deve ser assinado pelo servidor e chefia antes de seu início.
+        ///O plano de trabalho deve ser assinado pelo servidor e chefia antes de seu início.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Para acessar o pacto clique {5}.
+        ///Para acessar o plano de trabalho clique {5}.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -421,10 +413,10 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O dirigente {0} criou o pacto {1} para o servidor {2} que requer assinatura para ser iniciado.
+        ///O dirigente {0} criou o plano de trabalho {1} para o servidor {2} que requer assinatura para ser iniciado.
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Período do pacto: {3} a {4}
+        ///Período do plano de trabalho: {3} a {4}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -433,11 +425,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O pacto deve ser assinado pelo servidor e chefia antes de seu início.
+        ///O plano de trabalho deve ser assinado pelo servidor e chefia antes de seu início.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Para acessar o pacto clique {6}.
+        ///Para acessar o plano de trabalho clique {6}.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -456,11 +448,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O pacto  PGD {0} do servidor {1} foi interrompido por {2}.
+        ///O plano de trabalho PGD {0} do servidor {1} foi interrompido por {2}.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Período do pacto: {3} a {4}
+        ///Período do plano de trabalho: {3} a {4}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -477,19 +469,14 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Caso restem atividades deste pacto a serem executadas, deverá ser criado um novo pacto PGD.
+        ///Caso restem atividades deste plano de trabalho a serem executadas, deverá ser criado um novo plano de trabalho PGD.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Pacto {8} concluído. 
+        ///Plano de trabalho {8} concluído. 
         ///
         ///&lt;br/&gt;&lt;br/&gt;
-        ///
-        ///Para acessar o pacto clique {9}
-        ///
-        ///&lt;br/&gt;&lt;br/&gt;
-        ///
-        ///Obrigado! [rest of string was truncated]&quot;;.
+        ///        /// [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CORPO_EMAIL_NOTIFICACAO_INTERRUPCAO_PACTO {
             get {
@@ -502,14 +489,14 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O pacto  PGD {0} do servidor {1} foi alterado por {2} em {10}.
+        ///O plano de trabalho PGD {0} do servidor {1} foi alterado por {2} em {10}.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
-        ///Alteração: Reativação do Pacto em {10}
+        ///Alteração: Reativação do plano de trabalho em {10}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Período do pacto: {3} a {4}
+        ///Período do plano de trabalho : {3} a {4}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -517,7 +504,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Período do pacto após reativação: {6} a {7}
+        ///Período do plano de trabalho após reativação: {6} a {7}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -529,17 +516,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Situação do Pacto: {9}
+        ///Situação do plano de trabalho: {11}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Para acessar o pacto clique {9}
-        ///
-        ///&lt;br/&gt;&lt;br/&gt;
-        ///
-        ///Obrigado!
-        ///
-        ///Sistema PGD.
+        ///Para acessar o plano de trab [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CORPO_EMAIL_NOTIFICACAO_PACTO_REINICIADO_APOS_SUSPENSAO {
             get {
@@ -552,7 +533,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O pacto  PGD {0} do servidor {1} foi reativado automaticamente pelo sistema em {2}.
+        ///O plano de trabalho PGD {0} do servidor {1} foi reativado automaticamente pelo sistema em {2}.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -560,7 +541,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Período do pacto após reativação: {3} a {4}
+        ///Período do plano de trabalho após reativação: {3} a {4}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -572,11 +553,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Situação do Pacto: {7}
+        ///Situação do plano de trabalho: {7}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Para acessar o pacto clique {8}
+        ///Para acessar o plano de trabalho clique {8}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -595,11 +576,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///O pacto  PGD {0} do servidor {1} foi suspenso por {2}.
+        ///O plano de trabalho PGD {0} do servidor {1} foi suspenso por {2}.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Período do pacto: {3} a {4}
+        ///Período do plano de trabalho: {3} a {4}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -616,11 +597,11 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Para concluir a execução do pacto, a chefia deverá &quot;Retornar após suspensão&quot;.
+        ///Para concluir a execução do plano de trabalho, a chefia deverá &quot;Retornar após suspensão&quot;.
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Para acessar o pacto clique {8}
+        ///Para acessar o plano de trabalho clique {8}
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
@@ -628,7 +609,7 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         ///
         ///&lt;br/&gt;&lt;br/&gt;
         ///
-        ///Sistema PGD.
+        ///Sistema PG [rest of string was truncated]&quot;;.
         /// </summary>
         public static string CORPO_EMAIL_NOTIFICACAO_SUSPENSAO_PACTO {
             get {
