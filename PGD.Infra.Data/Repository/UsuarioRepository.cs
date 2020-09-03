@@ -84,7 +84,7 @@ namespace PGD.Infra.Data.Repository
                     .Include("UsuariosPerfisUnidades.Perfil")
                     .Include("UsuariosPerfisUnidades.Unidade");
 
-            query = !string.IsNullOrWhiteSpace(filtro.Nome) ? query.Where(x => x.Nome.RemoveAcentuacao().Contains(filtro.Nome.RemoveAcentuacao())) : query;
+            query = !string.IsNullOrWhiteSpace(filtro.Nome) ? query.Where(x => x.Nome.ToLower().Contains(filtro.Nome.ToLower())) : query;
             query = !string.IsNullOrWhiteSpace(filtro.Cpf) ? query.Where(x => x.Cpf == filtro.Cpf) : query;
             query = !string.IsNullOrWhiteSpace(filtro.Matricula) ? query.Where(x => x.Matricula.ToLower().Contains(filtro.Matricula.ToLower())) : query;
             query = filtro.IdUnidade.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == filtro.IdUnidade)) : query;
