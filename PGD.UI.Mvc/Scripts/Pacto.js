@@ -94,7 +94,7 @@ function ShowRetornarSuspensao(idpacto, datasuspensao) {
 
 function AssinarPacto(_idpacto) {
     ExecutaJson("Pacto", "Assinar", { idpacto: _idpacto }).done(function (success) {
-        ShowSuccessMessage("Pacto assinado com sucesso.");
+        ShowSuccessMessage("Plano de Trabalho assinado com sucesso.");
         $("#Alertas").show();
         $("#Alertas").delay(8000).fadeOut(1600);
         location.href = "/Pacto/Index";

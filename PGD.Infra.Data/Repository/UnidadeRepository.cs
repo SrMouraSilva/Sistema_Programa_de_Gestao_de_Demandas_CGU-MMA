@@ -6,6 +6,7 @@ using PGD.Domain.Paginacao;
 using PGD.Infra.Data.Context;
 using PGD.Infra.Data.Util;
 using System.Linq;
+using PGD.Domain.Entities;
 
 namespace PGD.Infra.Data.Repository
 {
@@ -58,7 +59,15 @@ namespace PGD.Infra.Data.Repository
                 query = query.Where(x => x.UnidadesTiposPactos.Any(y => y.IdTipoPacto == filtro.IdTipoPacto));
 
             if (!filtro.BuscarExcluidos)
-                query = query.Where(x => !x.Excluido);    
+                query = query.Where(x => !x.Excluido);
+
+            if (filtro.IdsPactos != null && filtro.IdsPactos.Any())
+            {
+                var idsUnidades = Db.Set<Pacto>().Where(y => filtro.IdsPactos.Contains(y.IdPacto))
+                    .Select(y => y.UnidadeExercicio).Distinct();
+
+                query = query.Where(x => idsUnidades.Contains(x.IdUnidade));
+            }
 
             retorno.QtRegistros = query.Count();
 

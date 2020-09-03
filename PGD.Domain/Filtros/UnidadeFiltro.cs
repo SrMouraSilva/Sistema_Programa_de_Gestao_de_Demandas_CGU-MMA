@@ -1,4 +1,5 @@
-﻿using PGD.Domain.Filtros.Base;
+﻿using System.Collections.Generic;
+using PGD.Domain.Filtros.Base;
 
 namespace PGD.Domain.Filtros
 {
@@ -7,6 +8,7 @@ namespace PGD.Domain.Filtros
         public string Nome { get; set; }
         public string Sigla { get; set; }
         public string NomeOuSigla { get; set; }
+        public List<int> IdsPactos { get; set; }
         public int? IdUnidadeSuperior { get; set; }
         public int? IdUsuario { get; set; }
         public int? IdTipoPacto { get; set; }

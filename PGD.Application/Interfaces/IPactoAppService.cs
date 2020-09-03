@@ -17,7 +17,7 @@ namespace PGD.Application.Interfaces
         IEnumerable<PactoViewModel> ObterTodos(string include);
         IEnumerable<PactoViewModel> ObterTodos(PactoViewModel objFiltro, bool incluirUnidadesSubordinadas);
         IEnumerable<CronogramaViewModel> ObterTodosCronogramasCpfLogado(string cpf, List<int> idsSituacoes = null,
-            DateTime? dataInicial = null, DateTime? dataFinal = null);
+            DateTime? dataInicial = null, DateTime? dataFinal = null, int? idUnidade = null);
         List<int> ObterSituacoesPactoValido();
         PactoViewModel ObterPorId(int id);
         PactoViewModel Atualizar(PactoViewModel pactoViewModel, UsuarioViewModel usuario, eAcaoPacto eAcao);

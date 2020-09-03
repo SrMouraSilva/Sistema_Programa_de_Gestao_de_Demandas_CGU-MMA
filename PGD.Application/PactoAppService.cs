@@ -307,7 +307,7 @@ namespace PGD.Application
             }
             else if ((int)acao == (int)PGD.Domain.Enums.eAcaoPacto.Editando)
             {
-                lstHistorico.Add("Pacto alterado por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília." + pacto.Motivo);
+                lstHistorico.Add("Plano de Trabalho alterado por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília." + pacto.Motivo);
             }
             else if ((int)acao == (int)PGD.Domain.Enums.eAcaoPacto.CancelandoAvaliacao)
             {
@@ -347,7 +347,7 @@ namespace PGD.Application
             var data_atual = DateTime.Now.ToShortDateString();
             var hora_atual = DateTime.Now.ToLongTimeString();
             
-            lstHistorico.Add("Pacto assinado eletronicamente por " + nome_usuario + "," + strPerfil + ", na unidade " + nome_unidade + ", em " + data_atual + ", às " + hora_atual + ", conforme horário oficial de Brasília.");
+            lstHistorico.Add("Plano de Trabalho assinado eletronicamente por " + nome_usuario + "," + strPerfil + ", na unidade " + nome_unidade + ", em " + data_atual + ", às " + hora_atual + ", conforme horário oficial de Brasília.");
 
             if (isDirigente) 
             {
@@ -630,10 +630,10 @@ namespace PGD.Application
         }
 
         public IEnumerable<CronogramaViewModel> ObterTodosCronogramasCpfLogado(string cpf, List<int> idsSituacoes = null,
-            DateTime? dataInicial = null, DateTime? dataFinal = null)
+            DateTime? dataInicial = null, DateTime? dataFinal = null, int? idUnidade = null)
         {
             return Mapper.Map<IEnumerable<Cronograma>, IEnumerable<CronogramaViewModel>>(_pactoService.ObterTodosCronogramasCpfLogado(cpf, 
-                idsSituacoes, dataInicial, dataFinal));
+                idsSituacoes, dataInicial, dataFinal, idUnidade));
         }
 
         public List<int> ObterSituacoesPactoValido()

@@ -104,7 +104,7 @@ namespace PGD.UI.Mvc.Controllers
 
 
             _pactoVM.podeEditar = false;
-            return "Pacto assinado com sucesso.";
+            return "Plano de Trabalho assinado com sucesso.";
 
         }
 
@@ -854,7 +854,7 @@ namespace PGD.UI.Mvc.Controllers
                             {
                                 if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, Domain.Enums.Operacao.Assinatura.ToString()))
                                 {
-                                    pactoViewModel.ValidationResult.Message = "Pacto alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
+                                    pactoViewModel.ValidationResult.Message = "Plano de Trabalho alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
                                 }
                             }
 
@@ -864,7 +864,7 @@ namespace PGD.UI.Mvc.Controllers
                             //Notificar a chefia pelo cadastro de pacto de subordinado que requer conferência e autorização, com cópia ao próprio solicitante.
                             if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, Domain.Enums.Operacao.Alteração.ToString()))
                             {
-                                pactoViewModel.ValidationResult.Message = "Pacto alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
+                                pactoViewModel.ValidationResult.Message = "Plano de Trabalho alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
                             }
                         }
                     }
