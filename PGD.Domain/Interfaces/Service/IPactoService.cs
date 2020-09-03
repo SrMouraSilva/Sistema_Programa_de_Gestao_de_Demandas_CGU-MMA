@@ -17,7 +17,7 @@ namespace PGD.Domain.Interfaces.Service
         IEnumerable<Pacto> ObterTodosAtrasados();
         IEnumerable<Pacto> ObterTodosAIniciarHoje();
         IEnumerable<Cronograma> ObterTodosCronogramasCpfLogado(string cpf, List<int> idsSituacoes = null,
-            DateTime? dataInicial = null, DateTime? dataFinal = null);
+            DateTime? dataInicial = null, DateTime? dataFinal = null, int? idUnidade = null);
         List<int> ObterSituacoesPactoValido();
         Pacto BuscarPorId(int id);
         bool PossuiPactoPendencias(Usuario usuario);

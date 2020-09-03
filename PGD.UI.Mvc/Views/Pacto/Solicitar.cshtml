@@ -14,7 +14,7 @@
                 <h4 class="modal-title" id="gridSystemModalLabel">PGD - Projeto</h4>
             </div>
             <div class="modal-body">
-                Pactos PGD-Projetos são possíveis para Unidades habilitadas. <br /> O projeto deve estar alinhado às diretrizes definidas em portaria específica. <br /> A solicitação do pacto somente será efetivada após indicação, em campo próprio, do Termo de Abertura do Projeto (TAP) cadastrado no sistema de gestão de projetos utilizado pela Unidade.
+                Planos de trabalhos PGD-Projetos são possíveis para Unidades habilitadas. <br /> O projeto deve estar alinhado às diretrizes definidas em portaria específica. <br /> A solicitação do plano de trabalho somente será efetivada após indicação, em campo próprio, do Termo de Abertura do Projeto (TAP) cadastrado no sistema de gestão de projetos utilizado pela Unidade.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -101,7 +101,7 @@
                         @if (Model.IdPacto > 0)
                         {
                             <div class="form-group col-md-6">
-                                <label>@Html.LabelFor(m => m.IdPacto):</label>
+                                <label>Código do Plano de Trabalho:</label>
                                 @Html.TextBoxCGUFor(m => m.IdPacto, new { @class = "textboxAsLabel" }).SetReadonly(true)
                                 <label>@Html.LabelFor(m => m.SituacaoPacto.DescSituacaoPacto):</label>
                                 @Html.TextBoxCGUFor(m => m.SituacaoPacto.DescSituacaoPacto, new { @class = "textboxAsLabel" }).SetReadonly(true)

@@ -8,6 +8,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using PGD.Application.ViewModels;
+using PGD.Application.ViewModels.Filtros;
+using PGD.Domain.Filtros;
+using PGD.Domain.Paginacao;
 
 namespace PGD.Application
 {
@@ -19,6 +24,26 @@ namespace PGD.Application
             : base(uow)
         {
             _unidadeService = unidadeService;
+        }
+
+        public Paginacao<UnidadeViewModel> Buscar(UnidadeFiltroViewModel filtro)
+        {
+            Paginacao<UnidadeViewModel> retorno = new Paginacao<UnidadeViewModel>(); 
+            var paginacaoUnidades = _unidadeService.Buscar(Mapper.Map<UnidadeFiltro>(filtro));
+            retorno.QtRegistros = paginacaoUnidades.QtRegistros;
+            retorno.Lista = paginacaoUnidades.Lista.Select(x => new UnidadeViewModel
+            {
+                Nome = x.Nome,
+                Sigla = x.Sigla,
+                Excluido = x.Excluido,
+                Hierarquia = x.Hierarquia,
+                IdUnidadeSuperior = x.IdUnidadeSuperior,
+                Codigo = x.Codigo,
+                IdUnidade = x.IdUnidade,
+            }).ToList();
+
+            return retorno;
+
         }
 
         public Unidade Adicionar(Unidade obj)

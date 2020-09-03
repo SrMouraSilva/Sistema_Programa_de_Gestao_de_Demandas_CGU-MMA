@@ -104,7 +104,7 @@ namespace PGD.UI.Mvc.Controllers
 
 
             _pactoVM.podeEditar = false;
-            return "Pacto assinado com sucesso.";
+            return "Plano de Trabalho assinado com sucesso.";
 
         }
 
@@ -128,12 +128,12 @@ namespace PGD.UI.Mvc.Controllers
         public ActionResult Index()
         {
             var user = getUserLogado();
-            var searchpacto = new SearchPactoViewModel();
-            searchpacto.UnidadeId = 1;
-            searchpacto.ObterPactosUnidadesSubordinadas = EhDirigente(user);
+            var searchpacto = new SearchPactoViewModel
+            {
+                ObterPactosUnidadesSubordinadas = user.IsDirigente
+            };
 
             return Index(searchpacto);
-
         }
 
         [HttpPost]
@@ -192,7 +192,7 @@ namespace PGD.UI.Mvc.Controllers
                 }
             }
             var retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas);
-            dirigente = EhDirigente(user);
+            dirigente = user.IsDirigente;
 
             if (retorno != null)
             {
@@ -215,12 +215,6 @@ namespace PGD.UI.Mvc.Controllers
             return PactoCompleto;
 
         }
-
-        private static bool EhDirigente(UsuarioViewModel user)
-        {
-            return user.PerfilSelecionado == Perfil.Dirigente;
-        }
-
 
         public ActionResult Deletar(int? pactoid)
         {
@@ -557,7 +551,7 @@ namespace PGD.UI.Mvc.Controllers
         private void podePermissoes(PactoViewModel _pactoVM, UsuarioViewModel user, bool isDirigente)
         {
             bool unidadePactoESubordinadaUnidadeUsuario = UnidadePactoESubordinadaUnidadeUsuario(_pactoVM, user);
-            _pactoVM.podeVisualizar = _Pactoservice.PodeVisualizar(_pactoVM, user, EhDirigente(user), unidadePactoESubordinadaUnidadeUsuario);
+            _pactoVM.podeVisualizar = _Pactoservice.PodeVisualizar(_pactoVM, user, user.IsDirigente, unidadePactoESubordinadaUnidadeUsuario);
 
             // OBS.: pediram para liberar para qualquer unidade, sendo chefe, paliativamente, 
             // até que seja resolvido o bug que o substituto nao consegue acessar pactos da unidade do chefe.
@@ -860,7 +854,7 @@ namespace PGD.UI.Mvc.Controllers
                             {
                                 if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, Domain.Enums.Operacao.Assinatura.ToString()))
                                 {
-                                    pactoViewModel.ValidationResult.Message = "Pacto alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
+                                    pactoViewModel.ValidationResult.Message = "Plano de Trabalho alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
                                 }
                             }
 
@@ -870,7 +864,7 @@ namespace PGD.UI.Mvc.Controllers
                             //Notificar a chefia pelo cadastro de pacto de subordinado que requer conferência e autorização, com cópia ao próprio solicitante.
                             if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, Domain.Enums.Operacao.Alteração.ToString()))
                             {
-                                pactoViewModel.ValidationResult.Message = "Pacto alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
+                                pactoViewModel.ValidationResult.Message = "Plano de Trabalho alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
                             }
                         }
                     }

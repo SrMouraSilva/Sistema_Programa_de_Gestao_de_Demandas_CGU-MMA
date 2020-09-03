@@ -918,7 +918,7 @@ namespace PGD.Domain.Services
         }
 
         public IEnumerable<Cronograma> ObterTodosCronogramasCpfLogado(string cpf, List<int> idsSituacoes = null,
-            DateTime? dataInicial = null, DateTime? dataFinal = null)
+            DateTime? dataInicial = null, DateTime? dataFinal = null, int? idUnidade = null)
         {
             var resultado = _classRepository.Buscar(x => x.CpfUsuario == cpf);
 
@@ -926,6 +926,9 @@ namespace PGD.Domain.Services
             {
                 resultado = resultado.Where(x => idsSituacoes.Contains(x.IdSituacaoPacto));
             }
+
+            if (idUnidade.HasValue && idUnidade > 0)
+                resultado = resultado.Where(x => x.UnidadeExercicio == idUnidade);
 
             return resultado.SelectMany(p => 
                 p.Cronogramas.Where(c => (!dataInicial.HasValue || c.DataCronograma >= dataInicial.Value)

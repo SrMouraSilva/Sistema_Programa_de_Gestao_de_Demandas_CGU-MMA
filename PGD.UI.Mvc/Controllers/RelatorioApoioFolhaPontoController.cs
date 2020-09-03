@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using DomainValidation.Validation;
 using PGD.Application.Interfaces;
 using PGD.Application.ViewModels;
-using PGD.Domain.Enums;
-using PGD.Domain.Interfaces.Service;
-using DomainValidation.Validation;
 using PGD.Domain.Entities.RH;
+using PGD.Domain.Interfaces.Service;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using PGD.Application.ViewModels.Filtros;
+using WebGrease.Css.Extensions;
 
 namespace PGD.UI.Mvc.Controllers
 {
@@ -17,13 +17,15 @@ namespace PGD.UI.Mvc.Controllers
 
         IUsuarioAppService _usuarioservice;
         IPactoAppService _pactoservice;
+        private readonly IUnidadeAppService _unidadeAppService;
 
 
-        public RelatorioApoioFolhaPontoController (IUsuarioAppService usuarioAppService, IUnidadeService unidadeService, IPactoAppService pactoservice) : base(usuarioAppService)
+        public RelatorioApoioFolhaPontoController(IUsuarioAppService usuarioAppService, IUnidadeService unidadeService, IPactoAppService pactoservice, IUnidadeAppService unidadeAppService) : base(usuarioAppService)
         {
             _usuarioservice = usuarioAppService;
             _unidadeService = unidadeService;
             _pactoservice = pactoservice;
+            _unidadeAppService = unidadeAppService;
         }
 
 
@@ -93,12 +95,21 @@ namespace PGD.UI.Mvc.Controllers
             foreach(string cpf in listaUsuarios)
             {
                 var cronogramas = GetCronogramas(cpf, dadosSearch);
-                if (cronogramas.Count() > 0)
+
+
+                var idsPactos = RetornaIdsPactos(cronogramas.Select(x => x.IdsPacto).ToList());
+
+                var nomeUnidades = RetornaNomesUnidades(_unidadeAppService.Buscar(new UnidadeFiltroViewModel
+                {
+                    IdsPactos = idsPactos
+                }).Lista);
+
+                if (cronogramas.Any())
                 {
                     folhas.Add(new RelatorioFolhaPontoResultsViewModel()
                     {
                         
-                        Servidor = GetDadosServidor(cpf),
+                        Servidor = GetDadosServidor(cpf, nomeUnidades),
                         ListCronogramas = cronogramas
                     });
                 }
@@ -106,10 +117,26 @@ namespace PGD.UI.Mvc.Controllers
             return folhas;
         }
 
+        private List<int> RetornaIdsPactos(ICollection<string> ids)
+        {
+            var retorno = new List<int>();
+
+            foreach (var id in ids)
+                retorno.AddRange(id.Replace(" ", "").Split(',').Select(int.Parse));
+
+            return retorno.Distinct().ToList();
+        }
+
+        private string RetornaNomesUnidades(ICollection<UnidadeViewModel> unidades)
+        {
+            var nomesUnidades = unidades.Select(x => x.Nome).Distinct().ToList();
+            return string.Join("<br />", nomesUnidades);
+        }
+
         private IEnumerable<DiaCronogramaConsolidadoViewModel> GetCronogramas(string cpf, RelatorioFolhaPontoSearchViewModel dadosSearch)
         {
             var cronogramas = _pactoservice.ObterTodosCronogramasCpfLogado(cpf, _pactoservice.ObterSituacoesPactoValido(), 
-                dadosSearch.DataInicial, dadosSearch.DataFinal);
+                dadosSearch.DataInicial, dadosSearch.DataFinal, dadosSearch.IdUnidade);
 
             return cronogramas.GroupBy(c => c.DataCronograma)
                     .Select(cd => new DiaCronogramaConsolidadoViewModel
@@ -122,14 +149,14 @@ namespace PGD.UI.Mvc.Controllers
             
         }
 
-        private RelatorioFolhaPontoSearchViewModel GetDadosServidor(string cpf)
+        private RelatorioFolhaPontoSearchViewModel GetDadosServidor(string cpf, string nomesUnidades)
         {
             var usuario = _usuarioservice.ObterPorCPF(cpf);
             return new RelatorioFolhaPontoSearchViewModel
             {
                 CpfServidor = cpf,
                 NomeServidor = usuario.Nome,
-                NomeUnidade = usuario.nomeUnidade
+                NomeUnidade = nomesUnidades
             };
         }
 
