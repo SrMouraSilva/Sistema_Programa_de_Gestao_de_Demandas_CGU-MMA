@@ -592,7 +592,7 @@ namespace PGD.UI.Mvc.Controllers
             }
 
             _pactoVM.podeVoltarSuspensao = _Pactoservice.PodeVoltarSuspensao(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
-            _pactoVM.podeRestringirVisibilidadePacto = user.IsDirigente;
+            _pactoVM.podeRestringirVisibilidadePacto = user.IsDirigente && user.IdUnidadeSelecionada == _pactoVM.UnidadeExercicio;
 
         }
 

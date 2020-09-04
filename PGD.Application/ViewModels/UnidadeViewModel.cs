@@ -6,8 +6,6 @@ namespace PGD.Application.ViewModels
     {
         public int IdUnidade { get; set; }
         public string Nome { get; set; }
-        public string Codigo { get; set; }
-        public string Hierarquia { get; set; }
         public string Sigla { get; set; }
         public bool Excluido { get; set; }
         public int? IdUnidadeSuperior { get; set; }

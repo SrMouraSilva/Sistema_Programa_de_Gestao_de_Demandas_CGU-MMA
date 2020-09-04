@@ -92,8 +92,6 @@ namespace PGD.Application
                 {
                     IdUnidade = x.IdUnidade,
                     Nome = x.Nome,
-                    Codigo = x.Codigo,
-                    Hierarquia = x.Hierarquia,
                     Sigla = x.Sigla,
                     Excluido = x.Excluido,
                     IdUnidadeSuperior = x.IdUnidadeSuperior

@@ -36,9 +36,7 @@ namespace PGD.Application
                 Nome = x.Nome,
                 Sigla = x.Sigla,
                 Excluido = x.Excluido,
-                Hierarquia = x.Hierarquia,
                 IdUnidadeSuperior = x.IdUnidadeSuperior,
-                Codigo = x.Codigo,
                 IdUnidade = x.IdUnidade,
             }).ToList();
 

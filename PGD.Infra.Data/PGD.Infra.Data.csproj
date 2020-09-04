@@ -181,6 +181,10 @@
     <Compile Include="Migrations\202008210142234_Vinculo_Unidade_Superior.Designer.cs">
       <DependentUpon>202008210142234_Vinculo_Unidade_Superior.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009040047045_RemoveHierarquiaECodigoUnidade.cs" />
+    <Compile Include="Migrations\202009040047045_RemoveHierarquiaECodigoUnidade.Designer.cs">
+      <DependentUpon>202009040047045_RemoveHierarquiaECodigoUnidade.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AvaliacaoDetalhadaProdutoRepository.cs" />
@@ -252,6 +256,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008210142234_Vinculo_Unidade_Superior.resx">
       <DependentUpon>202008210142234_Vinculo_Unidade_Superior.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009040047045_RemoveHierarquiaECodigoUnidade.resx">
+      <DependentUpon>202009040047045_RemoveHierarquiaECodigoUnidade.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
