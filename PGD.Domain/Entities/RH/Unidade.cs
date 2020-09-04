@@ -7,8 +7,6 @@ namespace PGD.Domain.Entities.RH
         #region CSU0008_RN050
         public int IdUnidade { get; set; }
         public string Nome { get; set; }
-        public string Codigo { get; set; }
-        public string Hierarquia { get; set; }
         #endregion
         public string Sigla { get; set; }
         public bool Excluido { get; set; }

@@ -490,20 +490,20 @@ namespace PGD.Application
         {
             var pactoVM = Mapper.Map<PactoViewModel, Pacto>(pacto);
             var usr = Mapper.Map<UsuarioViewModel, Usuario>(usuariologado);
-            return _pactoService.PodeEditar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
+            return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeEditar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
         }
         public bool PodeEditarEmAndamento(PactoViewModel pacto, UsuarioViewModel usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
             var pactoVM = Mapper.Map<PactoViewModel, Pacto>(pacto);
             var usr = Mapper.Map<UsuarioViewModel, Usuario>(usuariologado);
-            return _pactoService.PodeEditarEmAndamento(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
+            return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeEditarEmAndamento(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
         }
 
         public bool PodeCancelarAvaliacao(PactoViewModel pactoVM, UsuarioViewModel user, bool isDirigente, bool unidadePactoESubordinadaUnidadeUsuario)
         {
             var pacto = Mapper.Map<PactoViewModel, Pacto>(pactoVM);
             var usr = Mapper.Map<UsuarioViewModel, Usuario>(user);
-            return _pactoService.PodeCancelarAvaliacao(pacto, usr, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+            return (!isDirigente || pacto.UnidadeExercicio == user.IdUnidadeSelecionada) && _pactoService.PodeCancelarAvaliacao(pacto, usr, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
         }
 
         public bool PodeVisualizarPactuadoAvaliado(PactoViewModel pactoVM)
@@ -517,56 +517,56 @@ namespace PGD.Application
         {
             var pactoVM = Mapper.Map<PactoViewModel, Pacto>(pacto);
             var usr = Mapper.Map<UsuarioViewModel, Usuario>(usuariologado);
-            return _pactoService.PodeDeletar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
+            return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeDeletar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
         }
 
         public bool PodeAssinar(PactoViewModel pacto, UsuarioViewModel usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
             var pactoVM = Mapper.Map<PactoViewModel, Pacto>(pacto);
             var usr = Mapper.Map<UsuarioViewModel, Usuario>(usuariologado);
-            return _pactoService.PodeAssinar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
+            return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeAssinar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
         }
 
         public bool PodeInterromper(PactoViewModel pacto, UsuarioViewModel usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
             var pactoVM = Mapper.Map<PactoViewModel, Pacto>(pacto);
             var usr = Mapper.Map<UsuarioViewModel, Usuario>(usuariologado);
-            return _pactoService.PodeInterromper(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
+            return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeInterromper(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
         }
 
         public bool PodeSuspender(PactoViewModel pacto, UsuarioViewModel usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
             var pactoVM = Mapper.Map<PactoViewModel, Pacto>(pacto);
             var usr = Mapper.Map<UsuarioViewModel, Usuario>(usuariologado);
-            return _pactoService.PodeSuspender(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
+            return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeSuspender(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
         }
 
         public bool PodeVoltarSuspensao(PactoViewModel pacto, UsuarioViewModel usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
             var pactoVM = Mapper.Map<PactoViewModel, Pacto>(pacto);
             var usr = Mapper.Map<UsuarioViewModel, Usuario>(usuariologado);
-            return _pactoService.PodeVoltarSuspensao(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
+            return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeVoltarSuspensao(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
         }
 
         public bool PodeNegar(PactoViewModel pacto, UsuarioViewModel usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
             var pactoVM = Mapper.Map<PactoViewModel, Pacto>(pacto);
             var usr = Mapper.Map<UsuarioViewModel, Usuario>(usuariologado);
-            return _pactoService.PodeNegar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
+            return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeNegar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
         }
 
         public bool PodeAvaliar(PactoViewModel pacto, UsuarioViewModel usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
             var pactoVM = Mapper.Map<PactoViewModel, Pacto>(pacto);
             var usr = Mapper.Map<UsuarioViewModel, Usuario>(usuariologado);
-            return _pactoService.PodeAvaliar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
+            return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeAvaliar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
         }
 
         public bool PodeEditarObservacaoProduto(PactoViewModel pacto, UsuarioViewModel usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
             var pactoVM = Mapper.Map<PactoViewModel, Pacto>(pacto);
             var usr = Mapper.Map<UsuarioViewModel, Usuario>(usuariologado);
-            return _pactoService.PodeEditarObservacaoProduto(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
+            return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeEditarObservacaoProduto(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
         }
 
         public void IniciarAutomaticamente()
