@@ -16,7 +16,7 @@ namespace PGD.Application.ViewModels
             Historicos = new List<HistoricoViewModel>();
             ValidationResult = new DomainValidation.Validation.ValidationResult();
         }
-        [Display(Name = "Código do Pacto")]
+        [Display(Name = "Código do Plano de Trabalho")]
         public int IdPacto { get; set; }
         public int IdTipoPacto { get; set; }
         public TipoPactoViewModel TipoPacto { get; set; }
@@ -26,7 +26,7 @@ namespace PGD.Application.ViewModels
         public string Nome { get; set; }
         public string MatriculaSIAPE { get; set;}
 
-        [Range(1, Int32.MaxValue, ErrorMessage = "Selecione a unidade de exercício do servidor para este pacto")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "Selecione a unidade de exercício do servidor para este plano de trabalho")]
         public int UnidadeExercicio { get; set; }
         public string UnidadeDescricao { get; set; }
         public string Acao { get; set; }
@@ -55,10 +55,10 @@ namespace PGD.Application.ViewModels
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         public TimeSpan CargaHorariaDiaria{ get; set; }
         
-        [Display(Name = "Carga Horária Total Pactuada")]
+        [Display(Name = "Carga Horária Total")]
         public double CargaHorariaTotal { get; set; }
 
-        [Required(ErrorMessage = "É necessário informar o produto que será produzido nesse Pacto")]
+        [Required(ErrorMessage = "É necessário informar o produto que será produzido nesse Plano de Trabalho")]
         public List<ProdutoViewModel> Produtos { get; set; }
         public List<HistoricoViewModel> Historicos { get; set; }        
         public List<AvaliacaoProdutoViewModel> Avaliacoes => Produtos?.SelectMany(p => p.Avaliacoes)?.ToList();
@@ -67,7 +67,7 @@ namespace PGD.Application.ViewModels
         
         public DateTime? DataTerminoReal { get; set; }
         public DateTime? DataInterrupcao { get; set; }
-        [Display(Name = "Horas do pacto a serem mantidas para o dia")]
+        [Display(Name = "Horas do plano de trabalho a serem mantidas para o dia")]
         public TimeSpan HorasMantidasParaDataInterrupcao { get; set; }
 
         public eAvaliacao eInterromper{ get; set; }

@@ -17,7 +17,7 @@ namespace PGD.Application.ViewModels
         public int IdSituacaoPacto { get; set; }
 
         [Display(Name = "Situação")]
-        [StringLength(100,ErrorMessage ="O campo situação do pacto deve conter no máximo 100 caracteres.")]
+        [StringLength(100,ErrorMessage = "O campo situação do plano de trabalho deve conter no máximo 100 caracteres.")]
         public string DescSituacaoPacto { get; set; }
 
         

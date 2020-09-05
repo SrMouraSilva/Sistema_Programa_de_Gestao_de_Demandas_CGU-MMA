@@ -16,8 +16,8 @@ namespace PGD.Application.ViewModels
         }
         public int IdTipoPacto { get; set; }
 
-        [Display(Name = "Tipo do Pacto")]
-        [StringLength(100,ErrorMessage ="O campo tipo do pacto deve conter no máximo 100 caracteres.")]
+        [Display(Name = "Tipo do Plano de Trabalho")]
+        [StringLength(100,ErrorMessage = "O campo tipo do plano de trabalho deve conter no máximo 100 caracteres.")]
         public string DescTipoPacto { get; set; }
 
         

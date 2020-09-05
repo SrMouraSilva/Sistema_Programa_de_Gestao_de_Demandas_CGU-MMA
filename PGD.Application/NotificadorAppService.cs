@@ -882,7 +882,7 @@ namespace PGD.Application
                         messageBody.Append(htmlHeaderRowStart);
                     }
 
-                    String colunas = "Grupo de atividades;Atividade Pactuada;Faixa;Qtde de Produtos;Carga Horária";
+                    String colunas = "Grupo de atividades;Atividade;Faixa;Qtde de Produtos;Carga Horária";
                     messageBody.Append(htmlTdStart + String.Join(htmlTdEnd + htmlTdStart, colunas.Split(';')) + htmlTdEnd);
                       
 

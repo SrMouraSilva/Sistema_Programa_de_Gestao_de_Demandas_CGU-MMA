@@ -20,8 +20,8 @@ namespace PGD.Domain.Validations.Pactos
             ruleSuspenderProprioPacto.UsuarioLogado = usuariologado;
             ruleSuspenderProprioPacto.Perfis = Perfis;
 
-            base.Add("Suspender_Pacto_Data", new Rule<Pacto>(ruleSuspenderData, "Pacto já suspenso ou fora do período de vigência."));
-            base.Add("ruleSuspenderProprioPacto", new Rule<Pacto>(ruleSuspenderProprioPacto, "Usuário não pode assinar seu próprio pacto."));
+            base.Add("Suspender_Pacto_Data", new Rule<Pacto>(ruleSuspenderData, "Plano de Trabalho já suspenso ou fora do período de vigência."));
+            base.Add("ruleSuspenderProprioPacto", new Rule<Pacto>(ruleSuspenderProprioPacto, "Usuário não pode assinar seu próprio plano de trabalho."));
         }
     }
 }

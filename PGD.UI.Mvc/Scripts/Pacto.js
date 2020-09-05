@@ -336,7 +336,7 @@ $(document).ready(function () {
             //var dataDigitada = new Date($("#DataPrevistaInicio").val());
             var dataDigitada = new Date(Date.parse(toValidDate($("#DataPrevistaInicio").val())));
             if (dataDigitada < datadt) {
-                ShowErrorMessage("Data prevista de início do pacto não pode ser inferior a atual.");
+                ShowErrorMessage("Data prevista de início do plano de trabalho não pode ser inferior a atual.");
                 $("#Alertas").show();
                 $("#Alertas").delay(8000).fadeOut(1600);
                 $("#DataPrevistaInicio").focus();
@@ -383,7 +383,7 @@ $(document).ready(function () {
                         EdicaoDeProdutos();
                     });
                     //} else {
-                    //    ShowErrorMessage("Não é possível adicionar produtos com pacto em andamento");
+                    //    ShowErrorMessage("Não é possível adicionar produtos com plano de trabalho em andamento");
                     //}
                 } else {
                     if (ProdutosCount >= 1 && CamposPreenchidos()) {
@@ -431,7 +431,7 @@ $(document).ready(function () {
                             qtd++;
                         }
                         if ($("#ddlAtividade").val() == '') {
-                            campos += "Atividade pactuada, ";
+                            campos += "Atividade, ";
                             qtd++;
                         }
                         if ($("#ddlFaixa").val() == '') {
@@ -542,7 +542,7 @@ function VerificaPendencias(cpfSelecionado) {
         data: { cpfSelecionadoUsr: cpfSelecionado },
         success: function (data) {
             if (data) {
-                ShowErrorMessage("Servidor não pode iniciar novo pacto se houver outro aberto nas situações: " + "Pendente de assinatura, " + "A iniciar, " + "Em andamento, " + "Pendente de avaliação" + " ou " + "Suspenso.");
+                ShowErrorMessage("Servidor não pode iniciar novo plano de trabalho se houver outro aberto nas situações: " + "Pendente de assinatura, " + "A iniciar, " + "Em andamento, " + "Pendente de avaliação" + " ou " + "Suspenso.");
                 $("#Nome").val('');
                 $("#CpfUsuario").val('');
                 $("#lblMatriculaSIAPE").text('');

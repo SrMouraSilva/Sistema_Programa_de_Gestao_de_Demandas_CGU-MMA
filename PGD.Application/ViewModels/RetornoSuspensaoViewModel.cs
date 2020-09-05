@@ -26,7 +26,7 @@ namespace PGD.Application.ViewModels
         public DateTime? DataFimSuspensao { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Data prevista para término do pacto")]
+        [Display(Name = "Data prevista para término do plano de trabalho")]
         public DateTime? DataTerminoPacto { get; set; }
 
         public bool PodeEditar { get; set; }

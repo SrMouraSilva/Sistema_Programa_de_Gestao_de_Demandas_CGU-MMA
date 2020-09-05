@@ -27,8 +27,8 @@ namespace PGD.Application.ViewModels
         [Display(Name = "Grupo de Atividade")]
         public int IdGrupoAtividade { get; set; }
         public virtual GrupoAtividadeViewModel GrupoAtividade { get; set; }
-        [Required(ErrorMessage = "A atividade pactuada é obrigatória."), Range(1, int.MaxValue, ErrorMessage = "A atividade pactuada selecionada é inválida.")]
-        [Display(Name = "Atividade Pactuada")]
+        [Required(ErrorMessage = "A atividade é obrigatória."), Range(1, int.MaxValue, ErrorMessage = "A atividade selecionada é inválida.")]
+        [Display(Name = "Atividade")]
         public int IdAtividade { get; set; }
         public virtual AtividadeViewModel Atividade { get; set; }
         [Required(ErrorMessage = "A informação da faixa é obrigatória."), Range(1, int.MaxValue, ErrorMessage = "A faixa informada é inválida.")]
