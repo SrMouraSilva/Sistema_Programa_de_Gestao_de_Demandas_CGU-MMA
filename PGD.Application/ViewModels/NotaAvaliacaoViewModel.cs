@@ -16,7 +16,7 @@ namespace PGD.Application.ViewModels
         }
         public int IdNotaAvaliacao { get; set; }
 
-        [Display(Name = "Tipo do Pacto")]
+        [Display(Name = "Tipo do Plano de Trabalho")]
         [StringLength(20,ErrorMessage ="O campo descrição da nota deve conter no máximo 20 caracteres.")]
         public string DescNotaAvaliacao { get; set; }
 

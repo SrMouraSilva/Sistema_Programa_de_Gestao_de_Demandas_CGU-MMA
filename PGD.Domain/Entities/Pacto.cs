@@ -14,7 +14,7 @@ namespace PGD.Domain.Entities
         public string CpfUsuario { get; set; }
         public string Nome { get; set; } 
         public string MatriculaSIAPE { get; set; }
-        [Range(1, Int32.MaxValue, ErrorMessage = "Selecione a unidade de exercício do servidor para este pacto")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "Selecione a unidade de exercício do servidor para este plano de trabalho")]
         public int UnidadeExercicio { get; set; }//RN050
         public string TelefoneFixoServidor { get; set; }
         public string TelefoneMovelServidor { get; set; }

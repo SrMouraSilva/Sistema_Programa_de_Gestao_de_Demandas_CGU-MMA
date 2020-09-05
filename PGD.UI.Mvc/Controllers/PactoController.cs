@@ -119,7 +119,7 @@ namespace PGD.UI.Mvc.Controllers
 
             _Pactoservice.AtualizarStatus(pacto, user, eAcaoPacto.Negando);
 
-            return "Pacto negado com sucesso.";
+            return "Plano de trabalho negado com sucesso.";
 
 
         }
@@ -226,7 +226,7 @@ namespace PGD.UI.Mvc.Controllers
                 var pactoRetorno = _Pactoservice.AtualizarStatus(pacto, user, eAcaoPacto.Excluindo);
                 pacto = pactoRetorno;
                 if (pactoRetorno.ValidationResult.IsValid)
-                    return setMessageAndRedirect("Pacto excluído com sucesso!", "Index");
+                    return setMessageAndRedirect("Plano de Trabalho excluído com sucesso!", "Index");
             }
 
             return setMessageAndRedirect(pacto.ValidationResult.Erros, "Index");
@@ -236,13 +236,13 @@ namespace PGD.UI.Mvc.Controllers
         {
 
             var pacto = _Pactoservice.BuscarPorId(pactoid);
-            return setMessageAndRedirect("Pacto Consultado", "Index");
+            return setMessageAndRedirect("Plano de Trabalho Consultado", "Index");
         }
 
         public ActionResult Editar(int pactoid)
         {
             var pacto = _Pactoservice.BuscarPorId(pactoid);
-            return setMessageAndRedirect("Pacto Editar", "Index");
+            return setMessageAndRedirect("Plano de Trabalho Editar", "Index");
 
         }
 
@@ -251,7 +251,7 @@ namespace PGD.UI.Mvc.Controllers
             DataTable dataTable = new DataTable("Pactos");
 
             //dados header
-            dataTable.Columns.Add("Código do Pacto");
+            dataTable.Columns.Add("Código do Plano de Trabalho");
             dataTable.Columns.Add("Nome");
             dataTable.Columns.Add("Data Prevista Início");
             dataTable.Columns.Add("Data Prevista Término");
@@ -269,7 +269,7 @@ namespace PGD.UI.Mvc.Controllers
                 if (retornoSituacao != null) p.UnidadeDescricao = retornoSituacao.Nome;
 
                 row = dataTable.NewRow();
-                row["Código do Pacto"] = p.IdPacto;
+                row["Código do Plano de Trabalho"] = p.IdPacto;
                 row["Nome"] = p.Nome;
                 row["Data Prevista Início"] = p.DataPrevistaInicio;
                 row["Data Prevista Término"] = p.DataPrevistaTermino;
@@ -307,7 +307,7 @@ namespace PGD.UI.Mvc.Controllers
 
                 if (_pactoVM.IndVisualizacaoRestrita && !_Pactoservice.PodeVisualizar(_pactoVM, user, user.IsDirigente, UnidadePactoESubordinadaUnidadeUsuario(_pactoVM, user)))
                 {
-                    return setMessageAndRedirect("Pacto PGD marcado como reservado", "Index");
+                    return setMessageAndRedirect("Plano de Trabalho PGD marcado como reservado", "Index");
                 }
 
                 // var unidades = _unidadeService.ObterUnidades().ToList();
@@ -677,11 +677,11 @@ namespace PGD.UI.Mvc.Controllers
 
             if (avaliacaoProduto.TipoAvaliacao == (int)eTipoAvaliacao.Total)
             {
-                setMessage("Avaliação de Pacto cancelada com sucesso.");
+                setMessage("Avaliação de plano de trabalho cancelada com sucesso.");
             }
             else
             {
-                setMessage("Avaliação Parcial de Pacto cancelada com sucesso.");
+                setMessage("Avaliação Parcial de plano de trabalho cancelada com sucesso.");
             }
 
             ConfigurarQuantidadeProdutos(apvm);
@@ -814,7 +814,7 @@ namespace PGD.UI.Mvc.Controllers
                         // Quando cadastrado por chefe: notifica quem cadastrou e pra quem cadastrou. 
                         if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, operEmail))
                         {
-                            pactoViewModel.ValidationResult.Message = "Pacto incluído com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
+                            pactoViewModel.ValidationResult.Message = "Plano de trabalho incluído com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
                         }
                     }
                     if (pactoViewModel.ValidationResult.IsValid && pactoViewModel.IdPacto != 0 && acao == "Assinando")
@@ -1076,7 +1076,7 @@ namespace PGD.UI.Mvc.Controllers
                     if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, oper))
                     {
 
-                        return setMessageAndRedirect("Pacto interrompido com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.", "Index");
+                        return setMessageAndRedirect("Plano de trabalho interrompido com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.", "Index");
                     }
                     else
                     {
@@ -1159,11 +1159,11 @@ namespace PGD.UI.Mvc.Controllers
             {
                 if (tipoAcao == eAcaoPacto.Avaliando)
                 {
-                    setMessage("Pacto avaliado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.");
+                    setMessage("Plano de trabalho avaliado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.");
                 }
                 else
                 {
-                    setMessage("Pacto avaliado parcialmente com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.");
+                    setMessage("Plano de trabalho avaliado parcialmente com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.");
                 }
 
             }
@@ -1503,7 +1503,7 @@ namespace PGD.UI.Mvc.Controllers
                     //Notificar a chefia pelo cadastro de pacto de subordinado que requer conferência e autorização, com cópia ao próprio solicitante.
                     if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, oper))
                     {
-                        var mensagem = "Pacto suspenso com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
+                        var mensagem = "Plano de trabalho suspenso com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
                         setMessage(mensagem);
                     }
                     else
@@ -1563,9 +1563,9 @@ namespace PGD.UI.Mvc.Controllers
                 //Notificar o solicitante do fim da suspensão do pacto
                 if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, Domain.Enums.Operacao.VoltandoSuspensão.ToString()))
                 {
-                    ValidationError ve = new ValidationError("Suspensão do pacto feita com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.");
+                    ValidationError ve = new ValidationError("Suspensão do plano de trabalho feita com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.");
                     retorno.ValidationResult.Add(ve);
-                    retorno.ValidationResult.Message = "Suspensão do pacto feita com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
+                    retorno.ValidationResult.Message = "Suspensão do plano de trabalho feita com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
                     setMessage(retorno.ValidationResult.Message);
                 }
                 else

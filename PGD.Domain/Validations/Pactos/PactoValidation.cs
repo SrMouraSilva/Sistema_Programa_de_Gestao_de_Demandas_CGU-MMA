@@ -9,19 +9,19 @@ namespace PGD.Domain.Validations.Pactos
         public PactoValidation()
         {
             var DataInicioPacto = new DataDeveSerMaiorQueAtual();            
-            base.Add("DataInicioPacto", new Rule<Pacto>(DataInicioPacto, "'Data prevista de início do pacto' não pode ser inferior a atual."));
+            base.Add("DataInicioPacto", new Rule<Pacto>(DataInicioPacto, "'Data prevista de início do plano de trabalho' não pode ser inferior a atual."));
 
             var ProdutosPacto = new DevemExistirProdutosNoPacto();
-            base.Add("Produtos", new Rule<Pacto>(ProdutosPacto, "Devem existir produtos para o Pacto."));
+            base.Add("Produtos", new Rule<Pacto>(ProdutosPacto, "Devem existir produtos para o plano de trabalho."));
 
             var ProdutosAvaliados = new ProdutosAvaliadosComResultado();
-            base.Add("ProdutosAvaliados", new Rule<Pacto>(ProdutosAvaliados, "Pelo menos um produto do Pacto deve ter seu resultado avaliado."));
+            base.Add("ProdutosAvaliados", new Rule<Pacto>(ProdutosAvaliados, "Pelo menos um produto do plano de trabalho deve ter seu resultado avaliado."));
 
             var NumeroHoras = new NumerodeHorasCronogramaDiferentePacto();
             base.Add("Cronogramas", new Rule<Pacto>(NumeroHoras, "Horas no cronograma incompatíveis com Carga Horária total."));
 
             var CargaHoraria = new CargaHorariaCronogramaDiferentePacto();
-            base.Add("Cronogramas.Horas", new Rule<Pacto>(CargaHoraria, "Cronograma possui dias com horas maiores que a definida no 'Carga Horária' do Pacto."));
+            base.Add("Cronogramas.Horas", new Rule<Pacto>(CargaHoraria, "Cronograma possui dias com horas maiores que a definida no 'Carga Horária' do plano de trabalho."));
 
             var CargaPacto = new ReducaoDeveSerMenorQueOito();
             base.Add("CargaHoraria", new Rule<Pacto>(CargaPacto, "Caso possuir 'Redução da carga horaria' o valor permitido deverá ser menor que 8 horas e diferente de 0."));
@@ -33,16 +33,16 @@ namespace PGD.Domain.Validations.Pactos
             base.Add("Pacto no Exterior", new Rule<Pacto>(PactoNoExterior, "O número do processo SEI é obrigatório para pactos executados no exterior."));
 
             var Suspensao = new CamposObrigatoriosSuspensao();
-            base.Add("MotivoSuspensao", new Rule<Pacto>(Suspensao, "O campo Motivo é obrigatório para cadastro de Suspensão de Pacto."));
+            base.Add("MotivoSuspensao", new Rule<Pacto>(Suspensao, "O campo Motivo é obrigatório para cadastro de Suspensão de plano de trabalho."));
 
             var DataSuspensao = new DataInicioSuspensao();
-            base.Add("DataSuspensao", new Rule<Pacto>(DataSuspensao, "A data de início da suspensão deve ser menor que a data prevista de término do pacto."));
+            base.Add("DataSuspensao", new Rule<Pacto>(DataSuspensao, "A data de início da suspensão deve ser menor que a data prevista de término do plano de trabalho."));
 
             var RetornoSuspensao = new DataRetornoSuspensaoDeveSerMaiorQueInicio();
             base.Add("DataRetornoSuspensao", new Rule<Pacto>(RetornoSuspensao, "A data de retorno deve ser maior que a data de início da suspensão ."));
 
             var JustificativaPactoVisualizacaoRestrita = new JustificativaPactoVisualizacaoRestrita();
-            base.Add("JustificativaPactoVisualizacaoRestrita", new Rule<Pacto>(JustificativaPactoVisualizacaoRestrita, "É obrigatório informar uma justificativa para restringir a visualização do pacto."));
+            base.Add("JustificativaPactoVisualizacaoRestrita", new Rule<Pacto>(JustificativaPactoVisualizacaoRestrita, "É obrigatório informar uma justificativa para restringir a visualização do plano de trabalho."));
 
             var AvaliacaoDetalhadaValida = new AvaliacaoDetalhadaValida();
             base.Add("AvaliacaoDetalhadaValida", new Rule<Pacto>(AvaliacaoDetalhadaValida, "É obrigatório avaliar todos os critérios."));
