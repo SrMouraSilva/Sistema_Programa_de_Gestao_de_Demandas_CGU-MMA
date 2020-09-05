@@ -9,6 +9,7 @@ namespace PGD.Domain.Entities.RH
         public string Nome { get; set; }
         #endregion
         public string Sigla { get; set; }
+        public string Codigo { get; set; }
         public bool Excluido { get; set; }
         public int? IdUnidadeSuperior { get; set; }
         public virtual Unidade UnidadeSuperior { get; set; }

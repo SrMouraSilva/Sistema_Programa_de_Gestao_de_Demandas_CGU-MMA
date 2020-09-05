@@ -17,6 +17,11 @@ namespace PGD.Infra.Data.EntityConfig
                 .HasColumnType("varchar")
                 .HasMaxLength(25);
 
+            Property(x => x.Codigo)
+                .IsRequired()
+                .HasColumnType("varchar")
+                .HasMaxLength(100);
+
             Property(x => x.Excluido).IsOptional();
 
             // Relacionamentos
