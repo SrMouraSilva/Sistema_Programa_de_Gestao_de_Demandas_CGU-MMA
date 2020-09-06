@@ -77,7 +77,7 @@ namespace PGD.Domain.Services
                 var pactosSemAssinatura = pactosServidor.Where(p => (p.IdSituacaoPacto == (int)eSituacaoPacto.PendenteDeAssinatura && !p.DataAprovacaoDirigente.HasValue && !p.DataAprovacaoSolicitante.HasValue));
                 if (pactosSemAssinatura.Any())
                 {
-                    string mensagem = $"Usuário impossibilitado de solicitar novo pacto em razão de uma das pendências a seguir: Existe(m) Pacto(s) do servidor sem assinaturas. ({ string.Join(",", pactosSemAssinatura.Select(p => $"<a href='{ urlPacto }{p.IdPacto}' target='_blank'>{p.IdPacto}</a>")) })";
+                    string mensagem = $"Usuário impossibilitado de solicitar novo plano de trabalho em razão de uma das pendências a seguir: Existe(m) plano(s) de trabalho(s) do servidor sem assinaturas. ({ string.Join(",", pactosSemAssinatura.Select(p => $"<a href='{ urlPacto }{p.IdPacto}' target='_blank'>{p.IdPacto}</a>")) })";
                     pacto.ValidationResult.Add(new DomainValidation.Validation.ValidationError(mensagem));
                 }
 
@@ -88,7 +88,7 @@ namespace PGD.Domain.Services
                          || p.DataAprovacaoDirigente.HasValue && p.DataAprovacaoDirigente < dataInicioBloqueio)).ToList();
                 if (pactosPendentesAssinatura.Any())
                 {
-                    string mensagem = $"Usuário impossibilitado de solicitar novo pacto em razão de uma das pendências a seguir: Existe(m) pacto(s) com assinatura pendente há mais de XX dias ({ string.Join(",", pactosPendentesAssinatura.Select(p => $"<a href='{ urlPacto }{p.IdPacto}' target='_blank'>{p.IdPacto}</a>")) })";
+                    string mensagem = $"Usuário impossibilitado de solicitar novo plano de trabalho em razão de uma das pendências a seguir: Existe(m) plano(s) de trabalho(s) com assinatura pendente há mais de XX dias ({ string.Join(",", pactosPendentesAssinatura.Select(p => $"<a href='{ urlPacto }{p.IdPacto}' target='_blank'>{p.IdPacto}</a>")) })";
                     pacto.ValidationResult.Add(new DomainValidation.Validation.ValidationError(mensagem));
                 }
             }
@@ -105,7 +105,7 @@ namespace PGD.Domain.Services
                 if (pactosPendentesDeAvaliacao.Any())
                 {
                     string urlPacto = System.Configuration.ConfigurationManager.AppSettings["URL_PGD"].ToString() + "Pacto/Solicitar/";
-                    string mensagem = $"Usuário impossibilitado de solicitar novo pacto em razão de uma das pendências a seguir: Existe(m) pacto(s) do servidor com avaliação final pendente há mais de { parametroPrazoBloqueioPactoAposTermino.IntValue.GetValueOrDefault() } dias do término do pacto ({ string.Join(",", pactosPendentesDeAvaliacao.Select(p => $"<a href='{ urlPacto }{p.IdPacto}' target='_blank'>{p.IdPacto}</a>")) })";
+                    string mensagem = $"Usuário impossibilitado de solicitar novo plano de trabalho em razão de uma das pendências a seguir: Existe(m) plano(s) de trabalho(s) do servidor com avaliação final pendente há mais de { parametroPrazoBloqueioPactoAposTermino.IntValue.GetValueOrDefault() } dias do término do plano de trabalho ({ string.Join(",", pactosPendentesDeAvaliacao.Select(p => $"<a href='{ urlPacto }{p.IdPacto}' target='_blank'>{p.IdPacto}</a>")) })";
                     pacto.ValidationResult.Add(new DomainValidation.Validation.ValidationError(mensagem));
                 }
             }
@@ -118,7 +118,7 @@ namespace PGD.Domain.Services
                 if (pactosEmAndamentoSemAvaliacaoParcial.Any())
                 {
                     string urlPacto = System.Configuration.ConfigurationManager.AppSettings["URL_PGD"].ToString() + "Pacto/Solicitar/";
-                    string mensagem = $"Usuário impossibilitado de solicitar novo pacto em razão de uma das pendências a seguir: Existe(m) Pacto(s) do servidor em andamento há mais de { parametroPrazoBloqueioPactoEmAndamentoSemAvaliacaoParcial.IntValue.GetValueOrDefault() } dias do início e sem avaliação parcial ({ string.Join(",", pactosEmAndamentoSemAvaliacaoParcial.Select(p => $"<a href='{ urlPacto }{p.IdPacto}' target='_blank'>{p.IdPacto}</a>")) })";
+                    string mensagem = $"Usuário impossibilitado de solicitar novo plano de trabalho em razão de uma das pendências a seguir: Existe(m) plano(s) de trabalho(s) do servidor em andamento há mais de { parametroPrazoBloqueioPactoEmAndamentoSemAvaliacaoParcial.IntValue.GetValueOrDefault() } dias do início e sem avaliação parcial ({ string.Join(",", pactosEmAndamentoSemAvaliacaoParcial.Select(p => $"<a href='{ urlPacto }{p.IdPacto}' target='_blank'>{p.IdPacto}</a>")) })";
                     pacto.ValidationResult.Add(new DomainValidation.Validation.ValidationError(mensagem));
                 }
             }
@@ -131,7 +131,7 @@ namespace PGD.Domain.Services
                 if (pactosPendentesDeAvaliacaoParcial.Any())
                 {
                     string urlPacto = System.Configuration.ConfigurationManager.AppSettings["URL_PGD"].ToString() + "Pacto/Solicitar/";
-                    string mensagem = $"Usuário impossibilitado de solicitar novo pacto em razão de uma das pendências a seguir: Existe(m) Pacto(s) do servidor avaliados parcialmente há mais de  { parametroPrazoBloqueioPactoPendenteAvaliacaoParcial.IntValue.GetValueOrDefault() }  dias da última avaliação parcial ({ string.Join(",", pactosPendentesDeAvaliacaoParcial.Select(p => $"<a href='{ urlPacto }{p.IdPacto}' target='_blank'>{p.IdPacto}</a>")) })";
+                    string mensagem = $"Usuário impossibilitado de solicitar novo plano de trabalho em razão de uma das pendências a seguir: Existe(m) plano(s) de trabalho(s) do servidor avaliados parcialmente há mais de  { parametroPrazoBloqueioPactoPendenteAvaliacaoParcial.IntValue.GetValueOrDefault() }  dias da última avaliação parcial ({ string.Join(",", pactosPendentesDeAvaliacaoParcial.Select(p => $"<a href='{ urlPacto }{p.IdPacto}' target='_blank'>{p.IdPacto}</a>")) })";
                     pacto.ValidationResult.Add(new DomainValidation.Validation.ValidationError(mensagem));
                 }
             }
@@ -148,7 +148,7 @@ namespace PGD.Domain.Services
                 if (pactosSuspensos.Any())
                 {
                     string urlPacto = System.Configuration.ConfigurationManager.AppSettings["URL_PGD"].ToString() + "Pacto/Solicitar/";
-                    string mensagem = $"Usuário impossibilitado de solicitar novo pacto em razão de uma das pendências a seguir: Existe(m) pacto(s) suspenso(s) e não concluídos ({ string.Join(",", pactosSuspensos.Select(p => $"<a href='{ urlPacto }{p.IdPacto}' target='_blank'>{p.IdPacto}</a>")) })";
+                    string mensagem = $"Usuário impossibilitado de solicitar novo plano de trabalho em razão de uma das pendências a seguir: Existe(m) plano(s) de trabalho(s) suspenso(s) e não concluídos ({ string.Join(",", pactosSuspensos.Select(p => $"<a href='{ urlPacto }{p.IdPacto}' target='_blank'>{p.IdPacto}</a>")) })";
                     pacto.ValidationResult.Add(new DomainValidation.Validation.ValidationError(mensagem));
                 }
             }
@@ -251,17 +251,17 @@ namespace PGD.Domain.Services
         {
 
             if (objFiltro != null)
-                //PACTO NÃO FOI ASSINADO POR NINGUEM
+                //PLANO DE TRABALHO NÃO FOI ASSINADO POR NINGUEM
                 if (string.IsNullOrEmpty(objFiltro.CpfUsuarioDirigente) && string.IsNullOrEmpty(objFiltro.CpfUsuarioSolicitante))
                 {
                     return (int)PGD.Domain.Enums.eAssinatura.NaoAssinado;
                 }
-                //PACTO ASSINADO PELO SOLICITANTE
+                //PLANO DE TRABALHO ASSINADO PELO SOLICITANTE
                 else if (!string.IsNullOrEmpty(objFiltro.CpfUsuarioSolicitante) && string.IsNullOrEmpty(objFiltro.CpfUsuarioDirigente))
                 {
                     return (int)PGD.Domain.Enums.eAssinatura.AssinadoPeloSolicitante;
                 }
-                //PACTO ASSINADO PELO DIRIGENTE E PELO SOLICITANTE
+                //PLANO DE TRABALHO ASSINADO PELO DIRIGENTE E PELO SOLICITANTE
                 else if (!string.IsNullOrEmpty(objFiltro.CpfUsuarioSolicitante) && !string.IsNullOrEmpty(objFiltro.CpfUsuarioDirigente))
                 {
                     return (int)PGD.Domain.Enums.eAssinatura.AssinadoPorTodos;
@@ -311,7 +311,7 @@ namespace PGD.Domain.Services
                 var historico = new Historico()
                 {
                     IdPacto = pacto.IdPacto,
-                    Descricao = $"Pacto reativado automaticamente em { DateTime.Now.ToString("dd/MM/yyyy")}, às { DateTime.Now.ToString("HH:mm:ss")}, conforme programação da reativação."
+                    Descricao = $"Plano de trabalho reativado automaticamente em { DateTime.Now.ToString("dd/MM/yyyy")}, às { DateTime.Now.ToString("HH:mm:ss")}, conforme programação da reativação."
                 };
                 _historicoService.Adicionar(historico);
             }
@@ -462,7 +462,7 @@ namespace PGD.Domain.Services
                     var historico = new Historico()
                     {
                         IdPacto = pacto.IdPacto,
-                        Descricao = $"Situação do pacto alterada automaticamente para PENDENTE DE AVALIAÇÃO, pelo término do prazo de sua execução, em { DateTime.Now.ToString("dd/MM/yyyy") }, às { DateTime.Now.ToString("HH:mm") }, conforme horário oficial de Brasília."
+                        Descricao = $"Situação do plano de trabalho alterada automaticamente para PENDENTE DE AVALIAÇÃO, pelo término do prazo de sua execução, em { DateTime.Now.ToString("dd/MM/yyyy") }, às { DateTime.Now.ToString("HH:mm") }, conforme horário oficial de Brasília."
                     };
                     _historicoService.Adicionar(historico);
 
@@ -657,7 +657,7 @@ namespace PGD.Domain.Services
             bool podeAssinarDirigente = false;
             //Opção disponível para os pactos até o dia de início do pacto ou enquanto não tiver sido assinado.
             //Opção só é exibida para o solicitante(ou administrador / solicitante)
-            //do pacto ou o dirigente(ou administrador / dirigente) responsável pelo pacto e para dirigentes hierarquicamente superiores à unidade.
+            //do plano de trabalho ou o dirigente(ou administrador / dirigente) responsável pelo plano de trabalho e para dirigentes hierarquicamente superiores à unidade.
             var assinatura = BuscaStatusAssinatura(pacto);
 
             if (pacto.CpfUsuarioDirigente == usuariologado.Cpf || !unidadePactoEhSubordinadaUnidadeUsuario)

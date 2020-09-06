@@ -36,15 +36,15 @@ namespace PGD.Domain.Enums
         AvaliadoParcialmente = 10
 
         //- Pendente de assinatura: faltam as assinaturas;
-        //- A iniciar: pacto já assinado, mas a data atual é inferior a data de início;
-        //- Em andamento: a data atual está entre a data de início e de término do pacto (pacto em vigência);
-        //- Pendente de avaliação: a data atual é superior a data de término e o pacto ainda não foi avaliado ou interrompido;
-        //ou o pacto foi finalizado por decurso de prazo e está pendente de avaliação do chefe .
-        //- Avaliado: pactos já avaliados;
-        //- Negado: o pacto proposto foi negado pelo dirigente;
-        //- Excluído: o pacto foi excluído – opção possível apenas antes do início do pacto;
-        //- Interrompido: o pacto foi interrompido pelo dirigente;
-        //- Suspenso: o pacto está suspenso na data atual, pelo dirigente.        
+        //- A iniciar: plano já assinado, mas a data atual é inferior a data de início;
+        //- Em andamento: a data atual está entre a data de início e de término do plano (plano em vigência);
+        //- Pendente de avaliação: a data atual é superior a data de término e o plano ainda não foi avaliado ou interrompido;
+        //ou o plano foi finalizado por decurso de prazo e está pendente de avaliação do chefe .
+        //- Avaliado: planos já avaliados;
+        //- Negado: o plano proposto foi negado pelo dirigente;
+        //- Excluído: o plano foi excluído – opção possível apenas antes do início do plano;
+        //- Interrompido: o plano foi interrompido pelo dirigente;
+        //- Suspenso: o plano está suspenso na data atual, pelo dirigente.        
     }
     #endregion
 
@@ -118,35 +118,35 @@ namespace PGD.Domain.Enums
 
     public enum eOrigem
     {
-        [Display(Name = "Solicitação de Pacto")]
+        [Display(Name = "Solicitação de Plano de Trabalho")]
         SolicitacaoPacto = 1,
-        [Display(Name = "Listagem de Pactos")]
+        [Display(Name = "Listagem de Planos de Trabalho")]
         Listagem = 2
     }
 
     public enum eParametrosSistema
     {
-        [Display(Name = "Bloquear novos pactos se houver pactos suspensos para o servidor? (Sim/Não)")]
+        [Display(Name = "Bloquear novos planos de trabalho se houver planos de trabalho suspensos para o servidor? (Sim/Não)")]
         BloquearSeHouverPactosSuspensos = 1,
 
-        [Display(Name = "Bloquear novos pactos se houver pactos pendentes de assinatura do servidor? (Sim/Não)")]
+        [Display(Name = "Bloquear novos planos de trabalho se houver planos de trabalho pendentes de assinatura do servidor? (Sim/Não)")]
         BloquearSeHouverPactosPendentesDeAssinatura = 2,
 
-        [Display(Name = "Bloquear novos pactos se houver pactos pendentes de avaliação do servidor? (Sim/Não)")]
+        [Display(Name = "Bloquear novos planos de trabalho se houver planos de trabalho pendentes de avaliação do servidor? (Sim/Não)")]
         BloquearSeHouverPactosPendentesDeAvaliacao = 3,
 
-        [Display(Name = "Tempo máximo de pacto da unidade em situação 'Pendente de assinatura' para início do bloqueio")]
+        [Display(Name = "Tempo máximo de planos de trabalho da unidade em situação 'Pendente de assinatura' para início do bloqueio")]
         TempoMaximoPendenteAssinatura = 4,
 
-        [Display(Name = "Prazo, em dias, para bloqueio de novo pacto após avaliação parcial (sem conclusão do pacto)")]
+        [Display(Name = "Prazo, em dias, para bloqueio de novo planos de trabalho após avaliação parcial (sem conclusão do plano de trabalho)")]
         PrazoBloqueioAvaliacaoParcial = 5,
 
-        [Display(Name = "Prazo, em dias, para bloqueio de novo pacto após término do pacto (sem avaliação final)")]
+        [Display(Name = "Prazo, em dias, para bloqueio de novo plano de trabalho após término do plano de trabalho (sem avaliação final)")]
         PrazoBloqueioPactoAposTermino = 6,
 
         QuantidadesDiaRetroagirInterrupcao = 7,
 
-        [Display(Name = "Prazo, em dias, para bloquear novos pactos se houver pactos em andamento sem avaliação parcial ")]
+        [Display(Name = "Prazo, em dias, para bloquear novos planos de trabalho se houver planos de trabalho em andamento sem avaliação parcial ")]
         PrazoBloqueioPactoEmAndamentoSemAvaliacaoParcial = 8,
 
         QuantidadesDiaConclusaoAntecipada = 9

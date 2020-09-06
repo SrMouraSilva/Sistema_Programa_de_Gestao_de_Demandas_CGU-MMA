@@ -18,7 +18,7 @@ namespace PGD.Application.ViewModels
 
         public int IdAtividade { get; set; }
 
-        [Required(ErrorMessage = "O campo Atividade pactuada é de preenchimento obrigatório!")]
+        [Required(ErrorMessage = "O campo Atividade é de preenchimento obrigatório!")]
         [StringLength(1000)]
         [Display(Name = "Nome da Atividade")]
         public string NomAtividade { get; set; }

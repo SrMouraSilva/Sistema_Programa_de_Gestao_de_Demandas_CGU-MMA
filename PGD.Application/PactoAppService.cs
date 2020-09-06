@@ -276,29 +276,29 @@ namespace PGD.Application
             }
             else if ((int)PGD.Domain.Enums.eAcaoPacto.Interrompendo == (int)acao)
             {
-                lstHistorico.Add("Pacto interrompido por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + ", em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília. Motivo: " + pacto.Motivo);
+                lstHistorico.Add("Plano de Trabalho interrompido por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + ", em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília. Motivo: " + pacto.Motivo);
             }
             else if ((int)acao == (int)PGD.Domain.Enums.eAcaoPacto.Avaliando)
             {
-                lstHistorico.Add("Pacto avaliado por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília.");
+                lstHistorico.Add("Plano de Trabalho avaliado por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília.");
             }
             else if ((int)acao == (int)PGD.Domain.Enums.eAcaoPacto.AvaliandoParcialmente)
             {
-                lstHistorico.Add("Pacto avaliado parcialmente por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília.");
+                lstHistorico.Add("Plano de Trabalho avaliado parcialmente por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília.");
             }
             else if ((int)acao == (int)PGD.Domain.Enums.eAcaoPacto.Excluindo)
             {
-                lstHistorico.Add("Pacto excluido por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília.");
+                lstHistorico.Add("Plano de Trabalho excluido por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília.");
             }
             else if ((int)acao == (int)PGD.Domain.Enums.eAcaoPacto.Negando)
             {
-                lstHistorico.Add("Solicitação de pacto negada por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília.");
+                lstHistorico.Add("Solicitação de Plano de Trabalho negada por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília.");
             }
             else if ((int)acao == (int)PGD.Domain.Enums.eAcaoPacto.Suspendendo)
             {
                 string textoReativacao = "";
                 if (pacto.SuspensoAte.HasValue) textoReativacao = ", com reativação programada para dia " + pacto.SuspensoAte.Value.ToString("dd/MM/yyyy");
-                lstHistorico.Add("Pacto suspenso por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília" + textoReativacao + "." + pacto.Motivo);
+                lstHistorico.Add("Pacto Plano de Trabalho por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília" + textoReativacao + "." + pacto.Motivo);
             }
             else if ((int)acao == (int)PGD.Domain.Enums.eAcaoPacto.VoltandoSuspensao)
             {
@@ -311,15 +311,15 @@ namespace PGD.Application
             }
             else if ((int)acao == (int)PGD.Domain.Enums.eAcaoPacto.CancelandoAvaliacao)
             {
-                lstHistorico.Add("Avaliação de pacto cancelada por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília." + pacto.Motivo);
+                lstHistorico.Add("Avaliação de Plano de Trabalho cancelada por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília." + pacto.Motivo);
             }
             else if ((int)acao == (int)PGD.Domain.Enums.eAcaoPacto.CancelandoAvaliacaoParcialmente)
             {
-                lstHistorico.Add("Avaliação parcial de pacto cancelada por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília." + pacto.Motivo);
+                lstHistorico.Add("Avaliação parcial de Plano de Trabalho cancelada por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília." + pacto.Motivo);
             }
             else if ((int)acao == (int)PGD.Domain.Enums.eAcaoPacto.Finalizando)
             {
-                lstHistorico.Add("Situação do pacto alterada automaticamente pelo término do prazo de sua execução, em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília.");
+                lstHistorico.Add("Situação do Plano de Trabalho alterada automaticamente pelo término do prazo de sua execução, em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília.");
             }
 
             TratarHistoricoRestricaoVisualizacao(pacto, user, acao, lstHistorico, strPerfil);
@@ -402,11 +402,11 @@ namespace PGD.Application
                 {
                     if (pacto.IndVisualizacaoRestrita)
                     {
-                        lstHistorico.Add("Pacto marcado como reservado por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília");
+                        lstHistorico.Add("Plano de Trabalho marcado como reservado por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília");
                     }
                     else
                     {
-                        lstHistorico.Add("Excluída a marcação de pacto reservado por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília");
+                        lstHistorico.Add("Excluída a marcação de Plano de Trabalho reservado por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília");
                     }
                 }
             }
@@ -597,7 +597,7 @@ namespace PGD.Application
                 }
                 catch (Exception ex)
                 {
-                    // LogManagerComum.LogarErro(ex, null, "  => O pacto " + p.IdPacto + " teve o status alterado para PENDENTE PARA AVALIAÇÃO mas não foi possível notificar os interessados.");
+                    // LogManagerComum.LogarErro(ex, null, "  => O Plano de Trabalho " + p.IdPacto + " teve o status alterado para PENDENTE PARA AVALIAÇÃO mas não foi possível notificar os interessados.");
                 }
             });
             Commit();
@@ -715,10 +715,10 @@ namespace PGD.Application
                     }
                     catch (Exception ex)
                     {
-                        // LogManagerComum.LogarErro(ex, null, "  => O pacto " + p.IdPacto + " teve o status alterado para PENDENTE PARA AVALIAÇÃO mas não foi possível notificar os interessados.");
+                        // LogManagerComum.LogarErro(ex, null, "  => O Plano de Trabalho " + p.IdPacto + " teve o status alterado para PENDENTE PARA AVALIAÇÃO mas não foi possível notificar os interessados.");
                     }
                 } else {
-                    // LogManagerComum.LogarErro(null, null, "  => O pacto " + p.IdPacto + " não teve o status alterado para Em execução. Erro: " + p.ValidationResult.Erros?.FirstOrDefault()?.Message);
+                    // LogManagerComum.LogarErro(null, null, "  => O Plano de Trabalho " + p.IdPacto + " não teve o status alterado para Em execução. Erro: " + p.ValidationResult.Erros?.FirstOrDefault()?.Message);
                 }
             });
             Commit();

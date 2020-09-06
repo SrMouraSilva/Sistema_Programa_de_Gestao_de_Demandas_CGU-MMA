@@ -29,7 +29,7 @@ namespace PGD.Infra.Data.EntityConfig
                 .HasMaxLength(250);
 
             Property(x => x.DataNascimento)
-                .IsOptional();
+                .IsRequired();
             
             Property(x => x.Email)
                 .IsRequired();

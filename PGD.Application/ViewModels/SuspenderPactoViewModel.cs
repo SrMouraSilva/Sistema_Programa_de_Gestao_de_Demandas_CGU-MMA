@@ -24,12 +24,12 @@ namespace PGD.Application.ViewModels
 
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Time)]
-        [Display(Name = "Horas do pacto a serem mantidas para o dia:")]
+        [Display(Name = "Horas do plano de trabalho a serem mantidas para o dia:")]
         public TimeSpan HorasMantidasParaDataSuspensao { get; set; }
 
         public string CPFUsuario { get; set; }
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Data prevista para término do pacto")]
+        [Display(Name = "Data prevista para término do plano de trabalho")]
         public DateTime DataTerminoPacto { get; set; }
         public bool PodeEditar { get; set; }
 

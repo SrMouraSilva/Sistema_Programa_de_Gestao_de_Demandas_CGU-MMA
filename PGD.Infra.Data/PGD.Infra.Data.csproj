@@ -185,6 +185,18 @@
     <Compile Include="Migrations\202009040047045_RemoveHierarquiaECodigoUnidade.Designer.cs">
       <DependentUpon>202009040047045_RemoveHierarquiaECodigoUnidade.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009051430110_AdicionandoColunaCodigoTabelaUnidade.cs" />
+    <Compile Include="Migrations\202009051430110_AdicionandoColunaCodigoTabelaUnidade.Designer.cs">
+      <DependentUpon>202009051430110_AdicionandoColunaCodigoTabelaUnidade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009060006394_AlteracaoUnidadeAddColunasObrigatorio.cs" />
+    <Compile Include="Migrations\202009060006394_AlteracaoUnidadeAddColunasObrigatorio.Designer.cs">
+      <DependentUpon>202009060006394_AlteracaoUnidadeAddColunasObrigatorio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009060011390_usuarioAddDtNascObrigatoria.cs" />
+    <Compile Include="Migrations\202009060011390_usuarioAddDtNascObrigatoria.Designer.cs">
+      <DependentUpon>202009060011390_usuarioAddDtNascObrigatoria.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AvaliacaoDetalhadaProdutoRepository.cs" />
@@ -259,6 +271,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009040047045_RemoveHierarquiaECodigoUnidade.resx">
       <DependentUpon>202009040047045_RemoveHierarquiaECodigoUnidade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009051430110_AdicionandoColunaCodigoTabelaUnidade.resx">
+      <DependentUpon>202009051430110_AdicionandoColunaCodigoTabelaUnidade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009060006394_AlteracaoUnidadeAddColunasObrigatorio.resx">
+      <DependentUpon>202009060006394_AlteracaoUnidadeAddColunasObrigatorio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009060011390_usuarioAddDtNascObrigatoria.resx">
+      <DependentUpon>202009060011390_usuarioAddDtNascObrigatoria.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
