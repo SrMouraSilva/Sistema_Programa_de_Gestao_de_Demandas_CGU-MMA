@@ -30,7 +30,7 @@ namespace PGD.Domain.Validations.Pactos
             base.Add("TAP", new Rule<Pacto>(TAPPacto, "O TAP é obrigatório para esse tipo de plano."));
 
             var PactoNoExterior = new PactoNoExterior();
-            base.Add("Pacto no Exterior", new Rule<Pacto>(PactoNoExterior, "O número do processo SEI é obrigatório para pactos executados no exterior."));
+            base.Add("Pacto no Exterior", new Rule<Pacto>(PactoNoExterior, "O número do processo SEI é obrigatório para planos de trabalho executados no exterior."));
 
             var Suspensao = new CamposObrigatoriosSuspensao();
             base.Add("MotivoSuspensao", new Rule<Pacto>(Suspensao, "O campo Motivo é obrigatório para cadastro de Suspensão de plano de trabalho."));

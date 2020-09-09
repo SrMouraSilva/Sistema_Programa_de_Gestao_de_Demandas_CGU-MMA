@@ -251,17 +251,17 @@ namespace PGD.Domain.Services
         {
 
             if (objFiltro != null)
-                //PACTO NÃO FOI ASSINADO POR NINGUEM
+                //PLANO DE TRABALHO NÃO FOI ASSINADO POR NINGUEM
                 if (string.IsNullOrEmpty(objFiltro.CpfUsuarioDirigente) && string.IsNullOrEmpty(objFiltro.CpfUsuarioSolicitante))
                 {
                     return (int)PGD.Domain.Enums.eAssinatura.NaoAssinado;
                 }
-                //PACTO ASSINADO PELO SOLICITANTE
+                //PLANO DE TRABALHO ASSINADO PELO SOLICITANTE
                 else if (!string.IsNullOrEmpty(objFiltro.CpfUsuarioSolicitante) && string.IsNullOrEmpty(objFiltro.CpfUsuarioDirigente))
                 {
                     return (int)PGD.Domain.Enums.eAssinatura.AssinadoPeloSolicitante;
                 }
-                //PACTO ASSINADO PELO DIRIGENTE E PELO SOLICITANTE
+                //PLANO DE TRABALHO ASSINADO PELO DIRIGENTE E PELO SOLICITANTE
                 else if (!string.IsNullOrEmpty(objFiltro.CpfUsuarioSolicitante) && !string.IsNullOrEmpty(objFiltro.CpfUsuarioDirigente))
                 {
                     return (int)PGD.Domain.Enums.eAssinatura.AssinadoPorTodos;
@@ -657,7 +657,7 @@ namespace PGD.Domain.Services
             bool podeAssinarDirigente = false;
             //Opção disponível para os pactos até o dia de início do pacto ou enquanto não tiver sido assinado.
             //Opção só é exibida para o solicitante(ou administrador / solicitante)
-            //do pacto ou o dirigente(ou administrador / dirigente) responsável pelo pacto e para dirigentes hierarquicamente superiores à unidade.
+            //do plano de trabalho ou o dirigente(ou administrador / dirigente) responsável pelo plano de trabalho e para dirigentes hierarquicamente superiores à unidade.
             var assinatura = BuscaStatusAssinatura(pacto);
 
             if (pacto.CpfUsuarioDirigente == usuariologado.Cpf || !unidadePactoEhSubordinadaUnidadeUsuario)
