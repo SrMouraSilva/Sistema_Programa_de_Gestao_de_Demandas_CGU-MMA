@@ -61,7 +61,8 @@ namespace PGD.UI.Mvc.Controllers
         {
             try
             {
-                AutenticarLDAP(loginViewModel);
+                if (ConfigurationManager.AppSettings["ambiente"].ToString() == "Desenvolvimento")
+                    AutenticarLDAP(loginViewModel);
 
                 var usuario = BuscarUsuario(loginViewModel);
 
@@ -102,7 +103,7 @@ namespace PGD.UI.Mvc.Controllers
             };
 
             ldapConnection.SessionOptions.ProtocolVersion = 3;
-            NetworkCredential nc = new NetworkCredential(string.Format(networkCredential, "admin"), "fKqeJMGV0UwnfKqqeosZnU4W3LZ29pu1");
+            NetworkCredential nc = new NetworkCredential(string.Format(networkCredential, loginViewModel.Cpf.RemoverMaskCpfCnpj()), loginViewModel.Senha);
             ldapConnection.Bind(nc);
             ldapConnection.Dispose();
         }
