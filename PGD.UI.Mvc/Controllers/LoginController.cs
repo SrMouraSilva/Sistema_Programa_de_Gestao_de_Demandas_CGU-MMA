@@ -61,7 +61,7 @@ namespace PGD.UI.Mvc.Controllers
         {
             try
             {
-                if (ConfigurationManager.AppSettings["ambiente"].ToString() == "Desenvolvimento")
+                if (ConfigurationManager.AppSettings["ambiente"] != "Desenvolvimento")
                     AutenticarLDAP(loginViewModel);
 
                 var usuario = BuscarUsuario(loginViewModel);
