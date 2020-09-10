@@ -149,7 +149,7 @@
     </table>
 
         <div class="btn-group pull-right" role="group" aria-label="...">
-            <button type="button" onclick="submeteConsulta('@Url.Action("GerarExcel", "Pacto")')" class="btn btn-primary btn-block" aria-label="Left Align" title="Exportar Excel">
+            <button type="button" onclick="submeteConsulta('@Url.Action("GerarExcel", "Pacto")', true)" class="btn btn-primary btn-block" aria-label="Left Align" title="Exportar Excel">
                 Exportar Excel
             </button>
         </div>
@@ -186,9 +186,16 @@
             hideLoading();
             $('#modalRetornarSuspensao').modal('show');
         }
-        function submeteConsulta(action) {
+        function submeteConsulta(action, preventLoader) {
             $('#frmConsultaPacto').attr('action', action);
+
+            if (!!preventLoader)
+                $('#frmConsultaPacto').addClass('prevent-loader');
+
             $('#frmConsultaPacto').submit();
+
+            if (!!preventLoader)
+                $('#frmConsultaPacto').removeClass('prevent-loader');
         }
 
         $(document).ready(function () {
