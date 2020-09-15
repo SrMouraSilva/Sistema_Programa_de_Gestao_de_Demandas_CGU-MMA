@@ -3669,6 +3669,7 @@
     <Content Include="Scripts\cldr-data\supplemental\timeData.json" />
     <Content Include="Scripts\cldr-data\supplemental\weekData.json" />
     <Content Include="Scripts\cldr-data\supplemental\windowsZones.json" />
+    <None Include="Properties\PublishProfiles\PublicarPgd.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\Atividade.js" />
     <Content Include="Scripts\cldr.js" />
@@ -3795,7 +3796,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
     <Folder Include="Binders\" />
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
