@@ -16,7 +16,7 @@
         <div class="modal-body">
 
             @using (Ajax.BeginForm("Suspender", "Pacto",
-                new AjaxOptions() { UpdateTargetId = "divSuspensaoPartial", OnSuccess = "suspenderSuccess", OnFailure = "defaultFailureHandler", OnBegin="showLoading" }, new { @id = "frmSuspenderPacto" }))
+                new AjaxOptions() { UpdateTargetId = "divSuspensaoPartial", OnSuccess = "suspenderSuccess", OnFailure = "defaultFailureHandler", OnBegin = "showLoading" }, new { @id = "frmSuspenderPacto" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(m => m.IdPacto)
@@ -37,7 +37,7 @@
                 <div class="clearfix">
                     <div class="form-group">
                         @Html.LabelFor(m => m.HorasMantidasParaDataSuspensao)
-                        @Html.TextBoxCGUFor(m => m.HorasMantidasParaDataSuspensao, new { @class = "qtdHoras form-control", @type = "time", @placeholder = "", @required = "true", @onchange = "atualizaCronograma(false);" }).SetReadonly(false)
+                        @Html.TextBoxCGUFor(m => m.HorasMantidasParaDataSuspensao, new { @class = "qtdHoras timepicker form-control", @placeholder = "", @required = "true", @onchange = "atualizaCronograma(false);" }).SetReadonly(false)
                     </div>
                 </div>
 
@@ -76,10 +76,10 @@
                         @Html.Hidden("IdPacto", Model.IdPacto, new { })
                         @Html.Hidden("CalcularCronogramaAPartirBanco", "false", new { })
                         @Html.Hidden("ValidarHorasADistribuir", "false", new { })
-                        
-                        <button type = "submit" class="buttonAsLink">ver/ajustar cronograma</button>
 
-                     }
+                        <button type="submit" class="buttonAsLink">ver/ajustar cronograma</button>
+
+                    }
                 </div>
             </div>
         </div>
@@ -107,7 +107,16 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".datepicker").datepicker({
+        $('#divSuspensaoPartial').modal({
+            backdrop: 'static'
+        });
+
+        $('#divSuspensaoPartial').modal('show');
+        $('.timepicker').mask('99:99');
+
+        $('#divSuspensaoPartial').find('.datepicker').mask('99/99/9999');
+
+        $('#divSuspensaoPartial').find('.datepicker').datepicker({
             changeMonth: true,
             dateFormat: 'dd/mm/yy',
             nextText: '&rarr;',
@@ -120,8 +129,10 @@
             numberOfMonths: 1,
             changeYear: true,
             //maxDate: "0",
-            defaultDate: new Date()
+             defaultDate: new Date()
         });
+
+
     });
 
     function exibirPopupCronogramaSuspensao() {
@@ -148,10 +159,9 @@
             IdPacto: @Model.IdPacto,
             CalcularCronogramaAPartirBanco: atualizarAPartirBanco
         };
-        console.log(parametros);
+
         ExecutaJson('Cronograma', 'AtualizarCronograma', parametros, "post").done(function (retorno)
         {
-            console.log(retorno);
             $("[name*='@Html.IdFor(m => m.DataTerminoPacto)']").each(function () {
                 this.value = retorno["DataTermino"];
             });

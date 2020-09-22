@@ -85,7 +85,7 @@ namespace PGD.UI.Mvc.Controllers
             }
             catch(Exception e)
             {
-                ModelState.AddModelError("", $@"Usuário ou senha incorretos. ||| {e.Message}");
+                ModelState.AddModelError("", $@"Usuário ou senha incorretos.");
                 return null;
             }
         }

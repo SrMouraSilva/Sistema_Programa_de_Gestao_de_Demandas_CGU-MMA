@@ -1553,7 +1553,7 @@ namespace PGD.UI.Mvc.Controllers
             pacto.Cronogramas = ((CronogramaPactoViewModel)TempData[GetNomeVariavelTempData("Cronogramas", idPacto)]).Cronogramas;
             pacto.DataPrevistaTermino = pacto.Cronogramas.Max(c => c.DataCronograma);
 
-            var retorno = _Pactoservice.AtualizarStatus(pacto, user, eAcaoPacto.VoltandoSuspensao, false);
+            var retorno = _Pactoservice.AtualizarStatus(pacto, user, eAcaoPacto.VoltandoSuspensao);
 
             if (retorno.ValidationResult.IsValid)
             {

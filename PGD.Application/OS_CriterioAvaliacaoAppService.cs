@@ -6,6 +6,7 @@ using PGD.Domain.Interfaces.Service;
 using PGD.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PGD.Application
 {
@@ -36,7 +37,8 @@ namespace PGD.Application
 
         public IEnumerable<OS_CriterioAvaliacaoViewModel> BuscarPorIdOS(int idOS)
         {
-            return Mapper.Map<IEnumerable<OS_CriterioAvaliacao>, IEnumerable<OS_CriterioAvaliacaoViewModel>>(_OS_CriterioAvaliacaoService.BuscarPorIdOS(idOS));
+            var retorno = _OS_CriterioAvaliacaoService.BuscarPorIdOS(idOS).ToList();
+            return Mapper.Map<IEnumerable<OS_CriterioAvaliacao>, IEnumerable<OS_CriterioAvaliacaoViewModel>>(retorno);
         }
 
         public IEnumerable<OS_CriterioAvaliacaoViewModel> ObterTodos()

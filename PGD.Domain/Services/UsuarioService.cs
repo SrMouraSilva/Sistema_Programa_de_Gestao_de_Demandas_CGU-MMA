@@ -5,6 +5,7 @@ using PGD.Domain.Entities.Usuario;
 using System.Net;
 using PGD.Domain.Interfaces.Repository;
 using System.Linq;
+using PGD.Domain.Enums;
 using PGD.Domain.Filtros;
 using PGD.Domain.Paginacao;
 
@@ -81,12 +82,17 @@ namespace PGD.Domain.Services
             return CpfCorrigido;
         }
 
-        //Não tem implementação da API
-        public IEnumerable<Usuario> ObterDirigentesUnidade(int idUnidadePai)
+        public IEnumerable<Usuario> ObterDirigentesUnidade(int idUnidade)
         {
-            var lista = _usuarioRepository.ObterTodos();
+            var lista = _usuarioRepository.Buscar(
+                new UsuarioFiltro
+                {
+                    IdUnidade = idUnidade,
+                    Perfil = Perfil.Dirigente
+                }
+            );
 
-            return lista;
+            return lista.Lista;
         }
 
         public Paginacao<Usuario> Buscar(UsuarioFiltro filtro)

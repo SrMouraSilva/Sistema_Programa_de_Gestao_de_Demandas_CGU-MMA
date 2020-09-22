@@ -120,7 +120,7 @@
                              && (cronograma.HorasUsadasPorOutroPacto < Model.HorasDiarias)
                              )
                         {
-                            @Html.TextBoxCGUFor(c => c.Cronogramas[i].HorasCronograma, new { @id = "HorasCronogramas_" + i, @class = "qtdHoras form-control", @type = "time" }).SetReadonly(!Model.PodeEditar || !cronograma.PodeEditar)
+                            @Html.TextBoxCGUFor(c => c.Cronogramas[i].HorasCronograma, new { @id = "HorasCronogramas_" + i, @class = "qtdHoras timepicker form-control" }).SetReadonly(!Model.PodeEditar || !cronograma.PodeEditar)
                             @Html.ValidationMessageFor(c => c.HorasTotais)
                         }
                         else

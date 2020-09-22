@@ -298,7 +298,7 @@ namespace PGD.Application
             {
                 string textoReativacao = "";
                 if (pacto.SuspensoAte.HasValue) textoReativacao = ", com reativação programada para dia " + pacto.SuspensoAte.Value.ToString("dd/MM/yyyy");
-                lstHistorico.Add("Pacto Plano de Trabalho por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília" + textoReativacao + "." + pacto.Motivo);
+                lstHistorico.Add("Plano de Trabalho suspenso por " + _usuarioService.ObterPorCPF(user.CpfUsuario).Nome + "," + strPerfil + ", na unidade " + _unidadeService.ObterUnidades().FirstOrDefault(x => x.IdUnidade == pacto.UnidadeExercicio).Nome + " em " + DateTime.Now.ToShortDateString() + ", às " + DateTime.Now.ToShortTimeString() + ", conforme horário oficial de Brasília" + textoReativacao + "." + pacto.Motivo);
             }
             else if ((int)acao == (int)PGD.Domain.Enums.eAcaoPacto.VoltandoSuspensao)
             {
@@ -438,7 +438,7 @@ namespace PGD.Application
                 pacto.EntregueNoPrazo = 1;
             }
 
-            pacto = _pactoService.AtualizarStatus(pacto, usr, eAcao, usuario.IsDirigente, false);
+            pacto = _pactoService.AtualizarStatus(pacto, usr, eAcao, usuario.IsDirigente, commit);
 
             if (pacto.ValidationResult.IsValid)
             {

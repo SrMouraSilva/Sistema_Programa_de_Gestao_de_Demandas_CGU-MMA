@@ -1,4 +1,5 @@
 ﻿using PGD.Application.ViewModels.Filtros.Base;
+using PGD.Domain.Enums;
 
 namespace PGD.Application.ViewModels.Filtros
 {
@@ -13,6 +14,7 @@ namespace PGD.Application.ViewModels.Filtros
         public string Matricula { get; set; }
         public string Cpf { get; set; }
         public int? IdUnidade { get; set; }
+        public Perfil? Perfil { get; set; }
         public bool IncludeUnidadesPerfis { get; set; }
 
     }

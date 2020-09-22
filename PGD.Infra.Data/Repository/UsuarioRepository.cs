@@ -90,6 +90,8 @@ namespace PGD.Infra.Data.Repository
             query = filtro.IdUnidade.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == filtro.IdUnidade)) : query;
             query = filtro.Id.HasValue ? query.Where(x => x.IdUsuario == filtro.Id) : query;
 
+            query = filtro.Perfil.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdPerfil == (int)filtro.Perfil)) : query;
+
             retorno.QtRegistros = query.Count();
 
             if (filtro.Skip.HasValue && filtro.Take.HasValue)

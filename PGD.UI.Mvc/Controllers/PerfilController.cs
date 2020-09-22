@@ -37,7 +37,7 @@ namespace PGD.UI.Mvc.Controllers
             var user = getUserLogado();
             if (! _usuarioAppService.PodeSelecionarPerfil(user))
             {
-                ModelState.AddModelError("", "Este usuário não pode selecionar perfil");
+                ModelState.AddModelError("", @"Este usuário não pode selecionar perfil");
                 return View();
             }
 
@@ -81,7 +81,7 @@ namespace PGD.UI.Mvc.Controllers
                         setModelErrorList(usuarioVM.ValidationResult.Erros);
                 }
                 else
-                    ModelState.AddModelError("", "Usuário não encontrado");
+                    ModelState.AddModelError("", @"Usuário não encontrado");
             }
             else
                 ModelState.AddModelError("", string.Format(PGD.Domain.Constantes.Mensagens.ME_002, "Nome"));

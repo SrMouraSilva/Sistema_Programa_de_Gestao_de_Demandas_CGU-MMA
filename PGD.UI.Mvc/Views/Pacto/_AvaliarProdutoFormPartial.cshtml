@@ -90,7 +90,7 @@
                         @Html.Label("Data de Término Real:")
                     </div>
                     <div class="col-md-9">
-                        @Html.TextBoxCGUFor(x => x.DataTerminoReal, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", @placeholder = "" }).SetReadonly(!Model.HabilitarCampos)
+                        @Html.TextBoxCGUFor(x => x.DataTerminoReal, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", @placeholder = "" }).SetDisabled(!Model.HabilitarCampos)
                     </div>
                 </div>
                 <br />
