@@ -345,6 +345,7 @@
         <script type="text/javascript">
 
             function atualizaData() {
+                showLoading();
                 var parametros = {
                     datainicio: $("#@Html.IdFor(m => m.DataPrevistaInicio)").val(),
                     cargahoraria: $("#@Html.IdFor(m => m.CargaHorariaDiaria)").val(),
@@ -365,7 +366,7 @@
                     }
 
 
-
+                    hideLoading();
 
                 });
             }

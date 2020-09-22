@@ -179,7 +179,7 @@ namespace PGD.Application
             if (usuario.PerfilSelecionado == Domain.Enums.Perfil.Dirigente)
             {
                 var idPerfilSelecionado = usuario.IdPerfilSelecionado;
-                return usuario.PerfisUnidades.Count(x => x.IdPerfil == idPerfilSelecionado) > 1;
+                return usuario.PerfisUnidades.Where(x => x.IdPerfil == idPerfilSelecionado).Select(x => x.IdUnidade).Distinct().Count() > 1;
             }
 
             return false;
